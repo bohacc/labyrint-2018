@@ -30,11 +30,16 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var google = require('googleapis');
+const Datastore = require('@google-cloud/datastore');
+// Instantiates a client
+const datastore = Datastore({
+  projectId: 'labyrint-2018'
+});
 
 var app = express();
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/data.json', function (req, res, next) {
   res.json({});
@@ -44,8 +49,39 @@ app.get('/search', function (req, res, next) {
   res.json({});
 });
 
+app.post('/team', function (req, res, next) {
+  const teamKey = datastore.key('Team');
+  const entity = {
+    key: teamKey,
+    data: [
+      {
+        name: 'id',
+        value: 1
+      },
+      {
+        name: 'created',
+        value: new Date().toJSON()
+      },
+      {
+        name: 'name',
+        value: 'test'
+      }
+    ]
+  };
+
+  datastore.save(entity)
+    .then(() => {
+      console.log(`Task ${teamKey.id} created successfully.`);
+      res.json({success: true});
+    })
+    .catch((err) => {
+      res.json({success: false});
+      console.error('ERROR:', err);
+    });
+});
+
 app.use('*', function (req, res) {
-  return res.sendFile(path.join(__dirname, 'public/index.html'));
+  return res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 // Basic error logger/handler

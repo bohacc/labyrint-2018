@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start-app": "ng serve",
+    "start-app": "ng build && set GCLOUD_PROJECT=labyrint-2018 && node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -36,6 +36,7 @@
 	  "@google-cloud/debug-agent": "0.10.2",
     "@google/cloud-errors": "0.1.1",
     "@google/cloud-trace": "0.6.2",
+    "@google-cloud/datastore": "1.1.0",
     "body-parser": "1.16.1",
     "express": "4.14.1",
     "googleapis": "16.1.0"
