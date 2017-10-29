@@ -30,7 +30,6 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var google = require('googleapis');
-var youtube = google.youtube('v3');
 
 var app = express();
 
@@ -38,30 +37,11 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/data.json', function (req, res, next) {
-  youtube.search.list({
-    part: 'snippet',
-    type: 'video',
-    q: 'google+cardboard+video+3d',
-    auth: process.env.API_KEY
-  }, function (err, result) {
-    if (err) {
-      return next(err);
-    }
-    res.json(result);
-  });
+  res.json({});
 });
 
 app.get('/search', function (req, res, next) {
-  youtube.search.list({
-    part: 'snippet',
-    type: 'video',
-    q: req.query.q
-  }, function (err, result) {
-    if (err) {
-      return next(new Error('Search error!'));
-    }
-    res.json(result);
-  });
+  res.json({});
 });
 
 app.use('*', function (req, res) {

@@ -2,15 +2,18 @@
   "name": "labyrint2018",
   "version": "0.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start-app": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "engines": {
+    "node": "~6"
+  },
   "dependencies": {
     "@angular/animations": "^5.0.0-rc.8",
     "@angular/common": "^5.0.0-rc.8",
@@ -29,7 +32,13 @@
     "jquery": "^3.2.1",
     "popper.js": "^1.12.5",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+	  "@google-cloud/debug-agent": "0.10.2",
+    "@google/cloud-errors": "0.1.1",
+    "@google/cloud-trace": "0.6.2",
+    "body-parser": "1.16.1",
+    "express": "4.14.1",
+    "googleapis": "16.1.0"
   },
   "devDependencies": {
     "@angular/cli": "1.4.9",
