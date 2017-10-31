@@ -7,3 +7,10 @@
 </div>
 <h2>Google Cloud Platform - Datastore API: </h2>
 <button (click)="addTeam()">POST - Team</button>
+
+<button (click)="send()">recaptcha</button>
+
+<form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
+  <input type="text" formControlName="name">
+  <button class="g-recaptcha" data-sitekey="your_site_key" data-callback='onSubmit'>Submit</button>
+</form>
