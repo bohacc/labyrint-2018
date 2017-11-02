@@ -13,11 +13,11 @@ module.exports = function (app) {
       
       app.post('/api/team', team.addTeam);
       
-      app.post('/api/registration', team.registration);
-      
-      app.use('*', function (req, res) {
-        return res.sendFile(path.join(__dirname, 'dist/index.html'));
-      });   
+      app.post('/api/registration', team.registration);   
       
       app.get('/validate_captcha', captcha.recaptcha);
+
+      app.use('/', function (req, res) {
+        return res.sendFile(path.join(__dirname, 'dist/index.html'));
+      });
 };

@@ -39,6 +39,7 @@ class ReCaptchaAsyncValidator {
         .map(
           (res: any) => {
             if ( !res.success ) {
+              console.log('XXXXXXXXXXXXXXXXX');
               return { tokenInvalid: true };
             }
             return null;
