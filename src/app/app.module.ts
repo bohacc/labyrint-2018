@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
   ],
   providers: [{
     provide: RECAPTCHA_URL,
-    useValue: 'http://localhost:3000/validate_captcha'
+    useValue: 'http://localhost:8080/validate_captcha'
   }],
   bootstrap: [AppComponent]
 })

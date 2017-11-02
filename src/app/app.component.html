@@ -13,5 +13,5 @@
 <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
   <input type="text" formControlName="name">
   <div nbRecaptcha key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1" formControlName="captcha"></div>
-  <input type="submit" [disabled]="signin.invalid" value="Submit">
+  <input type="submit" [disabled]="mainForm.invalid" value="Submitx">
 </form>

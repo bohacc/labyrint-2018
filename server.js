@@ -18,8 +18,8 @@
 var errorHandler;
 
 if (process.env.NODE_ENV === 'production') {
-  require('@google/cloud-trace').start();
-  errorHandler = require('@google/cloud-errors').start();
+  require('@google-cloud/trace-agent').start();
+  errorHandler = require('@google-cloud/error-reporting')();
 }
 
 if (process.env.GCLOUD_PROJECT) {
@@ -30,11 +30,15 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var google = require('googleapis');
+var cors = require('cors');
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
+
+// cors
+app.use(cors());
 
 // Route
 require('./server/routing/routes.js')(app);

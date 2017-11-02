@@ -20,13 +20,12 @@ export class AppComponent implements OnInit {
     private element: ElementRef
   ) {
     this.mainForm = this.fb.group({
-      name: ['', Validators.required ]
+      name: ['', Validators.required ],
+      captcha: ['']
     });
   }
 
   ngOnInit() {
-    this.registerReCaptchaCallback();
-    this.addScript();
   }
 
   public addTeam() {

@@ -13,7 +13,8 @@ import {
     OnInit,
     Output } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
 
 declare const grecaptcha: any;
 
@@ -29,19 +30,20 @@ export const RECAPTCHA_URL = new InjectionToken('RECAPTCHA_URL');
 @Injectable()
 class ReCaptchaAsyncValidator {
 
-  constructor( private http: Http, @Inject(RECAPTCHA_URL) private url ) {
+  constructor( private http: HttpClient, @Inject(RECAPTCHA_URL) private url ) {
   }
 
   validateToken( token: string ) {
     return ( _: AbstractControl ) => {
       return this.http.get(this.url, { params: { token } })
-        .map(res => res.json())
-        .map(res => {
+        .map(
+          (res: any) => {
             if ( !res.success ) {
-                return { tokenInvalid: true };
+              return { tokenInvalid: true };
             }
             return null;
-        });
+          }
+        );
     };
   }
 }
@@ -106,7 +108,9 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
 
   ngAfterViewInit() {
     this.control = this.injector.get(NgControl).control;
-    this.setValidators();
+    setTimeout(() => {
+      this.setValidators();
+    });
   }
 
   /**
