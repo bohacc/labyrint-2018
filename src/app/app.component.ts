@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 declare var grecaptcha: any;
 
@@ -13,11 +15,13 @@ export class AppComponent implements OnInit {
   title = 'app';
   public mainForm: FormGroup;
   private lang: string;
+  public coursesObservable: Observable<any[]>;
 
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private element: ElementRef
+    private element: ElementRef,
+    private db: AngularFireDatabase
   ) {
     this.mainForm = this.fb.group({
       name: ['', Validators.required ],
@@ -26,6 +30,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.coursesObservable = this.getCourses('/courses');
+  }
+
+  getCourses(listPath): Observable<any[]> {
+    return this.db.list(listPath).valueChanges();
   }
 
   public addTeam() {

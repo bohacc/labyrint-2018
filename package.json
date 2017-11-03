@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
+    "start": "ng serve",
     "start-app": "ng build && set GCLOUD_PROJECT=labyrint-2018 && node server.js",
     "build": "ng build",
     "test": "ng test",
