@@ -9,7 +9,8 @@
 <button (click)="addTeam()">POST - Team</button>
 
 <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
+  {{mainForm.status}}
   <input type="text" formControlName="name">
   <div nbRecaptcha key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1" formControlName="captcha"></div>
-  <input type="submit" [disabled]="mainForm.invalid" value="Submitx">
+  <input type="submit" [disabled]="mainForm.invalid" value="Submit">
 </form>

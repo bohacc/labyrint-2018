@@ -23,15 +23,15 @@ exports.checkRecaptcha = functions.https.onRequest((req, res) => {
         },
         json: true
     }).then(result => {
-        console.log("recaptcha result", result)
+        console.log("recaptcha result", result);
         if (result.success) {
-            res.send("You're good to go, human.")
+            res.json({success: true});
         }
         else {
-            res.send("Recaptcha verification failed. Are you a robot?")
+            res.json({success: false});
         }
     }).catch(reason => {
-        console.log("Recaptcha request failure", reason)
-        res.send("Recaptcha request failed.")
+        console.log("Recaptcha request failure", reason);
+        res.json({success: false});
     })
 })

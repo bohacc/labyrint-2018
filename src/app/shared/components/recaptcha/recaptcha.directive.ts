@@ -38,6 +38,7 @@ export class ReCaptchaAsyncValidator {
       return this.http.get(this.url, { params: { token } })
         .map(
           (res: any) => {
+            console.log('HTTP CALL');
             if ( !res.success ) {
               return { tokenInvalid: true };
             }
@@ -126,6 +127,7 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
    * Therefore, we need to call updateValueAndValidity to trigger the update
    */
   private setValidators() {
+    console.log(this.control);
     this.control.setValidators(Validators.required);
     this.control.updateValueAndValidity();
   }
@@ -170,6 +172,8 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
    * @param token
    */
   verifyToken( token: string ) {
+    console.log('verifyToken');
+    console.log(this.control);
     this.control.setAsyncValidators(this.reCaptchaAsyncValidator.validateToken(token));
     this.control.updateValueAndValidity();
   }
