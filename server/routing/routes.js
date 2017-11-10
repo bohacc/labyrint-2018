@@ -17,6 +17,8 @@ module.exports = function (app) {
       
       app.get('/validate_captcha', captcha.recaptcha);
 
+      app.get('/checkRecaptcha', captcha.captchaCheck);
+
       app.use('/', function (req, res) {
         return res.sendFile(path.join(__dirname, 'dist/index.html'));
       });

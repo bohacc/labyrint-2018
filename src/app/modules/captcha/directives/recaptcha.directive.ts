@@ -15,6 +15,9 @@ import {
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { StoreService } from '../../shared/store/store.service';
+import { ReCaptchaConfig } from '../RecaptchaConfig';
+import { ReCaptchaAsyncValidator } from '../validators/recaptcha.validator';
 
 declare const grecaptcha: any;
 
@@ -23,37 +26,6 @@ declare global {
     grecaptcha: any;
     reCaptchaLoad: () => void;
   }
-}
-
-export const RECAPTCHA_URL = new InjectionToken('RECAPTCHA_URL');
-
-@Injectable()
-export class ReCaptchaAsyncValidator {
-
-  constructor( private http: HttpClient, @Inject(RECAPTCHA_URL) private url ) {
-  }
-
-  validateToken( token: string ) {
-    return ( _: AbstractControl ) => {
-      return this.http.get(this.url, { params: { token } })
-        .map(
-          (res: any) => {
-            console.log('HTTP CALL');
-            if ( !res.success ) {
-              return { tokenInvalid: true };
-            }
-            return null;
-          }
-        );
-    };
-  }
-}
-
-export interface ReCaptchaConfig {
-  theme?: 'dark' | 'light';
-  type?: 'audio' | 'image';
-  size?: 'compact' | 'normal';
-  tabindex?: number;
 }
 
 @Directive({
@@ -97,12 +69,14 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
 
   registerReCaptchaCallback() {
     window.reCaptchaLoad = () => {
+      console.log('RECAPTCHA LOAD');
       const config = {
         ...this.config,
         'sitekey': this.key,
         'callback': this.onSuccess.bind(this),
         'expired-callback': this.onExpired.bind(this)
       };
+      console.log(config);
       this.widgetId = this.render(this.element.nativeElement, config);
     };
   }
@@ -219,6 +193,10 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
+  }
+
+  public execute() {
+    grecaptcha.execute();
   }
 
 }

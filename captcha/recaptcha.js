@@ -16,3 +16,7 @@ exports.recaptcha = function (req, res, next) {
       .then(response => res.json(response))
       .catch(() => {});
 }
+
+exports.captchaCheck = function (req, res, next) {
+  res.json({success: true});
+}
