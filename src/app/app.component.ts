@@ -21,31 +21,14 @@ declare global {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  @ViewChild('recaptcha') recaptcha;
   title = 'app';
-  public mainForm: FormGroup;
-  private lang: string;
   public coursesObservable: Observable<any[]>;
 
   constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
-    private element: ElementRef,
     private db: AngularFireDatabase,
     private storeService: StoreService
   ) {
-    this.mainForm = this.fb.group({
-      name: ['', Validators.required ],
-      captcha: ['']
-    });
 
-    // captcha success
-    this.storeService.getRegistrationFormSuccess()
-      .subscribe((result: boolean) => {
-        if (result) {
-          this.sendValidateForm();
-        }
-      });
   }
 
   ngOnInit() {
@@ -58,25 +41,5 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   getCourses(listPath): Observable<any[]> {
     return this.db.list(listPath).valueChanges();
-  }
-
-  public addTeam() {
-    this.http.post('/team', {})
-    .subscribe(
-      () => {},
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  public sendForm() {
-    console.log('XXX');
-    this.recaptcha.execute();
-  }
-
-  public sendValidateForm() {
-    console.log(this.mainForm.invalid);
-    console.log('STEP');
   }
 }
