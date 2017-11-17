@@ -20,26 +20,17 @@ declare global {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'app';
   public coursesObservable: Observable<any[]>;
 
   constructor(
-    private db: AngularFireDatabase,
     private storeService: StoreService
   ) {
 
   }
 
   ngOnInit() {
-    this.coursesObservable = this.getCourses('/courses');
-  }
 
-  ngAfterViewInit() {
-    // grecaptcha.execute();
-  }
-
-  getCourses(listPath): Observable<any[]> {
-    return this.db.list(listPath).valueChanges();
   }
 }
