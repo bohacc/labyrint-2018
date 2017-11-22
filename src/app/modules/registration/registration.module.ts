@@ -13,7 +13,7 @@ import { ReCaptchaModule } from '../captcha/ReCaptcha.module';
     imports: [
         HttpClientModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forChild(routes),
         ReCaptchaModule,
     ],
     exports: [],

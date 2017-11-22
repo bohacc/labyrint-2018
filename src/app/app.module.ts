@@ -13,12 +13,16 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { RegistrationModule } from './modules/registration/registration.module';
 import { TeamsModule } from './modules/teams/teams.module';
+import { StoreModule } from '@ngrx/store';
+import { AppReducer } from './state/app.reducer';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHeaderComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +30,9 @@ import { TeamsModule } from './modules/teams/teams.module';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
+    StoreModule.forRoot(AppReducer),
     SharedServiceModule,
     RouterModule.forRoot(routes),
-    RegistrationModule,
     TeamsModule
   ],
   bootstrap: [AppComponent]

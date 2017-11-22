@@ -33,6 +33,7 @@
     "@google-cloud/error-reporting": "0.2.2",
     "@google-cloud/trace-agent": "2.3.1",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
+    "@ngrx/store": "^4.1.1",
     "angularfire2": "^5.0.0-rc.3",
     "body-parser": "1.16.1",
     "bootstrap": "^4.0.0-beta",
