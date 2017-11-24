@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from '../../../../modules/captcha/directives/recaptcha.directive';
 import { StoreService } from '../../../shared/store/store.service';
+import { TeamsService } from '../../../teams/components/teams.service';
 
 @Component({
     selector: 'registration-form',
@@ -21,7 +22,8 @@ export class RegistrationFormComponent {
         private fb: FormBuilder,
         private element: ElementRef,
         private db: AngularFireDatabase,
-        private storeService: StoreService
+        private storeService: StoreService,
+        private teamsService: TeamsService
     ) {
         this.mainForm = this.fb.group({
             name: ['', Validators.required ],
@@ -45,5 +47,6 @@ export class RegistrationFormComponent {
     public sendValidateForm() {
         console.log(this.mainForm.invalid);
         console.log('STEP');
+        this.teamsService.createTeam(this.mainForm.value);
     }
 }

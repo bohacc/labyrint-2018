@@ -4,7 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as Actions from '../../../state/app.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../state/app.state';
-import { LoadTeamsAction, TeamsActions } from '../state/actions/teams.actions';
+import { CreateTeamAction, LoadTeamsAction, TeamsActions } from '../state/actions/teams.actions';
 import { TeamDto } from '../models/TeamDto';
 
 @Injectable()
@@ -27,5 +27,18 @@ export class TeamsService {
 
   public getTeams() {
     return this.db.list('/teams');
+  }
+
+  public createTeam(team: TeamDto) {
+    this.db.list('/team')
+      .push(team)
+      .then(
+        () => {
+          this.store.dispatch(new CreateTeamAction(team));
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }

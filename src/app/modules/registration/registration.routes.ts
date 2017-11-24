@@ -3,10 +3,9 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 
 export const routes: Routes = [
   {
-    path: '', component: RegistrationFormComponent,
-    children: [
-      {path: 'team', component: RegistrationFormComponent},
-      {path: 'team/:id', component: RegistrationFormComponent}
-    ]
+    path: 'new', component: RegistrationFormComponent,
+    /*children: [
+      {path: 'new', component: RegistrationFormComponent}
+    ]*/
   }
 ];

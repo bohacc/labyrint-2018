@@ -37,6 +37,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// app.use('/', express.static('dist', {index: false}));
+
 // cors
 app.use(cors());
 

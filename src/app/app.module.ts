@@ -32,8 +32,7 @@ import { HomeComponent } from './components/home/home.component';
     NgbModule.forRoot(),
     StoreModule.forRoot(AppReducer),
     SharedServiceModule,
-    RouterModule.forRoot(routes),
-    TeamsModule
+    RouterModule.forRoot(routes)
   ],
   bootstrap: [AppComponent]
 })

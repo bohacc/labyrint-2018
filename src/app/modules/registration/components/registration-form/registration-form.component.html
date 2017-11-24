@@ -1,11 +1,10 @@
 <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
     {{mainForm.status}}
     <input type="text" formControlName="name">
-    <div #recaptcha=nbRecaptcha nbRecaptcha 
+    <div #recaptcha=nbRecaptcha nbRecaptcha
       key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
       [config]="{size: 'invisible'}"
       formControlName="captcha">
     </div>
     <button (click)="sendForm()">send form</button>
-    <!-- <input type="submit" [disabled]="mainForm.invalid" value="Submit"> -->
 </form>
