@@ -4,20 +4,24 @@ import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { routes } from './teams.routes';
 import { RouterModule } from '@angular/router';
-import { RegistrationModule } from '../registration/registration.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TeamRegistrationComponent } from './components/team-registration/team-registration.component';
+import { ReCaptchaModule } from '../captcha/ReCaptcha.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     TeamListComponent,
-    TeamsComponent
+    TeamsComponent,
+    TeamRegistrationComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    RegistrationModule
+    ReCaptchaModule,
   ],
   providers: [
     TeamsService

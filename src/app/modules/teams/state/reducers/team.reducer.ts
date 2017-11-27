@@ -9,9 +9,9 @@ export function teamsReducer(state = initialState, action: Actions): AppState {
     case LOAD_TEAMS:
       return {...state, teams: action.payload};
     case REMOVE_TEAM:
-      return {...state, teams: state.teams.filter(team => team.id !== action.payload.id)};
+      return state;
     case CREATE_TEAM:
-      return {...state, teams: [action.payload]};
+      return state;
     default:
       return state;
   }

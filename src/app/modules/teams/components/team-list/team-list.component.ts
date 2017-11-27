@@ -22,8 +22,7 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // load teams and save to store
-    this.teamsService.teamsToStore();
+
   }
 
   removeTeam() {

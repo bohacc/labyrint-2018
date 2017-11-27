@@ -11,8 +11,6 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
-import { RegistrationModule } from './modules/registration/registration.module';
-import { TeamsModule } from './modules/teams/teams.module';
 import { StoreModule } from '@ngrx/store';
 import { AppReducer } from './state/app.reducer';
 import { HomeComponent } from './components/home/home.component';
