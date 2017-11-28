@@ -17,9 +17,7 @@ export class TeamsService {
     private db: AngularFireDatabase,
     private store: Store<AppState>
   ) {
-    this.itemsRef = db.list('teams');
-
-    // this.db.list('teams')
+    this.itemsRef = this.db.list('teams');
 
     // Use snapshotChanges().map() to store the key
     this.items = this.itemsRef.snapshotChanges().map(changes => {
@@ -30,13 +28,17 @@ export class TeamsService {
     this.items
       .subscribe(
         (teams: TeamDto[]) => {
+          console.log('STORE XX');
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
   }
 
-  public addItem(newName: string) {
-    this.itemsRef.push({ name: newName })
+  public addItem(team: TeamDto) {
+    const teamWithoutKey: any = {...team};
+    delete teamWithoutKey.key;
+    console.log(teamWithoutKey);
+    this.itemsRef.push(teamWithoutKey)
       .then(
         () => {
           // add dispatch action
@@ -47,12 +49,14 @@ export class TeamsService {
       );
   }
 
-  public updateItem(key: string, newText: string) {
-    this.itemsRef.update(key, { name: newText });
+  public updateItem(team: TeamDto) {
+    const teamWithoutKey: any = {...team};
+    delete teamWithoutKey.key;
+    this.itemsRef.update(team.key, teamWithoutKey);
   }
 
-  public deleteItem(key: string) {
-    this.itemsRef.remove(key);
+  public deleteItem(team: TeamDto) {
+    this.itemsRef.remove(team.key);
   }
 
   public deleteEverything() {

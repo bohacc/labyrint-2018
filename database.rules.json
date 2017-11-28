@@ -1,10 +1,8 @@
 {
   "rules": {
     "teams": {
-      "$uid": {
-        ".read": true,
-        ".write": "!data.exists() || auth.uid == $uid"
-      }
+      ".read": true,
+      ".write": "!data.exists() || !newData.exists()"
     }
   }
 }

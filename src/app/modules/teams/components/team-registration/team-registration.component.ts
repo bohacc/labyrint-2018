@@ -47,6 +47,8 @@ export class TeamRegistrationComponent {
   public sendValidateForm() {
     console.log(this.mainForm.invalid);
     console.log('STEP');
-    this.teamsService.addItem(this.mainForm.value);
+    const team = this.mainForm.value;
+    delete team.captcha;
+    this.teamsService.addItem(team);
   }
 }
