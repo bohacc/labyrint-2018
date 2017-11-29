@@ -1,34 +1,36 @@
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import * as Actions from '../../../state/app.actions';
+import * as Actions from '../../state/app.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../state/app.state';
-import { CreateTeamAction, LoadTeamsAction, TeamsActions } from '../state/actions/teams.actions';
-import { TeamDto } from '../models/TeamDto';
+import { AppState } from '../../state/app.state';
+import { CreateTeamAction, LoadTeamsAction, TeamsActions } from './state/actions/teams.actions';
+import { TeamDto } from './models/TeamDto';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TeamsService {
-  private itemsRef: AngularFireList<TeamDto>;
+  private itemsRef: AngularFireList<{team: TeamDto}>;
   private items: Observable<TeamDto[]>;
 
   constructor(
     private db: AngularFireDatabase,
     private store: Store<AppState>
   ) {
+    // this.db.app.auth().createUserWithEmailAndPassword();
     this.itemsRef = this.db.list('teams');
 
     // Use snapshotChanges().map() to store the key
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAa');
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val().team }));
     });
 
     this.items
       .subscribe(
         (teams: TeamDto[]) => {
           console.log('STORE XX');
+          console.log(teams);
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
@@ -38,7 +40,7 @@ export class TeamsService {
     const teamWithoutKey: any = {...team};
     delete teamWithoutKey.key;
     console.log(teamWithoutKey);
-    this.itemsRef.push(teamWithoutKey)
+    this.itemsRef.push({team: teamWithoutKey})
       .then(
         () => {
           // add dispatch action

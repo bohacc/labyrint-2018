@@ -15,7 +15,7 @@ import {
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { StoreService } from '../../shared/store/store.service';
+import { StoreService } from '../../../shared/store/store.service';
 import { ReCaptchaConfig } from '../RecaptchaConfig';
 import { ReCaptchaAsyncValidator } from '../validators/recaptcha.validator';
 

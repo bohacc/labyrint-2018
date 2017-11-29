@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from './modules/captcha/directives/recaptcha.directive';
-import { StoreService } from './modules/shared/store/store.service';
+import { StoreService } from './shared/store/store.service';
 
 declare const grecaptcha: any;
 

@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from '../../../captcha/directives/recaptcha.directive';
-import { StoreService } from '../../../shared/store/store.service';
-import { TeamsService } from '../teams.service';
+import { StoreService } from '../../../../shared/store/store.service';
+import { TeamsService } from '../../teams.service';
 
 @Component({
   selector: 'registration-form',

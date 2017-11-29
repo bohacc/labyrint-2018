@@ -2,7 +2,11 @@
   "rules": {
     "teams": {
       ".read": true,
-      ".write": "!data.exists() || !newData.exists()"
+      ".write": true,
+      "team": {
+        ".read": true,
+        ".write": "!data.exists() || !newData.exists()"
+      }
     }
   }
 }

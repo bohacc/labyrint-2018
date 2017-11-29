@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { TeamsService } from '../teams.service';
+import { TeamsService } from '../../teams.service';
 import { AppState } from '../../../../state/app.state';
 import { Store } from '@ngrx/store';
 import { TeamDto } from '../../models/TeamDto';
+import { InitCaptchaAction } from '../../../captcha/state/actions/captcha.actions';
 
 @Component({
   selector: 'team-list',
@@ -18,11 +19,15 @@ export class TeamListComponent implements OnInit {
     private store: Store<AppState>
   ) {
     // subscribe teams from store
-    this.teams = this.store.select(state => state.teams);
+    this.teams = this.store.select(state => {
+      console.log('LIST COMPONNRT');
+      console.log(state);
+      return state.teams;
+    });
   }
 
   ngOnInit() {
-
+    this.store.dispatch(new InitCaptchaAction());
   }
 
   removeTeam() {

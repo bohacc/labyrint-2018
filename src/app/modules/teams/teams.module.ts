@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TeamsService } from './components/teams.service';
+import { TeamsService } from './teams.service';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { routes } from './teams.routes';

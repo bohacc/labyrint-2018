@@ -11,9 +11,14 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
-import { StoreModule } from '@ngrx/store';
+import { combineReducers, StoreModule } from '@ngrx/store';
 import { AppReducer } from './state/app.reducer';
 import { HomeComponent } from './components/home/home.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomRouterStateSerializer } from './shared/utils';
+import { teamsReducer } from './modules/teams/state/reducers/team.reducer';
+import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer';
 
 @NgModule({
   declarations: [
@@ -28,9 +33,21 @@ import { HomeComponent } from './components/home/home.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot(AppReducer),
+    StoreModule.forRoot(
+      {
+        teams: teamsReducer,
+        captcha: captchaReducer
+      }
+    ),
+    StoreRouterConnectingModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
+    }),
     SharedServiceModule,
     RouterModule.forRoot(routes)
+  ],
+  providers: [
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
   ],
   bootstrap: [AppComponent]
 })

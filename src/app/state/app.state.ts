@@ -2,9 +2,17 @@ import { TeamDto } from '../modules/teams/models/TeamDto';
 import { State } from '@ngrx/store';
 
 export const initialState: AppState = {
-  teams: []
+  teams: [],
+  registration: {
+    name: null
+  },
+  captcha: false
 };
 
 export interface AppState {
-  readonly teams: TeamDto[];
+  teams: TeamDto[];
+  registration: {
+    name: string
+  };
+  captcha: boolean;
 }

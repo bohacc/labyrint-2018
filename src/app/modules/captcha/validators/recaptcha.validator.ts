@@ -1,6 +1,6 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StoreService } from '../../shared/store/store.service';
+import { StoreService } from '../../../shared/store/store.service';
 import { AbstractControl } from '@angular/forms';
 
 export const RECAPTCHA_URL = new InjectionToken('RECAPTCHA_URL');
