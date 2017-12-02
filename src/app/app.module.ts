@@ -11,8 +11,8 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
-import { combineReducers, StoreModule } from '@ngrx/store';
-import { AppReducer } from './state/app.reducer';
+import { ActionReducerMap, combineReducers, StoreModule } from '@ngrx/store';
+import { reducers } from './state/app.reducer';
 import { HomeComponent } from './components/home/home.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -33,16 +33,11 @@ import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot(
-      {
-        teams: teamsReducer,
-        captcha: captchaReducer
-      }
-    ),
+    StoreModule.forRoot(reducers),
     StoreRouterConnectingModule,
-    StoreDevtoolsModule.instrument({
+    !environment.production ? StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
-    }),
+    }) : [],
     SharedServiceModule,
     RouterModule.forRoot(routes)
   ],

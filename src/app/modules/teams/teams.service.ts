@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import * as Actions from '../../state/app.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { CreateTeamAction, LoadTeamsAction, TeamsActions } from './state/actions/teams.actions';
+import { LoadTeamsAction, RemoveTeamAction } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
-import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TeamsService {
@@ -22,15 +20,12 @@ export class TeamsService {
 
     // Use snapshotChanges().map() to store the key
     this.items = this.itemsRef.snapshotChanges().map(changes => {
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAa');
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val().team }));
     });
 
     this.items
       .subscribe(
         (teams: TeamDto[]) => {
-          console.log('STORE XX');
-          console.log(teams);
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
@@ -39,7 +34,6 @@ export class TeamsService {
   public addItem(team: TeamDto) {
     const teamWithoutKey: any = {...team};
     delete teamWithoutKey.key;
-    console.log(teamWithoutKey);
     this.itemsRef.push({team: teamWithoutKey})
       .then(
         () => {
@@ -59,6 +53,7 @@ export class TeamsService {
 
   public deleteItem(team: TeamDto) {
     this.itemsRef.remove(team.key);
+    this.store.dispatch(new RemoveTeamAction(team));
   }
 
   public deleteEverything() {

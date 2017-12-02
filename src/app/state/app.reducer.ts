@@ -1,10 +1,21 @@
-import { combineReducers } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import { teamsReducer } from '../modules/teams/state/reducers/team.reducer';
+import { captchaReducer } from '../modules/captcha/state/reducers/captcha.reducer';
+import { TeamDto } from '../modules/teams/models/TeamDto';
 
-const reducers = {
-  team: teamsReducer,
-};
-
-export function AppReducer(state: any, action: any) {
-  return combineReducers(reducers);
+export interface AppState {
+  teams: {
+    list: TeamDto[],
+    registration: {
+      name: string
+    }
+  };
+  captcha: {
+    status: boolean
+  };
 }
+
+export const reducers: ActionReducerMap<AppState> = {
+  teams: teamsReducer,
+  captcha: captchaReducer
+};

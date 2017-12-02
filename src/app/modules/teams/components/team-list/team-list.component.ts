@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { TeamsService } from '../../teams.service';
 import { AppState } from '../../../../state/app.state';
@@ -9,7 +9,8 @@ import { InitCaptchaAction } from '../../../captcha/state/actions/captcha.action
 @Component({
   selector: 'team-list',
   templateUrl: 'team-list.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamListComponent implements OnInit {
   public teams: Observable<TeamDto[]>;
@@ -20,17 +21,15 @@ export class TeamListComponent implements OnInit {
   ) {
     // subscribe teams from store
     this.teams = this.store.select(state => {
-      console.log('LIST COMPONNRT');
-      console.log(state);
-      return state.teams;
+      return state.teams.list;
     });
   }
 
   ngOnInit() {
-    this.store.dispatch(new InitCaptchaAction());
+    this.store.dispatch(new InitCaptchaAction(false));
   }
 
-  removeTeam() {
-    // this.store.dispatch(new Actions.Search(query)))
+  public removeTeam(team: TeamDto) {
+    this.teamsService.deleteItem(team);
   }
 }
