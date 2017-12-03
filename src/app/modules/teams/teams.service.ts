@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { LoadTeamsAction, RemoveTeamAction } from './state/actions/teams.actions';
+import { CreateTeamAction, LoadTeamsAction, RemoveTeamAction } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
+import { UserDto } from './components/users/UserDto';
 
 @Injectable()
 export class TeamsService {
@@ -15,7 +16,6 @@ export class TeamsService {
     private db: AngularFireDatabase,
     private store: Store<AppState>
   ) {
-    // this.db.app.auth().createUserWithEmailAndPassword();
     this.itemsRef = this.db.list('teams');
 
     // Use snapshotChanges().map() to store the key
@@ -34,15 +34,18 @@ export class TeamsService {
   public addItem(team: TeamDto) {
     const teamWithoutKey: any = {...team};
     delete teamWithoutKey.key;
+    delete teamWithoutKey.password;
     this.itemsRef.push({team: teamWithoutKey})
       .then(
-        () => {
-          // add dispatch action
-        },
-        (err) => {
-          // add dispatch action
-        }
-      );
+      () => {
+        // add dispatch action
+        this.store.dispatch(new CreateTeamAction(team));
+        this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
+      },
+      (err) => {
+        // add dispatch action
+      }
+    );
   }
 
   public updateItem(team: TeamDto) {

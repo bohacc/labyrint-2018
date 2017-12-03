@@ -1,10 +1,18 @@
 <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
-    {{mainForm.status}}
-    <input type="text" formControlName="name">
-    <div #recaptcha=nbRecaptcha nbRecaptcha
-      key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
-      [config]="{size: 'invisible'}"
-      formControlName="captcha">
-    </div>
-    <button (click)="sendForm()">send form</button>
+  {{mainForm.status}}
+  <label for="name">Název týmu</label>
+  <input id="name" type="text" formControlName="name">
+
+  <label for="email">email</label>
+  <input id="email" type="text" formControlName="email">
+
+  <label for="password">heslo</label>
+  <input id="password" type="password" formControlName="password">
+
+  <div #recaptcha=nbRecaptcha nbRecaptcha
+       key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
+       [config]="{size: 'invisible'}"
+       formControlName="captcha">
+  </div>
+  <button (click)="sendForm()">send form</button>
 </form>

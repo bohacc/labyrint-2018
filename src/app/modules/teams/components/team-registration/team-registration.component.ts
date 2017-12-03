@@ -25,8 +25,11 @@ export class TeamRegistrationComponent {
     private storeService: StoreService,
     private teamsService: TeamsService
   ) {
+    // TODO: create email, password format validators
     this.mainForm = this.fb.group({
       name: ['', Validators.required ],
+      email: ['', Validators.required ],
+      password: ['', Validators.required ],
       captcha: ['']
     });
 
