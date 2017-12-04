@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AppState } from '../../state/app.state';
 import { Store } from '@ngrx/store';
 import { AuthUserAction } from '../../modules/teams/state/actions/user.actions';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
@@ -54,7 +55,7 @@ export class AuthService {
       );
   }
 
-  public signOut(): void {
+  public logout(): void {
     this.afAuth.auth.signOut();
     this.router.navigate(['/']);
   }

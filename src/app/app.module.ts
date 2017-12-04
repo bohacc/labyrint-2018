@@ -19,15 +19,20 @@ import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router
 import { CustomRouterStateSerializer } from './shared/utils';
 import { teamsReducer } from './modules/teams/state/reducers/team.reducer';
 import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHeaderComponent,
     AppFooterComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -35,9 +40,12 @@ import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer
     NgbModule.forRoot(),
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule,
-    !environment.production ? StoreDevtoolsModule.instrument({
+    StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
-    }) : [],
+    })
+    /*!environment.production ? StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
+    }) : []*/,
     SharedServiceModule,
     RouterModule.forRoot(routes)
   ],

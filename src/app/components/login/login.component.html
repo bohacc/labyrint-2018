@@ -1,0 +1,15 @@
+<div>přihlášení</div>
+
+<form action="" (ngSubmit)="login()" [formGroup]="loginForm">
+  <label for="email">email:</label>
+  <input type="text" id="email" formControlName="email">
+
+  <br>
+
+  <label for="password">heslo:</label>
+  <input type="password" id="password" formControlName="password">
+
+  <br>
+
+  <button type="submit">Přihlásit</button>
+</form>
