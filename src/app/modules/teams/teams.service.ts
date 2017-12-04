@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import { CreateTeamAction, LoadTeamsAction, RemoveTeamAction } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
-import { UserDto } from './components/users/UserDto';
+import { UserDto } from './models/UserDto';
 
 @Injectable()
 export class TeamsService {
