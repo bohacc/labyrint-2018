@@ -4,7 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AppState } from '../../state/app.state';
 import { Store } from '@ngrx/store';
-import { AuthUserAction } from '../../modules/teams/state/actions/user.actions';
+import { UserAuthAction } from '../../modules/teams/state/actions/userAuth.actions';
 import * as firebase from 'firebase/app';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
     private store: Store<AppState>
   ) {
     this.afAuth.authState.subscribe((auth) => {
-      this.store.dispatch(new AuthUserAction(auth));
+      this.store.dispatch(new UserAuthAction(auth));
     });
   }
 
@@ -63,7 +63,7 @@ export class AuthService {
   private socialSignIn(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) =>  {
-        this.store.dispatch(new AuthUserAction(credential.user));
+        this.store.dispatch(new UserAuthAction(credential.user));
         // this.authState = credential.user;
         // this.updateUserData();
       })
