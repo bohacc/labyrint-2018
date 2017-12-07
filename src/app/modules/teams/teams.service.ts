@@ -35,6 +35,7 @@ export class TeamsService {
     const teamWithoutKey: any = {...team};
     delete teamWithoutKey.key;
     delete teamWithoutKey.password;
+    // TODO: check team/user exists
     this.itemsRef.push({team: teamWithoutKey})
       .then(
       () => {
@@ -49,12 +50,14 @@ export class TeamsService {
   }
 
   public updateItem(team: TeamDto) {
+    // TODO: disable edit registration email
     const teamWithoutKey: any = {...team};
     delete teamWithoutKey.key;
     this.itemsRef.update(team.key, teamWithoutKey);
   }
 
   public deleteItem(team: TeamDto) {
+    // TODO: add delete user auth
     this.itemsRef.remove(team.key);
     this.store.dispatch(new RemoveTeamAction(team));
   }

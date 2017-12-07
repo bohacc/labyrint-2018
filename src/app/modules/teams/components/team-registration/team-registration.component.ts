@@ -44,6 +44,7 @@ export class TeamRegistrationComponent {
 
   public sendForm() {
     console.log('XXX');
+    // TODO: localization captcha
     this.recaptcha.execute();
   }
 

@@ -2,5 +2,6 @@
   <a routerLink="uvod">Úvod</a>&nbsp;|&nbsp;
   <a routerLink="teams/list">Týmy</a>&nbsp;|&nbsp;
   <a routerLink="teams/registration">Registrace</a>&nbsp;|&nbsp;
-  <a routerLink="login">Přihlášení</a>
+  <a routerLink="login" *ngIf="!(userAuth | async).isLoged">Přihlášení</a>&nbsp;|&nbsp;
+  <a href="javascript:void(0);" *ngIf="(userAuth | async).isLoged" (click)="logout()">Odhlášení</a>
 </div>

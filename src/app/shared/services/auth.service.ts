@@ -6,6 +6,8 @@ import { AppState } from '../../state/app.state';
 import { Store } from '@ngrx/store';
 import { UserAuthAction } from '../../modules/teams/state/actions/userAuth.actions';
 import * as firebase from 'firebase/app';
+import { UserAuthDto } from '../../modules/teams/models/UserAuthDto';
+import { stringifyElement } from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable()
 export class AuthService {
@@ -15,9 +17,34 @@ export class AuthService {
     private router: Router,
     private store: Store<AppState>
   ) {
-    this.afAuth.authState.subscribe((auth) => {
-      this.store.dispatch(new UserAuthAction(auth));
-    });
+    this.afAuth.auth.onAuthStateChanged(
+      (user) => {
+      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
+      console.log(user);
+      const userAuth: UserAuthDto = {
+        email: user ? user.email : null,
+        uid: user ? user.uid : null,
+        isLoged: !!user,
+        url: user ? user['A'] : null
+      };
+      this.store.dispatch(new UserAuthAction(userAuth));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    /*this.afAuth.auth.app.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+      } else {
+        // No user is signed in.
+      }
+    });*/
+    /*this.afAuth.idToken.subscribe((token) => {
+      console.log(token);
+      this.store.dispatch(new UserAuthAction(user));
+    });*/
   }
 
   public facebookLogin() {
@@ -56,8 +83,15 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.afAuth.auth.signOut();
-    this.router.navigate(['/']);
+    this.afAuth.auth.signOut()
+      .then(
+        () => {
+          this.router.navigate(['/']);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   private socialSignIn(provider) {

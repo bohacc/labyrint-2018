@@ -1,23 +1,17 @@
 import * as UserAuthActions from '../actions/userAuth.actions';
 
 export interface State {
-  access_token: string;
-  expires_in: string;
-  id_token: string;
-  project_id: string;
-  refresh_token: string;
-  token_type: string;
-  user_id: string;
+  email: string;
+  uid: string;
+  isLoged: boolean;
+  url: string;
 }
 
 export const initialState: State = {
-  access_token: null,
-  expires_in: null,
-  id_token: null,
-  project_id: null,
-  refresh_token: null,
-  token_type: null,
-  user_id: null
+  email: null,
+  uid: null,
+  isLoged: false,
+  url: null
 };
 
 export function userAuthReducer(state = initialState, action: UserAuthActions.UserAuthActions) {

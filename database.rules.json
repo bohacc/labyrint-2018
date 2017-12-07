@@ -1,11 +1,9 @@
 {
   "rules": {
     "teams": {
-      ".read": true,
-      ".write": true,
       "team": {
         ".read": true,
-        ".write": "!data.exists() || !newData.exists()"
+        ".write": "(!data.exists() || !newData.exists()) || auth.token.email === data.child('email').val() || (!data.)"
       }
     }
   }
