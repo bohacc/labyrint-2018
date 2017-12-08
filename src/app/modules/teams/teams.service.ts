@@ -36,6 +36,7 @@ export class TeamsService {
     delete teamWithoutKey.key;
     delete teamWithoutKey.password;
     // TODO: check team/user exists
+
     this.itemsRef.push({team: teamWithoutKey})
       .then(
       () => {
