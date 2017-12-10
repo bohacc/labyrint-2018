@@ -31,35 +31,69 @@ export class TeamsService {
   }
 
   public addItem(team: TeamDto) {
+    console.log(team);
+    if (!team || !team.name) {
+      return;
+    }
+    let success = true;
     const teamWithoutPswd: any = {...team};
     delete teamWithoutPswd.password;
-    this.db.database.ref('/teams/' + teamWithoutPswd.name).set(teamWithoutPswd)
-      .then(
-      (msg) => {
-        // TODO: show success message
-        // add dispatch action
-        console.log('ADD ITEM SUCCESS');
-        console.log(msg);
-        this.store.dispatch(new CreateTeamAction(team));
-        this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
-      },
-      (err) => {
-        // TODO: show error
-        // add dispatch action
-        console.log('ADD ITEM ERROR');
-        console.log(err);
-      }
-    );
+    this.db.database
+      .ref('/teams/')
+      .once('value', (snapchot) => {
+        console.log(snapchot.val());
+        if (this.teamExists(team, snapchot.val())) {
+          // TODO: show error
+          console.log('TEAM EXISTS');
+          return;
+        }
+
+        this.db.database
+          .ref('/teams/' + teamWithoutPswd.name)
+          .set(teamWithoutPswd)
+          .catch((err) => {
+            console.log('CATCH');
+            console.log(err);
+            success = false;
+          })
+          .then(
+            () => {
+              // TODO: show success message
+              // add dispatch action
+              if (success) {
+                console.log('ADD ITEM SUCCESS');
+                this.store.dispatch(new CreateTeamAction(team));
+                this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
+              }
+            },
+            (err) => {
+              // TODO: show error
+              // add dispatch action
+              console.log('ADD ITEM ERROR');
+              console.log(err);
+            }
+          );
+      });
   }
 
   public updateItem(team: TeamDto) {
+    let success = true;
     // TODO: disable edit registration email
-    this.db.database.ref('/teams/' + team.name).update(team)
+    this.db.database
+      .ref('/teams/' + team.name)
+      .update(team)
+      .catch((err) => {
+        console.log('CATCH');
+        console.log(err);
+        success = false;
+      })
       .then(
         () => {
           // TODO: show success message
           console.log('update success');
-          this.store.dispatch(new UpdateTeamAction(team));
+          if (success) {
+            this.store.dispatch(new UpdateTeamAction(team));
+          }
         },
         (err) => {
           // TODO: show error
@@ -69,14 +103,24 @@ export class TeamsService {
   }
 
   public deleteItem(team: TeamDto) {
+    let success = true;
     // TODO: add delete user auth
     this.itemsRef.remove(team.name);
-    this.db.database.ref('/teams/' + team.name).remove()
+    this.db.database
+      .ref('/teams/' + team.name)
+      .remove()
+      .catch((err) => {
+        console.log('CATCH');
+        console.log(err);
+        success = false;
+      })
       .then(
         () => {
           // TODO: show success message
           console.log('update success');
-          this.store.dispatch(new RemoveTeamAction(team));
+          if (success) {
+            this.store.dispatch(new RemoveTeamAction(team));
+          }
         },
         (err) => {
           // TODO: show error
@@ -87,6 +131,16 @@ export class TeamsService {
 
   public deleteEverything() {
     this.itemsRef.remove();
+  }
+
+  private teamExists(newTeam: TeamDto, teams: {[name: string]: TeamDto}) {
+    let exists = false;
+    Object.keys(teams).forEach((name: string) => {
+      if (teams[name].name === newTeam.name || teams[name].email === newTeam.email) {
+        exists = true;
+      }
+    });
+    return exists;
   }
 }
 

@@ -28,10 +28,7 @@ export function teamsReducer(state = initialState, action: TeamsActions.TeamsAct
         list: state.list.filter((team) => team.name !== action.payload.name )
       };
     case TeamsActions.CREATE_TEAM:
-      return {
-        ...state,
-        list: [...state.list, action.payload]
-      };
+      return state;
     case TeamsActions.UPDATE_TEAM:
       return {
         ...state,
