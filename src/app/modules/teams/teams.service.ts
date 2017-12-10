@@ -3,9 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { CreateTeamAction, LoadTeamsAction, RemoveTeamAction } from './state/actions/teams.actions';
+import { CreateTeamAction, LoadTeamsAction, RemoveTeamAction, UpdateTeamAction } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
-import { UserDto } from './models/UserDto';
 
 @Injectable()
 export class TeamsService {
@@ -19,34 +18,33 @@ export class TeamsService {
     this.itemsRef = this.db.list('teams');
 
     // Use snapshotChanges().map() to store the key
-    this.items = this.itemsRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val().team }));
-    });
-
-    this.items
+    this.itemsRef.snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      })
       .subscribe(
         (teams: TeamDto[]) => {
+          console.log(teams);
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
   }
 
   public addItem(team: TeamDto) {
-    const teamWithoutKey: any = {...team};
-    delete teamWithoutKey.key;
-    delete teamWithoutKey.password;
-    // TODO: check team/user exists
-
-    this.db.database.ref('/teams/' + teamWithoutKey.name).set(teamWithoutKey)
-    // this.itemsRef.push(teamWithoutKey)
+    const teamWithoutPswd: any = {...team};
+    delete teamWithoutPswd.password;
+    this.db.database.ref('/teams/' + teamWithoutPswd.name).set(teamWithoutPswd)
       .then(
-      () => {
+      (msg) => {
+        // TODO: show success message
         // add dispatch action
         console.log('ADD ITEM SUCCESS');
+        console.log(msg);
         this.store.dispatch(new CreateTeamAction(team));
         this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
       },
       (err) => {
+        // TODO: show error
         // add dispatch action
         console.log('ADD ITEM ERROR');
         console.log(err);
@@ -56,23 +54,39 @@ export class TeamsService {
 
   public updateItem(team: TeamDto) {
     // TODO: disable edit registration email
-    const teamWithoutKey: any = {...team};
-    delete teamWithoutKey.key;
-    this.itemsRef.update(team.key, teamWithoutKey);
+    this.db.database.ref('/teams/' + team.name).update(team)
+      .then(
+        () => {
+          // TODO: show success message
+          console.log('update success');
+          this.store.dispatch(new UpdateTeamAction(team));
+        },
+        (err) => {
+          // TODO: show error
+          console.log(err);
+        }
+      );
   }
 
   public deleteItem(team: TeamDto) {
     // TODO: add delete user auth
-    this.itemsRef.remove(team.key);
-    this.store.dispatch(new RemoveTeamAction(team));
+    this.itemsRef.remove(team.name);
+    this.db.database.ref('/teams/' + team.name).remove()
+      .then(
+        () => {
+          // TODO: show success message
+          console.log('update success');
+          this.store.dispatch(new RemoveTeamAction(team));
+        },
+        (err) => {
+          // TODO: show error
+          console.log(err);
+        }
+      );
   }
 
   public deleteEverything() {
     this.itemsRef.remove();
-  }
-
-  public getTeams(): Observable<TeamDto[]> {
-    return this.items;
   }
 }
 

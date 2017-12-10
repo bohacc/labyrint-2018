@@ -43,7 +43,7 @@ declare global {
 export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAccessor {
   @Input() key: string;
   @Input() config: ReCaptchaConfig = {};
-  @Input() lang: string;
+  @Input() lang = 'cs';
 
   @Output() captchaResponse = new EventEmitter<string>();
   @Output() captchaExpired = new EventEmitter();
