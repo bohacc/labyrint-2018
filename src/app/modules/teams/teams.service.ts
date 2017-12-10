@@ -37,15 +37,19 @@ export class TeamsService {
     delete teamWithoutKey.password;
     // TODO: check team/user exists
 
-    this.itemsRef.push({team: teamWithoutKey})
+    this.db.database.ref('/teams/' + teamWithoutKey.name).set(teamWithoutKey)
+    // this.itemsRef.push(teamWithoutKey)
       .then(
       () => {
         // add dispatch action
+        console.log('ADD ITEM SUCCESS');
         this.store.dispatch(new CreateTeamAction(team));
         this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
       },
       (err) => {
         // add dispatch action
+        console.log('ADD ITEM ERROR');
+        console.log(err);
       }
     );
   }

@@ -1,22 +1,19 @@
 {
   "rules": {
     "teams": {
-      ".read": true,
-      ".write": true,
-      "team": {
+      "$team_id": {
+        ".read": true,
+        ".write": "!data.exists() || auth.token.email === data.child('email').val()",
         ".indexOn": [
           "email",
           "name"
         ],
-        ".read": true,
-        ".write": "(!data.exists() || auth.token.email === data.child('email').val())",
         "email": {
           ".validate": "newData.val().length > 4 && ((data.exists() && data.val() === newData.val()) || !data.exists())"
         },
         "name": {
           ".validate": "newData.val().length > 3 && ((data.exists() && data.val() === newData.val()) || !data.exists())"
-        },
-        ".validate": "false"
+        }
       }
     }
   }
