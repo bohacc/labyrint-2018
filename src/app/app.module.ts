@@ -21,6 +21,8 @@ import { teamsReducer } from './modules/teams/state/reducers/team.reducer';
 import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomMaterialModule } from './modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       maxAge: 25 //  Retains last 25 states
     }) : []*/,
     SharedServiceModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    CustomMaterialModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },

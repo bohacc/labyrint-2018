@@ -1,7 +1,32 @@
-<div>
-  <a routerLink="uvod">Úvod</a>&nbsp;|&nbsp;
-  <a routerLink="teams/list">Týmy</a>&nbsp;|&nbsp;
-  <a routerLink="teams/registration">Registrace</a>&nbsp;|&nbsp;
-  <a routerLink="login" *ngIf="!(userAuth | async).isLoged">Přihlášení</a>&nbsp;|&nbsp;
-  <a href="javascript:void(0);" *ngIf="(userAuth | async).isLoged" (click)="logout()">Odhlášení</a>
-</div>
+<span class="smurf"></span>
+<mat-toolbar color="primary">
+  <span class="smurf-space"></span>
+  <a href="javascript:void(0);" routerLink="/" class="title" color="secondary" mat-button>
+    <i class="material-icons">motorcycle</i>
+    Labyrint 2018
+  </a>
+  <a href="javascript:void(0);" routerLink="/teams/registration" mat-button>
+    Registrace
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Novinky
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Týmy
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Pravidla
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Šifry
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Výsledky
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Kontakt
+  </a>
+  <a href="javascript:void(0);" routerLink="/" mat-button>
+    Můj tým
+  </a>
+</mat-toolbar>

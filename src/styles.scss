@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import "~bootstrap/dist/css/bootstrap.css";*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+mat-card {
+  margin: 30px 100px 30px 100px;
+}

@@ -6,8 +6,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: 'app-header.component.html'
+  selector: 'app-header',
+  templateUrl: 'app-header.component.html',
+  styleUrls: ['app-header.component.scss']
 })
 export class AppHeaderComponent {
   public userAuth: Observable<UserAuthDto>;
