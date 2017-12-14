@@ -1,20 +1,25 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from '../../../captcha/directives/recaptcha.directive';
 import { StoreService } from '../../../../shared/store/store.service';
 import { TeamsService } from '../../teams.service';
+import { ValidateEmail } from '../../../../shared/validators/email.validator';
 
 @Component({
   selector: 'registration-form',
-  templateUrl: 'team-registration.component.html'
+  templateUrl: 'team-registration.component.html',
+  styleUrls: ['team-registration.component.scss']
 })
 export class TeamRegistrationComponent {
   @ViewChild('recaptcha') recaptcha;
-  title = 'app';
+  public title = 'app';
   public mainForm: FormGroup;
+  public name: FormControl;
+  public email: FormControl;
+  public password: FormControl;
   private lang: string;
 
   constructor(
@@ -26,10 +31,13 @@ export class TeamRegistrationComponent {
     private teamsService: TeamsService
   ) {
     // TODO: create email, password format validators
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
+    this.email = new FormControl('', [Validators.required, ValidateEmail]);
+    this.password = new FormControl('', Validators.required);
     this.mainForm = this.fb.group({
-      name: ['', Validators.required ],
-      email: ['', Validators.required ],
-      password: ['', Validators.required ],
+      name: this.name,
+      email: this.email,
+      password: this.password,
       captcha: ['']
     });
 

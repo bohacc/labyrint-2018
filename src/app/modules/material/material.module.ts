@@ -1,5 +1,5 @@
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatInputModule,
   MatToolbarModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
@@ -10,14 +10,18 @@ import { NgModule } from '@angular/core';
     MatCheckboxModule,
     MatToolbarModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule
   ],
 })
 export class CustomMaterialModule {
