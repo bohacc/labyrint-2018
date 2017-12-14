@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { TeamRegistrationComponent } from './components/team-registration/team-registration.component';
 import { ReCaptchaModule } from '../captcha/ReCaptcha.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CustomMaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     ReCaptchaModule,
+    CustomMaterialModule
   ],
   providers: [
     TeamsService

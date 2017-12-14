@@ -1,18 +1,36 @@
-<form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
-  {{mainForm.status}}
-  <label for="name">Název týmu</label>
-  <input id="name" type="text" formControlName="name">
+<mat-card>
+  <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Email" [formControl]="email"
+             ><!--[errorStateMatcher]="matcher"-->
 
-  <label for="email">email</label>
-  <input id="email" type="text" formControlName="email">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <!--<mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="email.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>-->
+    </mat-form-field>
 
-  <label for="password">heslo</label>
-  <input id="password" type="password" formControlName="password">
 
-  <div #recaptcha=nbRecaptcha nbRecaptcha
-       key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
-       [config]="{size: 'invisible'}"
-       formControlName="captcha">
-  </div>
-  <button type="submit">send form</button>
-</form>
+
+
+    <!--{{mainForm.status}}
+    <label for="name">Název týmu</label>
+    <input id="name" type="text" formControlName="name">
+
+    <label for="email">email</label>
+    <input id="email" type="text" formControlName="email">
+
+    <label for="password">heslo</label>
+    <input id="password" type="password" formControlName="password">-->
+
+    <div #recaptcha=nbRecaptcha nbRecaptcha
+         key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
+         [config]="{size: 'invisible'}"
+         formControlName="captcha">
+    </div>
+    <button type="submit">send form</button>
+  </form>
+</mat-card>

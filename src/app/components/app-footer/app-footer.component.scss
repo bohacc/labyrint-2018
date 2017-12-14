@@ -5,3 +5,11 @@
   margin-left: auto;
   font-size: small;
 }
+
+.smurf {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  left: 50%;
+  content:url('/assets/smurf2.png');
+}
