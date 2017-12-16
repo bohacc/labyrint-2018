@@ -2,6 +2,10 @@
   "rules": {
     "teams": {
       ".read": true,
+      ".write": false
+    },
+    "teams": {
+      ".read": true,
       "$team": {
         ".read": true,
         ".write": "!data.exists() || auth.token.email === data.child('email').val()",

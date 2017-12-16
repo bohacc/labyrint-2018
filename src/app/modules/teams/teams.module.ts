@@ -10,6 +10,7 @@ import { TeamRegistrationComponent } from './components/team-registration/team-r
 import { ReCaptchaModule } from '../captcha/ReCaptcha.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomMaterialModule } from '../material/material.module';
+import { TshirtsService } from '../../shared/services/tshirts.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CustomMaterialModule } from '../material/material.module';
     CustomMaterialModule
   ],
   providers: [
-    TeamsService
+    TeamsService,
+    TshirtsService
   ]
 })
 export class TeamsModule {}

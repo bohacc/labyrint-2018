@@ -11,3 +11,13 @@
 mat-form-field {
   padding: 20px;
 }
+
+.recaptcha {
+  z-index: 9999;
+  position: fixed;
+}
+
+.text-inside-grid {
+  position: absolute;
+  left: 5px;
+}

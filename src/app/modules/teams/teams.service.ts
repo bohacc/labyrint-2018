@@ -8,7 +8,7 @@ import { TeamDto } from './models/TeamDto';
 
 @Injectable()
 export class TeamsService {
-  private itemsRef: AngularFireList<{team: TeamDto}>;
+  private itemsRef: AngularFireList<{team: TeamDto}[]>;
   private items: Observable<TeamDto[]>;
 
   constructor(

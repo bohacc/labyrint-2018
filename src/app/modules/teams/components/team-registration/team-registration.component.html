@@ -2,7 +2,7 @@
   <h1>Registrace nového týmu</h1>
   <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm" class="grid-form">
 
-    <mat-grid-list cols="2" rowHeight="100px">
+    <mat-grid-list cols="3" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field class="grid-full-width">
           <input matInput placeholder="Název týmu" [formControl]="name" maxlength="100">
@@ -21,6 +21,14 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
         <mat-form-field class="grid-full-width">
           <input matInput placeholder="Email týmu" [formControl]="email" type="email">
 
@@ -35,12 +43,12 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="grid-full-width">
           <input matInput placeholder="Heslo" [formControl]="password" type="password">
 
           <mat-hint>slouží pro přihlášení, formát...</mat-hint>
-          <mat-error *ngIf="email.hasError('validPassword') && !email.hasError('required')">
-            Zadejte prosím platné heslo
+          <mat-error *ngIf="email.hasError('minlength') && !email.hasError('required')">
+            Heslo musí mít alespoň 5 znaků
           </mat-error>
           <mat-error *ngIf="email.hasError('required')">
             Heslo je <strong>povinné</strong>
@@ -48,21 +56,194 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Heslo pro ověření" [formControl]="password2" type="password">
 
-      <!--<mat-grid-tile>4</mat-grid-tile>-->
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
+            Heslo pro ověření je jiné než heslo
+          </mat-error>
+          <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
+            Heslo musí mít alespoň 5 znaků
+          </mat-error>
+          <mat-error *ngIf="phone.hasError('required')">
+            Heslo pro ověření je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Telefont týmu" [formControl]="phone" type="phone">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="phone.hasError('validPhone') && !phone.hasError('required')">
+            Zadejte prosím platný telefon
+          </mat-error>
+          <mat-error *ngIf="phone.hasError('required')">
+            Telefon je <strong>povinný</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--HRACI-->
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <div class="text-inside-grid">
+          <strong>Složení týmu</strong>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Jméno" [formControl]="firstName" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="firstName.hasError('required')">
+            Jméno je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Příjmení" [formControl]="lastName" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="lastName.hasError('required')">
+            Příjmení je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Jméno" [formControl]="firstName2" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="firstName2.hasError('required')">
+            Jméno je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Příjmení" [formControl]="lastName2" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="lastName2.hasError('required')">
+            Příjmení je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Jméno" [formControl]="firstName3" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="firstName3.hasError('required')">
+            Jméno je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Příjmení" [formControl]="lastName3" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="lastName3.hasError('required')">
+            Příjmení je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Jméno" [formControl]="firstName4" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="firstName4.hasError('required')">
+            Jméno je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Příjmení" [formControl]="lastName4" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="lastName4.hasError('required')">
+            Příjmení je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Jméno" [formControl]="firstName5" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="firstName5.hasError('required')">
+            Jméno je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="grid-full-width">
+          <input matInput placeholder="Příjmení" [formControl]="lastName5" type="text">
+          <!--<mat-hint></mat-hint>-->
+          <mat-error *ngIf="lastName5.hasError('required')">
+            Příjmení je <strong>povinné</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-select placeholder="tričko" [formControl]="tshirt">
+          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
+            {{ item.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-grid-tile>
+
     </mat-grid-list>
 
-    <!--{{mainForm.status}}
-    <label for="name">Název týmu</label>
-    <input id="name" type="text" formControlName="name">
-
-    <label for="email">email</label>
-    <input id="email" type="text" formControlName="email">
-
-    <label for="password">heslo</label>
-    <input id="password" type="password" formControlName="password">-->
-
     <div #recaptcha=nbRecaptcha nbRecaptcha
+         class="recaptcha"
          key="6LfQWjYUAAAAABoiJDcd_kMRQTdVbhy36hxKkGC1"
          [config]="{size: 'invisible'}"
          formControlName="captcha">
