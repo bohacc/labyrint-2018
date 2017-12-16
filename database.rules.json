@@ -1,5 +1,13 @@
 {
   "rules": {
+    "food": {
+      ".read": true,
+      ".write": false,
+      "$code": {
+        ".read": true,
+        ".write": false
+      }
+    },
     "tshirts": {
       ".read": true,
       ".write": false,

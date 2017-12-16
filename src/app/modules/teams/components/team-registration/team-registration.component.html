@@ -94,6 +94,37 @@
       <mat-grid-tile>
       </mat-grid-tile>
 
+      <!--UBYTOVANI-->
+
+      <mat-grid-tile>
+        <div class="text-inside-grid">
+          <strong>Ubytování</strong>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <!--ROW-->
+
+      <mat-grid-tile>
+        <mat-select placeholder="tričko" [formControl]="tshirt">
+          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Velikost trička</mat-hint>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
       <!--HRACI-->
 
       <!--ROW-->
@@ -239,6 +270,15 @@
           </mat-option>
         </mat-select>
         <mat-hint>Velikost trička</mat-hint>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-select placeholder="Jídlo" [formControl]="tshirt">
+          <mat-option *ngFor="let item of food | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Výběr jídla</mat-hint>
       </mat-grid-tile>
 
     </mat-grid-list>

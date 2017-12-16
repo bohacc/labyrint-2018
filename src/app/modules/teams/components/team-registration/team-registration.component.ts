@@ -11,7 +11,9 @@ import { SelectOptionDto } from '../../../../shared/model/SelectOptionDto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../state/app.state';
 import { TShirt } from '../../models/TShirt';
-import { TshirtsService } from '../../../../shared/services/tshirts.service';
+import { TshirtsService } from '../../services/tshirts.service';
+import { Food } from '../../models/foodDto';
+import { FoodService } from '../../services/food.service';
 
 @Component({
   selector: 'registration-form',
@@ -40,6 +42,7 @@ export class TeamRegistrationComponent {
   public tshirt: FormControl;
   private lang: string;
   public tshirts: Observable<TShirt[]>;
+  public food: Observable<Food[]>;
 
   constructor(
     private http: HttpClient,
@@ -49,11 +52,14 @@ export class TeamRegistrationComponent {
     private storeService: StoreService,
     private teamsService: TeamsService,
     private store: Store<AppState>,
-    private tshirtsService: TshirtsService
+    private tshirtsService: TshirtsService,
+    private foodService: FoodService
   ) {
     // load tshirts
     this.tshirtsService.loadTShirts();
+    this.foodService.loadFood();
     this.tshirts = this.store.select(state => state.tshirts.list);
+    this.food = this.store.select(state => state.food.list);
 
     // TODO: create email, password format validators
     this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
