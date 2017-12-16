@@ -235,9 +235,10 @@
       <mat-grid-tile>
         <mat-select placeholder="tričko" [formControl]="tshirt">
           <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.viewValue }}
+            {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-hint>Velikost trička</mat-hint>
       </mat-grid-tile>
 
     </mat-grid-list>

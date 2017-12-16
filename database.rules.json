@@ -1,8 +1,12 @@
 {
   "rules": {
-    "teams": {
+    "tshirts": {
       ".read": true,
-      ".write": false
+      ".write": false,
+      "$tshirt": {
+        ".read": true,
+        ".write": false
+      }
     },
     "teams": {
       ".read": true,
