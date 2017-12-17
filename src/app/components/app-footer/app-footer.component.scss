@@ -6,19 +6,3 @@
   font-size: small;
   z-index: 0;
 }
-
-.smurf {
-  position: fixed;
-  z-index: 999;
-  bottom: 0;
-  left: 50%;
-  content:url('/assets/smurf2.png');
-}
-
-.smurf2 {
-  position: fixed;
-  z-index: 999;
-  right: 0;
-  top: 25%;
-  content:url('/assets/smurf3.png');
-}

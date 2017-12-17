@@ -1,7 +1,8 @@
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatInputModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatIconModule,
+  MatInputModule, MatListModule,
   MatOptionModule,
-  MatSelectModule,
+  MatSelectModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,10 @@ import { NgModule } from '@angular/core';
     MatInputModule,
     MatGridListModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   exports: [
     MatButtonModule,
@@ -27,7 +31,10 @@ import { NgModule } from '@angular/core';
     MatInputModule,
     MatGridListModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
   ],
 })
 export class CustomMaterialModule {

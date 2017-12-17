@@ -23,6 +23,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './modules/material/material.module';
+import {CdkTableModule} from '@angular/cdk/table';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -51,10 +53,11 @@ import { CustomMaterialModule } from './modules/material/material.module';
     SharedServiceModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    MediaMatcher
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,83 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <span class="smurf-space" *ngIf="!mobileQuery.matches"></span>
+    <button mat-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">
+      Labyrint 2018
+    </h1>
+    <span class="smurf2"></span>
+
+    <a mat-button href="javascript:void(0);" routerLink="/teams/registration" >
+      Registrace
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Novinky
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Týmy
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Pravidla
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Šifry
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Výsledky
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Kontakt
+    </a>
+    <a mat-button href="javascript:void(0);" routerLink="/" >
+      Můj tým
+    </a>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="'over'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item href="javascript:void(0);" routerLink="/teams/registration" >
+          Registrace
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Novinky
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Týmy
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Pravidla
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Šifry
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Výsledky
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Kontakt
+        </a>
+        <a mat-list-item href="javascript:void(0);" routerLink="/" >
+          Můj tým
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div *ngIf="!mobileQuery.matches">
+        <span class="smurf"></span>
+        <span class="smurf3"></span>
+        <span class="smurf4"></span>
+      </div>
+
+      <router-outlet></router-outlet>
+
+      <mat-toolbar color="primary" class="to-bottom">
+        <span>created by Psychokopytníci</span>
+      </mat-toolbar>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
