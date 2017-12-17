@@ -1,8 +1,8 @@
-.grid-form {
+/*.grid-form {
   min-width: 150px;
   max-width: 800px;
   width: 100%;
-}
+}*/
 
 .grid-full-width {
   width: 100%;
@@ -20,4 +20,31 @@ mat-form-field {
 .text-inside-grid {
   position: absolute;
   left: 5px;
+}
+
+.team-name-column {
+  width: 20em;
+}
+
+.email-column-1 {
+  width: 15em;
+  float: left;
+}
+
+.email-column-2 {
+  width: 15em;
+  float: left;
+}
+
+.email-column-3 {
+  width: 15em;
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+mat-form-field {
+  padding: 0;
 }

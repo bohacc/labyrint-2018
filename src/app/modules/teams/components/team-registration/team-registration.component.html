@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card class="app-content">
   <h1>Registrace nového týmu</h1>
   <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm" class="grid-form">
 
-    <mat-grid-list cols="3" rowHeight="70px">
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+    <!--<mat-grid-list cols="3" rowHeight="70px">-->
+      <div class="team-name-column">
+        <mat-form-field class="">
           <input matInput placeholder="Název týmu" [formControl]="name" maxlength="100">
 
           <mat-hint>alfanumerické znaky 3 až 100</mat-hint>
@@ -18,18 +18,10 @@
             Název týmu je <strong>povinný</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-      </mat-grid-tile>
-
-      <!--ROW-->
-
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="email-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Email týmu" [formControl]="email" type="email">
 
           <mat-hint>slouží i jako přihlašovací jméno</mat-hint>
@@ -40,10 +32,10 @@
             Email je <strong>povinný</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="email-column-2">
+        <mat-form-field class="">
           <input matInput placeholder="Heslo" [formControl]="password" type="password">
 
           <mat-hint>slouží pro přihlášení, formát...</mat-hint>
@@ -54,10 +46,10 @@
             Heslo je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="email-column-3">
+        <mat-form-field class="">
           <input matInput placeholder="Heslo pro ověření" [formControl]="password2" type="password">
 
           <!--<mat-hint></mat-hint>-->
@@ -71,12 +63,12 @@
             Heslo pro ověření je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <!--ROW-->
+    <div class="clear"></div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="phone-column">
+        <mat-form-field class="">
           <input matInput placeholder="Telefont týmu" [formControl]="phone" type="phone">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="phone.hasError('validPhone') && !phone.hasError('required')">
@@ -86,202 +78,213 @@
             Telefon je <strong>povinný</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-      </mat-grid-tile>
+      </div>
 
       <!--UBYTOVANI-->
 
-      <mat-grid-tile>
+      <div class="GROUP-column-1">
         <div class="text-inside-grid">
           <strong>Ubytování</strong>
         </div>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
+      <div class="GROUP-column-1">
         <mat-select placeholder="tričko" [formControl]="tshirt">
           <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
         <mat-hint>Velikost trička</mat-hint>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+    <!--</mat-grid-list>-->
 
       <!--HRACI-->
+    <!--<mat-grid-list cols="4" rowHeight="70px">-->
 
       <!--ROW-->
 
-      <mat-grid-tile>
+      <div class="GROUP-column-1">
         <div class="text-inside-grid">
           <strong>Složení týmu</strong>
         </div>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Jméno" [formControl]="firstName" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="firstName.hasError('required')">
             Jméno je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Příjmení" [formControl]="lastName" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="lastName.hasError('required')">
             Příjmení je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Jméno" [formControl]="firstName2" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="firstName2.hasError('required')">
             Jméno je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Příjmení" [formControl]="lastName2" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="lastName2.hasError('required')">
             Příjmení je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Jméno" [formControl]="firstName3" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="firstName3.hasError('required')">
             Jméno je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Příjmení" [formControl]="lastName3" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="lastName3.hasError('required')">
             Příjmení je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Jméno" [formControl]="firstName4" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="firstName4.hasError('required')">
             Jméno je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Příjmení" [formControl]="lastName4" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="lastName4.hasError('required')">
             Příjmení je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-      </mat-grid-tile>
+      <div class="GROUP-column-1">
+      </div>
+
+      <div class="GROUP-column-1">
+      </div>
 
       <!--ROW-->
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Jméno" [formControl]="firstName5" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="firstName5.hasError('required')">
             Jméno je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
-        <mat-form-field class="grid-full-width">
+      <div class="GROUP-column-1">
+        <mat-form-field class="">
           <input matInput placeholder="Příjmení" [formControl]="lastName5" type="text">
           <!--<mat-hint></mat-hint>-->
           <mat-error *ngIf="lastName5.hasError('required')">
             Příjmení je <strong>povinné</strong>
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
+      <div class="GROUP-column-1">
         <mat-select placeholder="tričko" [formControl]="tshirt">
           <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
         <mat-hint>Velikost trička</mat-hint>
-      </mat-grid-tile>
+      </div>
 
-      <mat-grid-tile>
+      <div class="GROUP-column-1">
         <mat-select placeholder="Jídlo" [formControl]="tshirt">
           <mat-option *ngFor="let item of food | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
         <mat-hint>Výběr jídla</mat-hint>
-      </mat-grid-tile>
+      </div>
 
-    </mat-grid-list>
+    <!--</mat-grid-list>-->
 
     <div #recaptcha=nbRecaptcha nbRecaptcha
          class="recaptcha"
