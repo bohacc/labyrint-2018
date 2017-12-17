@@ -5,35 +5,36 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="example-app-name">
-      Labyrint 2018
+      <a href="javascript:void(0);" class="title-text">Labyrint 2018</a>
     </h1>
     <span class="smurf2"></span>
 
-    <a mat-button href="javascript:void(0);" routerLink="/teams/registration" >
-      Registrace
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Novinky
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Týmy
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Pravidla
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Šifry
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Výsledky
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Kontakt
-    </a>
-    <a mat-button href="javascript:void(0);" routerLink="/" >
-      Můj tým
-    </a>
-
+    <div *ngIf="!mobileQuery.matches">
+      <a mat-button href="javascript:void(0);" routerLink="/teams/registration" >
+        Registrace
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Novinky
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Týmy
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Pravidla
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Šifry
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Výsledky
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Kontakt
+      </a>
+      <a mat-button href="javascript:void(0);" routerLink="/" >
+        Můj tým
+      </a>
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
