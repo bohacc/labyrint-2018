@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { TShirt } from '../../models/TShirt';
+import { TShirt } from '../../models/TShirtDto';
 
 export const LOAD_TSHIRTS = '[LOAD_TSHIRTS] - load tshirts';
 

@@ -1,5 +1,5 @@
-import * as FoodActions from '../actions/food.actions';
-import { Food } from '../../models/foodDto';
+import * as FoodsActions from '../actions/foods.actions';
+import { Food } from '../../models/FoodDto';
 
 export interface State {
   list: Food[];
@@ -9,9 +9,9 @@ export const initialState: State = {
   list: []
 };
 
-export function foodReducer(state = initialState, action: FoodActions.FoodActions) {
+export function foodsReducer(state = initialState, action: FoodsActions.FoodsActions) {
   switch (action.type) {
-    case FoodActions.LOAD_FOOD:
+    case FoodsActions.LOAD_FOODS:
       return {
         ...state,
         list: [...action.payload]

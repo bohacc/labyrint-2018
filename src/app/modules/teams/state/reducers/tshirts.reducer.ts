@@ -1,5 +1,5 @@
 import * as TShirtsActions from '../actions/tshirts.action';
-import { TShirt } from '../../models/TShirt';
+import { TShirt } from '../../models/TShirtDto';
 
 export interface State {
   list: TShirt[];

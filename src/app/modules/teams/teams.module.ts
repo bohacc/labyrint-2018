@@ -11,7 +11,8 @@ import { ReCaptchaModule } from '../captcha/ReCaptcha.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomMaterialModule } from '../material/material.module';
 import { TshirtsService } from './services/tshirts.service';
-import { FoodService } from './services/food.service';
+import { FoodService } from './services/foods.service';
+import { AccommodationsService } from './services/accommodations.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FoodService } from './services/food.service';
   providers: [
     TeamsService,
     TshirtsService,
-    FoodService
+    FoodService,
+    AccommodationsService
   ]
 })
 export class TeamsModule {}

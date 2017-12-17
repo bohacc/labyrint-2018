@@ -1,4 +1,7 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import {
+  Component, OnInit, ElementRef, AfterViewInit, ViewChild, ChangeDetectorRef, OnDestroy,
+  HostListener
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -29,6 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
   public userAuth: Observable<UserAuthDto>;
   public mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  public smurf4style = '0';
+  @HostListener('window:resize') onResize(event) {
+    console.log(this.getScrollBarWidth());
+    this.smurf4style = this.getScrollBarWidth() + '';
+  }
 
   constructor(
     private authService: AuthService,
@@ -53,10 +61,38 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    this.smurf4style = this.getScrollBarWidth() + '';
   }
 
   public logout() {
     this.authService.logout();
+  }
+
+  public getScrollBarWidth () {
+    const inner = document.createElement('p');
+    inner.style.width = '100%';
+    inner.style.height = '200px';
+
+    const outer = document.createElement('div');
+    outer.style.position = 'absolute';
+    outer.style.top = '0px';
+    outer.style.left = '0px';
+    outer.style.visibility = 'hidden';
+    outer.style.width = '200px';
+    outer.style.height = '150px';
+    outer.style.overflow = 'hidden';
+    outer.appendChild (inner);
+
+    document.body.appendChild (outer);
+    const w1 = inner.offsetWidth;
+    outer.style.overflow = 'scroll';
+    let w2 = inner.offsetWidth;
+    if (w1 === w2) {
+      w2 = outer.clientWidth;
+    }
+
+    document.body.removeChild (outer);
+
+    return (w1 - w2);
   }
 }

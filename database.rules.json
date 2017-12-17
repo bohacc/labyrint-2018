@@ -1,6 +1,14 @@
 {
   "rules": {
-    "food": {
+    "accommodations": {
+      ".read": true,
+      ".write": false,
+      "$code": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "foods": {
       ".read": true,
       ".write": false,
       "$code": {

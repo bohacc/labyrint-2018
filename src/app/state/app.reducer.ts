@@ -4,10 +4,12 @@ import { captchaReducer } from '../modules/captcha/state/reducers/captcha.reduce
 import { AppState } from './app.state';
 import { userAuthReducer } from '../modules/teams/state/reducers/userAuth.reducer';
 import { tshirtsReducer } from '../modules/teams/state/reducers/tshirts.reducer';
-import { foodReducer } from '../modules/teams/state/reducers/food.reducer';
+import { foodsReducer } from '../modules/teams/state/reducers/foods.reducer';
+import { accommodationsReducer } from '../modules/teams/state/reducers/accommodations.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
-  food: foodReducer,
+  accommodations: accommodationsReducer,
+  foods: foodsReducer,
   tshirts: tshirtsReducer,
   teams: teamsReducer,
   captcha: captchaReducer,

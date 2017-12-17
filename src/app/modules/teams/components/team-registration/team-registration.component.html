@@ -3,288 +3,325 @@
   <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm" class="grid-form">
 
     <!--<mat-grid-list cols="3" rowHeight="70px">-->
-      <div class="team-name-column">
-        <mat-form-field class="">
-          <input matInput placeholder="Název týmu" [formControl]="name" maxlength="100">
+    <div class="team-name-column">
+      <mat-form-field class="">
+        <input matInput placeholder="Název týmu" [formControl]="name" maxlength="100">
 
-          <mat-hint>alfanumerické znaky 3 až 100</mat-hint>
-          <mat-error *ngIf="name.hasError('minlength') && !name.hasError('required')">
-            Název týmu musí obsahovat minimálně tři znaky
-          </mat-error>
-          <mat-error *ngIf="name.hasError('minLength') && !name.hasError('required')">
-            Název týmu musí obsahovat maximálně sto znaků
-          </mat-error>
-          <mat-error *ngIf="name.hasError('required')">
-            Název týmu je <strong>povinný</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+        <mat-hint>alfanumerické znaky 3 až 100</mat-hint>
+        <mat-error *ngIf="name.hasError('minlength') && !name.hasError('required')">
+          Název týmu musí obsahovat minimálně tři znaky
+        </mat-error>
+        <mat-error *ngIf="name.hasError('minLength') && !name.hasError('required')">
+          Název týmu musí obsahovat maximálně sto znaků
+        </mat-error>
+        <mat-error *ngIf="name.hasError('required')">
+          Název týmu je <strong>povinný</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <div class="email-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Email týmu" [formControl]="email" type="email">
+    <div class="email-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Email týmu" [formControl]="email" type="email">
 
-          <mat-hint>slouží i jako přihlašovací jméno</mat-hint>
-          <mat-error *ngIf="email.hasError('validEmail') && !email.hasError('required')">
-            Zadejte prosím platnou emailovou adresu
-          </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
-            Email je <strong>povinný</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+        <mat-hint>slouží i jako přihlašovací jméno</mat-hint>
+        <mat-error *ngIf="email.hasError('validEmail') && !email.hasError('required')">
+          Zadejte prosím platnou emailovou adresu
+        </mat-error>
+        <mat-error *ngIf="email.hasError('required')">
+          Email je <strong>povinný</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <div class="email-column-2">
-        <mat-form-field class="">
-          <input matInput placeholder="Heslo" [formControl]="password" type="password">
+    <div class="email-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Heslo" [formControl]="password" type="password">
 
-          <mat-hint>slouží pro přihlášení, formát...</mat-hint>
-          <mat-error *ngIf="email.hasError('minlength') && !email.hasError('required')">
-            Heslo musí mít alespoň 5 znaků
-          </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
-            Heslo je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+        <mat-hint>slouží pro přihlášení, formát...</mat-hint>
+        <mat-error *ngIf="email.hasError('minlength') && !email.hasError('required')">
+          Heslo musí mít alespoň 5 znaků
+        </mat-error>
+        <mat-error *ngIf="email.hasError('required')">
+          Heslo je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <div class="email-column-3">
-        <mat-form-field class="">
-          <input matInput placeholder="Heslo pro ověření" [formControl]="password2" type="password">
+    <div class="email-column-3">
+      <mat-form-field class="">
+        <input matInput placeholder="Heslo pro ověření" [formControl]="password2" type="password">
 
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
-            Heslo pro ověření je jiné než heslo
-          </mat-error>
-          <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
-            Heslo musí mít alespoň 5 znaků
-          </mat-error>
-          <mat-error *ngIf="phone.hasError('required')">
-            Heslo pro ověření je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
+          Heslo pro ověření je jiné než heslo
+        </mat-error>
+        <mat-error *ngIf="phone.hasError('minlength') && !phone.hasError('required')">
+          Heslo musí mít alespoň 5 znaků
+        </mat-error>
+        <mat-error *ngIf="phone.hasError('required')">
+          Heslo pro ověření je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
     <div class="clear"></div>
 
-      <div class="phone-column">
-        <mat-form-field class="">
-          <input matInput placeholder="Telefont týmu" [formControl]="phone" type="phone">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="phone.hasError('validPhone') && !phone.hasError('required')">
-            Zadejte prosím platný telefon
-          </mat-error>
-          <mat-error *ngIf="phone.hasError('required')">
-            Telefon je <strong>povinný</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+    <div class="phone-column">
+      <mat-form-field class="">
+        <input matInput placeholder="Telefont týmu" [formControl]="phone" type="phone">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="phone.hasError('validPhone') && !phone.hasError('required')">
+          Zadejte prosím platný telefon
+        </mat-error>
+        <mat-error *ngIf="phone.hasError('required')">
+          Telefon je <strong>povinný</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <!--UBYTOVANI-->
+    <!--UBYTOVANI-->
 
-      <div class="GROUP-column-1">
-        <div class="text-inside-grid">
-          <strong>Ubytování</strong>
-        </div>
-      </div>
+    <div class="accommodations-title">
+      <strong>Ubytování</strong>
+    </div>
 
-      <div class="GROUP-column-1">
-      </div>
+    <!--ROW-->
 
-      <div class="GROUP-column-1">
-      </div>
+    <div class="accommodations">
+      <mat-select placeholder="Ubytování" [formControl]="accommodation">
+        <mat-option *ngFor="let item of accommodations | async" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
 
-      <!--ROW-->
+    </div>
 
-      <div class="GROUP-column-1">
-        <mat-select placeholder="tričko" [formControl]="tshirt">
+    <!--HRACI-->
+
+    <div class="team-people">
+      <strong>Složení týmu</strong>
+    </div>
+
+    <!--ROW-->
+
+    <div class="people-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Jméno" [formControl]="firstName" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="firstName.hasError('required')">
+          Jméno je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Příjmení" [formControl]="lastName" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="lastName.hasError('required')">
+          Příjmení je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-3">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané tričko" [formControl]="tshirt">
           <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
-        <mat-hint>Velikost trička</mat-hint>
-      </div>
+      </mat-form-field>
+    </div>
 
-      <div class="GROUP-column-1">
-      </div>
+    <div class="people-column-4">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané jídlo" [formControl]="food">
+          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-      <div class="GROUP-column-1">
-      </div>
-    <!--</mat-grid-list>-->
+    <div class="clear"></div>
 
-      <!--HRACI-->
-    <!--<mat-grid-list cols="4" rowHeight="70px">-->
+    <!--ROW-->
 
-      <!--ROW-->
+    <div class="people-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Jméno" [formControl]="firstName2" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="firstName2.hasError('required')">
+          Jméno je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <div class="GROUP-column-1">
-        <div class="text-inside-grid">
-          <strong>Složení týmu</strong>
-        </div>
-      </div>
+    <div class="people-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Příjmení" [formControl]="lastName2" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="lastName2.hasError('required')">
+          Příjmení je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <!--ROW-->
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Jméno" [formControl]="firstName" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="firstName.hasError('required')">
-            Jméno je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Příjmení" [formControl]="lastName" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="lastName.hasError('required')">
-            Příjmení je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <!--ROW-->
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Jméno" [formControl]="firstName2" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="firstName2.hasError('required')">
-            Jméno je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Příjmení" [formControl]="lastName2" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="lastName2.hasError('required')">
-            Příjmení je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <!--ROW-->
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Jméno" [formControl]="firstName3" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="firstName3.hasError('required')">
-            Jméno je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Příjmení" [formControl]="lastName3" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="lastName3.hasError('required')">
-            Příjmení je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <!--ROW-->
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Jméno" [formControl]="firstName4" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="firstName4.hasError('required')">
-            Jméno je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Příjmení" [formControl]="lastName4" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="lastName4.hasError('required')">
-            Příjmení je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <div class="GROUP-column-1">
-      </div>
-
-      <!--ROW-->
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Jméno" [formControl]="firstName5" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="firstName5.hasError('required')">
-            Jméno je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-form-field class="">
-          <input matInput placeholder="Příjmení" [formControl]="lastName5" type="text">
-          <!--<mat-hint></mat-hint>-->
-          <mat-error *ngIf="lastName5.hasError('required')">
-            Příjmení je <strong>povinné</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="GROUP-column-1">
-        <mat-select placeholder="tričko" [formControl]="tshirt">
+    <div class="people-column-3">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané tričko" [formControl]="tshirt2">
           <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
-        <mat-hint>Velikost trička</mat-hint>
-      </div>
+      </mat-form-field>
+    </div>
 
-      <div class="GROUP-column-1">
-        <mat-select placeholder="Jídlo" [formControl]="tshirt">
-          <mat-option *ngFor="let item of food | async" [value]="item.value">
+    <div class="people-column-4">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané jídlo" [formControl]="food2">
+          <mat-option *ngFor="let item of foods | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
-        <mat-hint>Výběr jídla</mat-hint>
-      </div>
+      </mat-form-field>
+    </div>
 
-    <!--</mat-grid-list>-->
+    <div class="clear"></div>
+
+    <!--ROW-->
+
+    <div class="people-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Jméno" [formControl]="firstName3" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="firstName3.hasError('required')">
+          Jméno je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Příjmení" [formControl]="lastName3" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="lastName3.hasError('required')">
+          Příjmení je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-3">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané tričko" [formControl]="tshirt3">
+          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-4">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané jídlo" [formControl]="food3">
+          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="clear"></div>
+
+    <!--ROW-->
+
+    <div class="people-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Jméno" [formControl]="firstName4" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="firstName4.hasError('required')">
+          Jméno je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Příjmení" [formControl]="lastName4" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="lastName4.hasError('required')">
+          Příjmení je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-3">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané tričko" [formControl]="tshirt4">
+          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-4">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané jídlo" [formControl]="food4">
+          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="clear"></div>
+
+    <!--ROW-->
+
+    <div class="people-column-1">
+      <mat-form-field class="">
+        <input matInput placeholder="Jméno" [formControl]="firstName5" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="firstName5.hasError('required')">
+          Jméno je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-2">
+      <mat-form-field class="">
+        <input matInput placeholder="Příjmení" [formControl]="lastName5" type="text">
+        <!--<mat-hint></mat-hint>-->
+        <mat-error *ngIf="lastName5.hasError('required')">
+          Příjmení je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-3">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané tričko" [formControl]="tshirt5">
+          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="people-column-4">
+      <mat-form-field>
+        <mat-select placeholder="Vybrané jídlo" [formControl]="food5">
+          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="clear"></div>
 
     <div #recaptcha=nbRecaptcha nbRecaptcha
          class="recaptcha"

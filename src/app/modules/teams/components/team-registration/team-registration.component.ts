@@ -10,10 +10,12 @@ import { ValidateEmail } from '../../../../shared/validators/email.validator';
 import { SelectOptionDto } from '../../../../shared/model/SelectOptionDto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../state/app.state';
-import { TShirt } from '../../models/TShirt';
+import { TShirt } from '../../models/TShirtDto';
 import { TshirtsService } from '../../services/tshirts.service';
-import { Food } from '../../models/foodDto';
-import { FoodService } from '../../services/food.service';
+import { Food } from '../../models/FoodDto';
+import { FoodService } from '../../services/foods.service';
+import { Accommodation } from '../../models/AccommodationDto';
+import { AccommodationsService } from '../../services/accommodations.service';
 
 @Component({
   selector: 'registration-form',
@@ -22,7 +24,6 @@ import { FoodService } from '../../services/food.service';
 })
 export class TeamRegistrationComponent {
   @ViewChild('recaptcha') recaptcha;
-  public title = 'app';
   public mainForm: FormGroup;
   public name: FormControl;
   public email: FormControl;
@@ -40,9 +41,19 @@ export class TeamRegistrationComponent {
   public firstName5: FormControl;
   public lastName5: FormControl;
   public tshirt: FormControl;
-  private lang: string;
+  public tshirt2: FormControl;
+  public tshirt3: FormControl;
+  public tshirt4: FormControl;
+  public tshirt5: FormControl;
+  public food: FormControl;
+  public food2: FormControl;
+  public food3: FormControl;
+  public food4: FormControl;
+  public food5: FormControl;
+  public accommodation: FormControl;
   public tshirts: Observable<TShirt[]>;
-  public food: Observable<Food[]>;
+  public foods: Observable<Food[]>;
+  public accommodations: Observable<Accommodation[]>;
 
   constructor(
     private http: HttpClient,
@@ -53,13 +64,16 @@ export class TeamRegistrationComponent {
     private teamsService: TeamsService,
     private store: Store<AppState>,
     private tshirtsService: TshirtsService,
-    private foodService: FoodService
+    private foodService: FoodService,
+    private accommodationsService: AccommodationsService
   ) {
     // load tshirts
     this.tshirtsService.loadTShirts();
-    this.foodService.loadFood();
+    this.foodService.loadFoods();
+    this.accommodationsService.loadAccommodations();
     this.tshirts = this.store.select(state => state.tshirts.list);
-    this.food = this.store.select(state => state.food.list);
+    this.foods = this.store.select(state => state.foods.list);
+    this.accommodations = this.store.select(state => state.accommodations.list);
 
     // TODO: create email, password format validators
     this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
@@ -78,6 +92,16 @@ export class TeamRegistrationComponent {
     this.firstName5 = new FormControl('', Validators.required);
     this.lastName5 = new FormControl('', Validators.required);
     this.tshirt = new FormControl('', Validators.required);
+    this.tshirt2 = new FormControl('', Validators.required);
+    this.tshirt3 = new FormControl('', Validators.required);
+    this.tshirt4 = new FormControl('', Validators.required);
+    this.tshirt5 = new FormControl('', Validators.required);
+    this.food = new FormControl('', Validators.required);
+    this.food2 = new FormControl('', Validators.required);
+    this.food3 = new FormControl('', Validators.required);
+    this.food4 = new FormControl('', Validators.required);
+    this.food5 = new FormControl('', Validators.required);
+    this.accommodation = new FormControl('', Validators.required);
 
     this.mainForm = this.fb.group({
       name: this.name,
@@ -96,6 +120,16 @@ export class TeamRegistrationComponent {
       firstName5: this.firstName5,
       lastName5: this.lastName5,
       tshirt: this.tshirt,
+      tshirt2: this.tshirt2,
+      tshirt3: this.tshirt3,
+      tshirt4: this.tshirt4,
+      tshirt5: this.tshirt5,
+      food: this.food,
+      food2: this.food2,
+      food3: this.food3,
+      food4: this.food4,
+      food5: this.food5,
+      accommodation: this.accommodation,
       captcha: ['']
     });
 
