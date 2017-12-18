@@ -104,32 +104,34 @@ export class TeamRegistrationComponent {
     this.accommodation = new FormControl('', Validators.required);
 
     this.mainForm = this.fb.group({
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      password2: this.password2,
-      phone: this.phone,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      firstName2: this.firstName2,
-      lastName2: this.lastName2,
-      firstName3: this.firstName3,
-      lastName3: this.lastName3,
-      firstName4: this.firstName4,
-      lastName4: this.lastName4,
-      firstName5: this.firstName5,
-      lastName5: this.lastName5,
-      tshirt: this.tshirt,
-      tshirt2: this.tshirt2,
-      tshirt3: this.tshirt3,
-      tshirt4: this.tshirt4,
-      tshirt5: this.tshirt5,
-      food: this.food,
-      food2: this.food2,
-      food3: this.food3,
-      food4: this.food4,
-      food5: this.food5,
-      accommodation: this.accommodation,
+      data: this.fb.group({
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password2: this.password2,
+        phone: this.phone,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        firstName2: this.firstName2,
+        lastName2: this.lastName2,
+        firstName3: this.firstName3,
+        lastName3: this.lastName3,
+        firstName4: this.firstName4,
+        lastName4: this.lastName4,
+        firstName5: this.firstName5,
+        lastName5: this.lastName5,
+        tshirt: this.tshirt,
+        tshirt2: this.tshirt2,
+        tshirt3: this.tshirt3,
+        tshirt4: this.tshirt4,
+        tshirt5: this.tshirt5,
+        food: this.food,
+        food2: this.food2,
+        food3: this.food3,
+        food4: this.food4,
+        food5: this.food5,
+        accommodation: this.accommodation,
+      }),
       captcha: ['']
     });
 
@@ -143,10 +145,12 @@ export class TeamRegistrationComponent {
   }
 
   public sendForm() {
-    console.log('XXX');
+    console.log('SEND FORM');
+    console.log(this.mainForm.get('data').valid);
+    if (!this.mainForm.get('data').valid) {
+      return;
+    }
     if (!this.mainForm.get('captcha').valid) {
-      // TODO: localization captcha
-      console.log('CAPTCHA VALIDATION');
       this.recaptcha.execute();
     } else {
       this.sendValidateForm();
@@ -154,8 +158,6 @@ export class TeamRegistrationComponent {
   }
 
   public sendValidateForm() {
-    console.log(this.mainForm.invalid);
-    console.log('STEP');
     const team = this.mainForm.value;
     delete team.captcha;
     this.teamsService.addItem(team);
