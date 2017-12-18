@@ -88,13 +88,17 @@
 
     <!--ROW-->
 
-    <div class="accommodations">
-      <mat-select placeholder="Ubytování" [formControl]="accommodation">
-        <mat-option *ngFor="let item of accommodations | async" [value]="item.value">
-          {{ item.name }}
-        </mat-option>
-      </mat-select>
-
+    <div class="accommodations accommodations-column-1">
+      <mat-form-field class="">
+        <mat-select placeholder="Ubytování" [formControl]="accommodation">
+          <mat-option *ngFor="let item of accommodations | async" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="accommodation.hasError('required')">
+          Ubytování je <strong>povinné</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <!--HRACI-->
@@ -142,6 +146,9 @@
             {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="food.hasError('required')">
+          Výběr jídla je <strong>povinné</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -186,6 +193,9 @@
             {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="food2.hasError('required')">
+          Výběr jídla je <strong>povinné</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -230,6 +240,9 @@
             {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="food3.hasError('required')">
+          Výběr jídla je <strong>povinné</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -274,6 +287,9 @@
             {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="food4.hasError('required')">
+          Výběr jídla je <strong>povinné</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -318,6 +334,9 @@
             {{ item.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="food5.hasError('required')">
+          Výběr jídla je <strong>povinné</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -330,6 +349,10 @@
          formControlName="captcha">
     </div>
     <br>
-    <button type="submit" mat-raised-button color="accent">Registrovat tým</button>
+    <div class="send-form-col-1">
+      <button type="submit" mat-raised-button color="accent">Registrovat tým</button>
+    </div>
+    <div class="send-form-col-2" *ngIf="showFillMessage">Povinná pole musíte vyplnit</div>
+    <div class="clear"></div>
   </form>
 </mat-card>

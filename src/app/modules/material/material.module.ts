@@ -1,5 +1,6 @@
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatIconModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatGridListModule,
+  MatIconModule,
   MatInputModule, MatListModule,
   MatOptionModule,
   MatSelectModule, MatSidenavModule,
@@ -21,6 +22,7 @@ import { NgModule } from '@angular/core';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -35,6 +37,7 @@ import { NgModule } from '@angular/core';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatDialogModule
   ],
 })
 export class CustomMaterialModule {

@@ -3,8 +3,14 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { CreateTeamAction, LoadTeamsAction, RemoveTeamAction, UpdateTeamAction } from './state/actions/teams.actions';
+import {
+  CreateTeamAction, LoadTeamsAction, RegistrateTeamExistsAction, RemoveTeamAction,
+  UpdateTeamAction
+} from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
+import { onerror } from 'q';
+import { ErrorDto } from '../../shared/model/ErrorDto';
+import { CheckExistsTeamDto } from './models/CheckExistsTeamDto';
 
 @Injectable()
 export class TeamsService {
@@ -41,10 +47,14 @@ export class TeamsService {
     this.db.database
       .ref('/teams/')
       .once('value', (snapchot) => {
-        console.log(snapchot.val());
-        if (this.teamExists(team, snapchot.val())) {
-          // TODO: show error
-          console.log('TEAM EXISTS');
+        const exists: CheckExistsTeamDto = this.teamExists(team, snapchot.val());
+        if (exists.exists) {
+          const error: ErrorDto = {
+            code: 'REGISTRATION_EXISTS',
+            title: 'Chyba při přihlášení',
+            description: exists.name ? 'Název týmu již existuje, zadejte jiný' : 'Email je již zaregistrovaný u jiného týmu'
+          };
+          this.store.dispatch(new RegistrateTeamExistsAction(error));
           return;
         }
 
@@ -52,8 +62,6 @@ export class TeamsService {
           .ref('/teams/' + teamWithoutPswd.name)
           .set(teamWithoutPswd)
           .catch((err) => {
-            console.log('CATCH');
-            console.log(err);
             success = false;
           })
           .then(
@@ -61,7 +69,6 @@ export class TeamsService {
               // TODO: show success message
               // add dispatch action
               if (success) {
-                console.log('ADD ITEM SUCCESS');
                 this.store.dispatch(new CreateTeamAction(team));
                 this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
               }
@@ -133,11 +140,16 @@ export class TeamsService {
     this.itemsRef.remove();
   }
 
-  private teamExists(newTeam: TeamDto, teams: {[name: string]: TeamDto}) {
-    let exists = false;
+  private teamExists(newTeam: TeamDto, teams: {[name: string]: TeamDto}): CheckExistsTeamDto {
+    const exists = {exists: false, eamil: false, name: false};
     Object.keys(teams).forEach((name: string) => {
-      if (teams[name].name === newTeam.name || teams[name].email === newTeam.email) {
-        exists = true;
+      if (teams[name].name === newTeam.name) {
+        exists.exists = true;
+        exists.name = true;
+      }
+      if (teams[name].email === newTeam.email) {
+        exists.exists = true;
+        exists.eamil = true;
       }
     });
     return exists;
