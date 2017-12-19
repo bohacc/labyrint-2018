@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener: () => void;
   public smurf4style = '0';
   @HostListener('window:resize') onResize(event) {
-    console.log(this.getScrollBarWidth());
     this.smurf4style = this.getScrollBarWidth() + '';
   }
 

@@ -19,6 +19,7 @@ import { AccommodationsService } from '../../services/accommodations.service';
 import { Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import { RegistrateTeamExistsAction } from '../../state/actions/teams.actions';
+import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 
 @Component({
   selector: 'registration-form',
@@ -104,24 +105,24 @@ export class TeamRegistrationComponent implements OnInit {
     this.phone = new FormControl('', Validators.required); // TODO: add format validator
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
-    this.firstName2 = new FormControl('', Validators.required);
-    this.lastName2 = new FormControl('', Validators.required);
-    this.firstName3 = new FormControl('', Validators.required);
-    this.lastName3 = new FormControl('', Validators.required);
-    this.firstName4 = new FormControl('', Validators.required);
-    this.lastName4 = new FormControl('', Validators.required);
-    this.firstName5 = new FormControl('', Validators.required);
-    this.lastName5 = new FormControl('', Validators.required);
+    this.firstName2 = new FormControl('');
+    this.lastName2 = new FormControl('');
+    this.firstName3 = new FormControl('');
+    this.lastName3 = new FormControl('');
+    this.firstName4 = new FormControl('');
+    this.lastName4 = new FormControl('');
+    this.firstName5 = new FormControl('');
+    this.lastName5 = new FormControl('');
     this.tshirt = new FormControl('');
     this.tshirt2 = new FormControl('');
     this.tshirt3 = new FormControl('');
     this.tshirt4 = new FormControl('');
     this.tshirt5 = new FormControl('');
     this.food = new FormControl('', Validators.required);
-    this.food2 = new FormControl('', Validators.required);
-    this.food3 = new FormControl('', Validators.required);
-    this.food4 = new FormControl('', Validators.required);
-    this.food5 = new FormControl('', Validators.required);
+    this.food2 = new FormControl('');
+    this.food3 = new FormControl('');
+    this.food4 = new FormControl('');
+    this.food5 = new FormControl('');
     this.accommodation = new FormControl('', Validators.required);
 
     this.mainForm = this.fb.group({
@@ -137,31 +138,31 @@ export class TeamRegistrationComponent implements OnInit {
           lastName: this.lastName,
           tshirt: this.tshirt,
           food: this.food,
-        }),
+        }, {validator: [ValidatePlayer]}),
         player2: this.fb.group({
           firstName2: this.firstName2,
           lastName2: this.lastName2,
           tshirt2: this.tshirt2,
           food2: this.food2,
-        }),
+        }, {validator: [ValidatePlayer]}),
         player3: this.fb.group({
           firstName3: this.firstName3,
           lastName3: this.lastName3,
           tshirt3: this.tshirt3,
           food3: this.food3,
-        }),
+        }, {validator: [ValidatePlayer]}),
         player4: this.fb.group({
           firstName4: this.firstName4,
           lastName4: this.lastName4,
           tshirt4: this.tshirt4,
           food4: this.food4,
-        }),
+        }, {validator: [ValidatePlayer]}),
         player5: this.fb.group({
           firstName5: this.firstName5,
           lastName5: this.lastName5,
           tshirt5: this.tshirt5,
           food5: this.food5,
-        })
+        }, {validator: [ValidatePlayer]})
       }),
       captcha: ['']
     });
