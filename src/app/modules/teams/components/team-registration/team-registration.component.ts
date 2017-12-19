@@ -133,36 +133,51 @@ export class TeamRegistrationComponent implements OnInit {
         password2: this.password2,
         phone: this.phone,
         accommodation: this.accommodation,
-        player1: this.fb.group({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          tshirt: this.tshirt,
-          food: this.food,
-        }, {validator: [ValidatePlayer]}),
-        player2: this.fb.group({
-          firstName2: this.firstName2,
-          lastName2: this.lastName2,
-          tshirt2: this.tshirt2,
-          food2: this.food2,
-        }, {validator: [ValidatePlayer]}),
-        player3: this.fb.group({
-          firstName3: this.firstName3,
-          lastName3: this.lastName3,
-          tshirt3: this.tshirt3,
-          food3: this.food3,
-        }, {validator: [ValidatePlayer]}),
-        player4: this.fb.group({
-          firstName4: this.firstName4,
-          lastName4: this.lastName4,
-          tshirt4: this.tshirt4,
-          food4: this.food4,
-        }, {validator: [ValidatePlayer]}),
-        player5: this.fb.group({
-          firstName5: this.firstName5,
-          lastName5: this.lastName5,
-          tshirt5: this.tshirt5,
-          food5: this.food5,
-        }, {validator: [ValidatePlayer]})
+        player1: this.fb.group(
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            tshirt: this.tshirt,
+            food: this.food,
+          },
+          {validator: [ValidatePlayer]}
+        ),
+        player2: this.fb.group(
+          {
+            firstName: this.firstName2,
+            lastName: this.lastName2,
+            tshirt: this.tshirt2,
+            food: this.food2,
+          },
+          {validator: [ValidatePlayer]}
+        ),
+        player3: this.fb.group(
+          {
+            firstName: this.firstName3,
+            lastName: this.lastName3,
+            tshirt: this.tshirt3,
+            food: this.food3,
+          },
+          {validator: [ValidatePlayer]}
+        ),
+        player4: this.fb.group(
+          {
+            firstName: this.firstName4,
+            lastName: this.lastName4,
+            tshirt: this.tshirt4,
+            food: this.food4,
+          },
+          {validator: [ValidatePlayer]}
+        ),
+        player5: this.fb.group(
+          {
+            firstName: this.firstName5,
+            lastName: this.lastName5,
+            tshirt: this.tshirt5,
+            food: this.food5,
+          },
+          {validator: [ValidatePlayer]}
+        )
       }),
       captcha: ['']
     });
