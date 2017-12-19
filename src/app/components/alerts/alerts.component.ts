@@ -7,7 +7,7 @@ import { ErrorDto } from '../../shared/model/ErrorDto';
 
 @Component({
   selector: 'app-alerts',
-  templateUrl: 'alerts.components.html'
+  templateUrl: 'alerts.component.html'
 })
 export class AlertsComponent {
   public msg: ErrorDto;
@@ -19,13 +19,16 @@ export class AlertsComponent {
     this.store.select(state => state.teams.errors)
       .subscribe((errors) => {
         this.msg = errors[0];
-        this.openDialog();
+        if (this.msg) {
+          this.openDialog();
+        }
       });
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AlertComponent, {
-      width: '250px',
+      /*width: '250px',*/
+      data: this.msg
     });
 
     dialogRef.afterClosed().subscribe(result => {

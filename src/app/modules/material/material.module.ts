@@ -1,4 +1,5 @@
 import {
+  MAT_DIALOG_DATA,
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatGridListModule,
   MatIconModule,
   MatInputModule, MatListModule,
@@ -39,6 +40,9 @@ import { NgModule } from '@angular/core';
     MatListModule,
     MatDialogModule
   ],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+  ]
 })
 export class CustomMaterialModule {
 

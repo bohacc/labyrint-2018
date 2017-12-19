@@ -17,6 +17,8 @@ import { FoodService } from '../../services/foods.service';
 import { Accommodation } from '../../models/AccommodationDto';
 import { AccommodationsService } from '../../services/accommodations.service';
 import { Router } from '@angular/router';
+import { ErrorDto } from '../../../../shared/model/ErrorDto';
+import { RegistrateTeamExistsAction } from '../../state/actions/teams.actions';
 
 @Component({
   selector: 'registration-form',
@@ -167,10 +169,18 @@ export class TeamRegistrationComponent implements OnInit {
 
   public sendForm() {
     if (!this.mainForm.get('data').valid) {
-      this.showFillMessage = true;
+
+      /*this.showFillMessage = true;
       setTimeout(() => {
         this.showFillMessage = false;
-      }, 10000);
+      }, 10000);*/
+      const error: ErrorDto = {
+        code: 'REGISTRATION_EXISTS',
+        title: 'Chyba vyplnění registrace',
+        description: 'Povinná pole musíte vyplnit'
+      };
+      this.store.dispatch(new RegistrateTeamExistsAction(error));
+
       return;
     }
     if (!this.mainForm.get('captcha').valid) {

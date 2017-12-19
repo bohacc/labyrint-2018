@@ -25,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './modules/material/material.module';
 import {CdkTableModule} from '@angular/cdk/table';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AlertsComponent } from './components/alerts/alerts.component';
+import { AlertComponent } from './components/alerts/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,12 @@ import { MediaMatcher } from '@angular/cdk/layout';
     AppHeaderComponent,
     AppFooterComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AlertsComponent,
+    AlertComponent
+  ],
+  entryComponents: [
+    AlertComponent
   ],
   imports: [
     FormsModule,
