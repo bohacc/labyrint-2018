@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import { RegistrateTeamExistsAction } from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
+import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 
 @Component({
   selector: 'registration-form',
@@ -102,7 +103,7 @@ export class TeamRegistrationComponent implements OnInit {
     this.email = new FormControl('', [Validators.required, ValidateEmail]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(5)]);
     this.password2 = new FormControl('', [Validators.required, Validators.minLength(5)]);
-    this.phone = new FormControl('', Validators.required); // TODO: add format validator
+    this.phone = new FormControl('', [Validators.required, ValidatePhone]); // TODO: add format validator
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
     this.firstName2 = new FormControl('');
@@ -184,19 +185,14 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public sendForm() {
+    console.log(this.mainForm.get('data'));
     if (!this.mainForm.get('data').valid) {
-
-      /*this.showFillMessage = true;
-      setTimeout(() => {
-        this.showFillMessage = false;
-      }, 10000);*/
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
         title: 'Chyba vyplnění registrace',
         description: 'Povinná pole musíte vyplnit'
       };
       this.store.dispatch(new RegistrateTeamExistsAction(error));
-
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
