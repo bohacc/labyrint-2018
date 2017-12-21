@@ -18,7 +18,7 @@ import { Accommodation } from '../../models/AccommodationDto';
 import { AccommodationsService } from '../../services/accommodations.service';
 import { Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
-import { RegistrateTeamExistsAction } from '../../state/actions/teams.actions';
+import * as TeamAction from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 
@@ -184,6 +184,10 @@ export class TeamRegistrationComponent implements OnInit {
     });
   }
 
+  public onRecaptchaValidateResponse(response) {
+    this.store.dispatch(new TeamAction.RegistrationFormSuccessAction(true));
+  }
+
   public sendForm() {
     console.log(this.mainForm.get('data'));
     if (!this.mainForm.get('data').valid) {
@@ -192,7 +196,6 @@ export class TeamRegistrationComponent implements OnInit {
         title: 'Chyba vyplnění registrace',
         description: 'Povinná pole musíte vyplnit'
       };
-      this.store.dispatch(new RegistrateTeamExistsAction(error));
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
@@ -206,6 +209,6 @@ export class TeamRegistrationComponent implements OnInit {
     const team = this.mainForm.value;
     delete team.captcha;
     this.teamsService.addItem(team);
-    this.router.navigate(['/']);
+    this.router.navigate(['/registration-success']);
   }
 }

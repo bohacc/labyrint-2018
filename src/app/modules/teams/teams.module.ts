@@ -13,12 +13,14 @@ import { CustomMaterialModule } from '../material/material.module';
 import { TshirtsService } from './services/tshirts.service';
 import { FoodService } from './services/foods.service';
 import { AccommodationsService } from './services/accommodations.service';
+import { RegistrationSuccessComponent } from './components/registration-success/registration-success.component';
 
 @NgModule({
   declarations: [
     TeamListComponent,
     TeamsComponent,
-    TeamRegistrationComponent
+    TeamRegistrationComponent,
+    RegistrationSuccessComponent
   ],
   imports: [
     HttpClientModule,
