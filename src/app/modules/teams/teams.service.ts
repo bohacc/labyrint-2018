@@ -11,6 +11,7 @@ import { TeamDto } from './models/TeamDto';
 import { onerror } from 'q';
 import { ErrorDto } from '../../shared/model/ErrorDto';
 import { CheckExistsTeamDto } from './models/CheckExistsTeamDto';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TeamsService {
@@ -19,7 +20,8 @@ export class TeamsService {
 
   constructor(
     private db: AngularFireDatabase,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.itemsRef = this.db.list('teams');
 
@@ -71,7 +73,10 @@ export class TeamsService {
               // add dispatch action
               if (success) {
                 this.store.dispatch(new CreateTeamAction(team));
-                this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password);
+                this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
+                  .then(() => {
+                    this.router.navigate(['teams/registration-success']);
+                  });
               }
             },
             (err) => {

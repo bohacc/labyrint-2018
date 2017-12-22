@@ -16,7 +16,7 @@ import { Food } from '../../models/FoodDto';
 import { FoodService } from '../../services/foods.service';
 import { Accommodation } from '../../models/AccommodationDto';
 import { AccommodationsService } from '../../services/accommodations.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import * as TeamAction from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
@@ -73,7 +73,8 @@ export class TeamRegistrationComponent implements OnInit {
     private tshirtsService: TshirtsService,
     private foodService: FoodService,
     private accommodationsService: AccommodationsService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.initStore();
     this.initForm();
@@ -200,18 +201,23 @@ export class TeamRegistrationComponent implements OnInit {
       this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
       return;
     }
+    console.log('STEP 1');
+    console.log(this.mainForm.get('captcha'));
     if (!this.mainForm.get('captcha').valid) {
+      console.log('STEP 2');
+      // this.recaptcha.reset();
       this.recaptcha.execute();
     } else {
+      console.log('STEP 3');
       this.sendValidateForm();
     }
   }
 
   public sendValidateForm() {
+    this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(false));
+    console.log(this.mainForm.get('captcha'));
     const team = this.mainForm.value.data;
     delete team.captcha;
     this.teamsService.addItem(team);
-    // TODO: move to effects
-    this.router.navigate(['registration-success']);
   }
 }

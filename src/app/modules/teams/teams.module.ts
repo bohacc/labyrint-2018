@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TeamsService } from './teams.service';
 import { TeamListComponent } from './components/team-list/team-list.component';
-import { TeamsComponent } from './components/teams/teams.component';
+import { TeamsPageComponent } from './components/teams-page/teams-page.component';
 import { routes } from './teams.routes';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,13 +14,15 @@ import { TshirtsService } from './services/tshirts.service';
 import { FoodService } from './services/foods.service';
 import { AccommodationsService } from './services/accommodations.service';
 import { RegistrationSuccessComponent } from './components/registration-success/registration-success.component';
+import { TeamsComponent } from './teams.component';
 
 @NgModule({
   declarations: [
     TeamListComponent,
-    TeamsComponent,
+    TeamsPageComponent,
     TeamRegistrationComponent,
-    RegistrationSuccessComponent
+    RegistrationSuccessComponent,
+    TeamsComponent
   ],
   imports: [
     HttpClientModule,
