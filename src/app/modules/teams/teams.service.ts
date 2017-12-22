@@ -39,6 +39,8 @@ export class TeamsService {
   }
 
   public addItem(team: TeamDto) {
+    // TODO: generate var symb
+    // TODO: check rooms capacity
     console.log(team);
     if (!team || !team.name) {
       return;
