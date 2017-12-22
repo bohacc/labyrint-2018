@@ -21,6 +21,7 @@ import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import * as TeamAction from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
+import * as TeamsActions from '../../state/actions/teams.actions';
 
 @Component({
   selector: 'registration-form',
@@ -185,7 +186,7 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public onRecaptchaValidateResponse(response) {
-    this.store.dispatch(new TeamAction.RegistrationFormSuccessAction(true));
+    this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
   }
 
   public sendForm() {
@@ -196,6 +197,7 @@ export class TeamRegistrationComponent implements OnInit {
         title: 'Chyba vyplnění registrace',
         description: 'Povinná pole musíte vyplnit'
       };
+      this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
@@ -206,9 +208,10 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public sendValidateForm() {
-    const team = this.mainForm.value;
+    const team = this.mainForm.value.data;
     delete team.captcha;
     this.teamsService.addItem(team);
-    this.router.navigate(['/registration-success']);
+    // TODO: move to effects
+    this.router.navigate(['registration-success']);
   }
 }

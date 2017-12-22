@@ -48,6 +48,7 @@ export class TeamsService {
       .ref('/teams/')
       .once('value', (snapchot) => {
         const exists: CheckExistsTeamDto = this.teamExists(team, snapchot.val());
+        console.log(exists);
         if (exists.exists) {
           const error: ErrorDto = {
             code: 'REGISTRATION_EXISTS',
