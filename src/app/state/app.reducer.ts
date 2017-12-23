@@ -6,8 +6,10 @@ import { userAuthReducer } from '../modules/teams/state/reducers/userAuth.reduce
 import { tshirtsReducer } from '../modules/teams/state/reducers/tshirts.reducer';
 import { foodsReducer } from '../modules/teams/state/reducers/foods.reducer';
 import { accommodationsReducer } from '../modules/teams/state/reducers/accommodations.reducer';
+import { configReducer } from '../modules/teams/state/reducers/config.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
+  config: configReducer,
   accommodations: accommodationsReducer,
   foods: foodsReducer,
   tshirts: tshirtsReducer,

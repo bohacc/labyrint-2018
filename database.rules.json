@@ -1,5 +1,13 @@
 {
   "rules": {
+    "config": {
+      ".read": true,
+      ".write": false,
+      "accommodations": {
+        ".read": true,
+        ".write": false,
+      }
+    },
     "accommodations": {
       ".read": true,
       ".write": false,

@@ -12,6 +12,7 @@ import { onerror } from 'q';
 import { ErrorDto } from '../../shared/model/ErrorDto';
 import { CheckExistsTeamDto } from './models/CheckExistsTeamDto';
 import { Router } from '@angular/router';
+import { ConfigDbDto } from './models/ConfigDbDto';
 
 @Injectable()
 export class TeamsService {
@@ -24,18 +25,6 @@ export class TeamsService {
     private router: Router
   ) {
     this.itemsRef = this.db.list('teams');
-
-    // Use snapshotChanges().map() to store the key
-    this.itemsRef.snapshotChanges()
-      .map(changes => {
-        return changes.map(c => ({...c.payload.val() }));
-      })
-      .subscribe(
-        (teams: TeamDto[]) => {
-          console.log(teams);
-          this.store.dispatch(new LoadTeamsAction(teams || []));
-        }
-      );
   }
 
   public addItem(team: TeamDto) {
@@ -46,12 +35,15 @@ export class TeamsService {
       return;
     }
     let success = true;
+    let teams: any;
     const teamWithoutPswd: any = {...team};
     delete teamWithoutPswd.password;
     this.db.database
       .ref('/teams/')
       .once('value', (snapchot) => {
-        const exists: CheckExistsTeamDto = this.teamExists(team, snapchot.val());
+        teams = snapchot.val();
+        console.log(teams);
+        const exists: CheckExistsTeamDto = this.teamExists(team, teams);
         console.log(exists);
         if (exists.exists) {
           const error: ErrorDto = {
@@ -64,30 +56,37 @@ export class TeamsService {
         }
 
         this.db.database
-          .ref('/teams/' + teamWithoutPswd.name)
-          .set(teamWithoutPswd)
-          .catch((err) => {
-            success = false;
-          })
-          .then(
-            () => {
-              // TODO: show success message
-              // add dispatch action
-              if (success) {
-                this.store.dispatch(new CreateTeamAction(team));
-                this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
-                  .then(() => {
-                    this.router.navigate(['teams/registration-success']);
-                  });
-              }
-            },
-            (err) => {
-              // TODO: show error
-              // add dispatch action
-              console.log('ADD ITEM ERROR');
-              console.log(err);
+          .ref('/config')
+          .once('value', (snapchotConfig) => {
+            console.log(snapchotConfig.val());
+            // available type accommodation
+            if (!this.availableAccommodation(team.accommodation, snapchotConfig.val(), teams)) {
+              success = false;
+              return null;
             }
-          );
+            return this.db.database
+              .ref('/teams/' + teamWithoutPswd.name)
+              .set(teamWithoutPswd)
+              .catch((err) => {
+                success = false;
+              });
+        }).then(
+          () => {
+            if (success) {
+              this.store.dispatch(new CreateTeamAction(team));
+              this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
+                .then(() => {
+                  this.router.navigate(['teams/registration-success']);
+                });
+            }
+          },
+          (err) => {
+            // TODO: show error
+            // add dispatch action
+            console.log('ADD ITEM ERROR');
+            console.log(err);
+          }
+        );
       });
   }
 
@@ -161,6 +160,26 @@ export class TeamsService {
       }
     });
     return exists;
+  }
+
+  public availableAccommodation(accommodation: string, config: ConfigDbDto, teams: TeamDto[]): boolean {
+    // TODO: implement logic
+    console.log(config);
+    console.log(teams);
+    return false;
+  }
+
+  public loadTeams() {
+    this.itemsRef.snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      })
+      .subscribe(
+        (teams: TeamDto[]) => {
+          console.log(teams);
+          this.store.dispatch(new LoadTeamsAction(teams || []));
+        }
+      );
   }
 }
 
