@@ -27,6 +27,12 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { AlertComponent } from './components/alerts/alert/alert.component';
+import { GameRulesComponent } from './components/game-rules/game-rules.component';
+import { NewsComponent } from './components/news/news.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ResultsComponent } from './components/results/results.component';
+import { CiphersComponent } from './components/ciphers/ciphers.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,13 @@ import { AlertComponent } from './components/alerts/alert/alert.component';
     HomeComponent,
     LoginComponent,
     AlertsComponent,
-    AlertComponent
+    AlertComponent,
+    GameRulesComponent,
+    NewsComponent,
+    ContactComponent,
+    ResultsComponent,
+    CiphersComponent,
+    MyAccountComponent
   ],
   entryComponents: [
     AlertComponent

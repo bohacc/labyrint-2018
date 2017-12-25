@@ -1,0 +1,145 @@
+[debug] [2017-12-25T22:42:48.277Z] ----------------------------------------------------------------------
+[debug] [2017-12-25T22:42:48.280Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bohac\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2017-12-25T22:42:48.281Z] CLI Version:   3.14.0
+[debug] [2017-12-25T22:42:48.281Z] Platform:      win32
+[debug] [2017-12-25T22:42:48.281Z] Node Version:  v6.11.3
+[debug] [2017-12-25T22:42:48.282Z] Time:          Mon Dec 25 2017 23:42:48 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:48.282Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-25T22:42:48.309Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-12-25T22:42:48.310Z] > authorizing via signed-in user
+[debug] [2017-12-25T22:42:48.312Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-12-25T22:42:48.312Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/i6tZqKTLFtOb-cUjUCkH5L5fr6cIUgjq8Uzend7IEmo',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Mon Dec 25 2017 23:42:48 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:48.482Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-25T22:42:48.499Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/labyrint-2018-57e4a  
+ Mon Dec 25 2017 23:42:48 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:49.238Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-25T22:42:49.239Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/labyrint-2018-57e4a/tokens  
+ Mon Dec 25 2017 23:42:49 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:49.966Z] <<< HTTP RESPONSE 200
+[info] 5
+[info] 
+[info] === Deploying to 'labyrint-2018-57e4a'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] i  database: checking rules syntax...
+[debug] [2017-12-25T22:42:50.697Z] >>> HTTP REQUEST PUT https://labyrint-2018-57e4a.firebaseio.com/.settings/rules.json?dryRun=true {
+  "rules": {
+    "config": {
+      ".read": true,
+      ".write": false,
+      "accommodations": {
+        ".read": true,
+        ".write": false,
+      }
+    },
+    "accommodations": {
+      ".read": true,
+      ".write": false,
+      "$code": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "foods": {
+      ".read": true,
+      ".write": false,
+      "$code": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "tshirts": {
+      ".read": true,
+      ".write": false,
+      "$tshirt": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "teams": {
+      ".read": true,
+      "$team": {
+        ".read": true,
+        ".write": "!data.exists() || auth.token.email === data.child('email').val()",
+        ".indexOn": [
+          "email",
+          "name"
+        ],
+        "name": {
+          ".validate": "newData.val().length > 2 && ((data.exists() && data.val() === newData.val()) || !data.exists())"
+        },
+        "email": {
+          ".validate": "newData.val().length > 4 && ((data.exists() && data.val() === newData.val()) || !data.exists())"
+        }
+      }
+    }
+  }
+}
+ 
+ Mon Dec 25 2017 23:42:50 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:51.363Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax is valid
+[debug] [2017-12-25T22:42:51.368Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/labyrint-2018-57e4a  
+ Mon Dec 25 2017 23:42:51 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:52.306Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2017-12-25T22:42:52.324Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/labyrint-2018-57e4a:test { source: { files: [ [Object] ] } } 
+ Mon Dec 25 2017 23:42:52 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:53.070Z] <<< HTTP RESPONSE 200
+[info] +  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2017-12-25T22:42:53.080Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/labyrint-2018-57e4a:test { source: { files: [ [Object] ] } } 
+ Mon Dec 25 2017 23:42:53 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:53.783Z] <<< HTTP RESPONSE 200
+[info] +  firestore: rules file firestore.rules compiled successfully
+[debug] [2017-12-25T22:42:53.787Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-12-25T22:42:53.790Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/labyrint-2018-57e4a?view=CONSUMER_VIEW  
+ Mon Dec 25 2017 23:42:53 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:53.791Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/labyrint-2018-57e4a?view=CONSUMER_VIEW  
+ Mon Dec 25 2017 23:42:53 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:54.961Z] <<< HTTP RESPONSE 200
+[info] +  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-12-25T22:42:54.964Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2017-12-25T22:42:54.966Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/labyrint-2018-57e4a  
+ Mon Dec 25 2017 23:42:54 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:54.967Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/labyrint-2018-57e4a/apiKeys  
+ Mon Dec 25 2017 23:42:54 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:55.846Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-25T22:42:55.863Z] <<< HTTP RESPONSE 200
+[info] i  storage: uploading rules storage.rules...
+[debug] [2017-12-25T22:42:55.868Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/labyrint-2018-57e4a/rulesets { source: { files: [ [Object] ] } } 
+ Mon Dec 25 2017 23:42:55 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:56.791Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-25T22:42:56.792Z] [rules] created ruleset projects/labyrint-2018-57e4a/rulesets/d899b927-ed4a-421c-9eaf-fe4986fb00ec
+[info] i  firestore: uploading rules firestore.rules...
+[debug] [2017-12-25T22:42:56.795Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/labyrint-2018-57e4a/rulesets { source: { files: [ [Object] ] } } 
+ Mon Dec 25 2017 23:42:56 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:56.796Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta1/projects/labyrint-2018-57e4a/databases/(default)/indexes  
+ Mon Dec 25 2017 23:42:56 GMT+0100 (Střední Evropa (běžný čas))
+[debug] [2017-12-25T22:42:57.627Z] <<< HTTP RESPONSE 200
