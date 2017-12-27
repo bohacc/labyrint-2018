@@ -19,7 +19,6 @@ export class ReCaptchaAsyncValidator {
       return this.http.get(this.url, { params: { token } })
         .map(
           (res: any) => {
-            console.log('HTTP CALL');
             this.storeService.setRegistrationFromSuccess(!!res.success);
             if ( !res.success ) {
               return { tokenInvalid: true };

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StoreService } from '../shared/store/store.service';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../shared/auth/auth.service';
 
 @NgModule({
   declarations: [],

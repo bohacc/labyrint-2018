@@ -4,9 +4,11 @@ import { Injectable } from '@angular/core';
 export class ToolsService {
   public getArray(object: any): any[] {
     const arr = [];
-    Object.keys(object).forEach((name: string) => {
-      arr.push(object[name]);
-    });
+    if (object) {
+      Object.keys(object).forEach((name: string) => {
+        arr.push(object[name]);
+      });
+    }
     return arr;
   }
 }

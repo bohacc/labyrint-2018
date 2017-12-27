@@ -43,7 +43,6 @@ export class AccommodationsService implements OnDestroy {
       })
       .switchMap((items: TeamDto[]) => {
         teams = items;
-        console.log(teams);
         return this.itemsRefConfig.snapshotChanges()
           .map(changes => {
             return changes.map(c => ({...c.payload.val()}));
@@ -51,7 +50,6 @@ export class AccommodationsService implements OnDestroy {
       })
       .switchMap((config: any[]) => {
         configDb = {config: config[0]};
-        console.log(configDb);
         return this.itemsRef.snapshotChanges()
           .map(changes => {
             this.store.dispatch(new LoadConfigAction(configDb));
@@ -68,9 +66,7 @@ export class AccommodationsService implements OnDestroy {
 
   private getAvailableAccommodations(config: ConfigDbDto, accommodations: Accommodation[], teams: TeamDto[]): Accommodation[] {
     let filtered: Accommodation[] = [];
-    console.log(accommodations);
     filtered = accommodations.filter((item: Accommodation) => {
-      console.log(item);
       return this.teamsService.availableAccommodation(item.value, accommodations, config, teams);
     });
     return filtered || [];

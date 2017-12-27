@@ -8,6 +8,8 @@ import { UserAuthAction } from '../../modules/teams/state/actions/userAuth.actio
 import * as firebase from 'firebase/app';
 import { UserAuthDto } from '../../modules/teams/models/UserAuthDto';
 import { stringifyElement } from '@angular/platform-browser/testing/src/browser_util';
+import { ErrorDto } from '../model/ErrorDto';
+import * as TeamsActions from '../../modules/teams/state/actions/teams.actions';
 
 @Injectable()
 export class AuthService {
@@ -19,32 +21,18 @@ export class AuthService {
   ) {
     this.afAuth.auth.onAuthStateChanged(
       (user) => {
-      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
-      console.log(user);
-      const userAuth: UserAuthDto = {
-        email: user ? user.email : null,
-        uid: user ? user.uid : null,
-        isLoged: !!user,
-        url: user ? user['A'] : null
-      };
-      this.store.dispatch(new UserAuthAction(userAuth));
+        const userAuth: UserAuthDto = {
+          email: user ? user.email : null,
+          uid: user ? user.uid : null,
+          isLoged: !!user,
+          url: user ? user['A'] : null
+        };
+        this.store.dispatch(new UserAuthAction(userAuth));
       },
       (error) => {
         console.log(error);
       }
     );
-
-    /*this.afAuth.auth.app.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-      } else {
-        // No user is signed in.
-      }
-    });*/
-    /*this.afAuth.idToken.subscribe((token) => {
-      console.log(token);
-      this.store.dispatch(new UserAuthAction(user));
-    });*/
   }
 
   public facebookLogin() {
@@ -63,11 +51,30 @@ export class AuthService {
 
   emailLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        // this.authState = user
-        // this.updateUserData()
-      })
-      .catch(error => console.log(error));
+      .then(
+        (user) => {
+
+        },
+        (err) => {
+          const error: ErrorDto = {
+            code: 'LOGIN_ERROR',
+            title: 'Chyba přihlášení',
+            description: (err && err.code === 'auth/user-not-found' ?
+              'Zadaný uživatel neexistuje' : 'Došlo k chybě při přihlášení, zkuste akci opakovat.')
+          };
+          this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
+          console.log(err);
+        }
+      )
+      .catch( (err) => {
+        const error: ErrorDto = {
+          code: 'LOGIN_ERROR',
+          title: 'Chyba přihlášení',
+          description: 'Došlo k chybě při přihlášení, zkuste akci opakovat.'
+        };
+        this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
+        console.log(err);
+      });
   }
 
   resetPassword(email: string) {
@@ -75,7 +82,9 @@ export class AuthService {
 
     return auth.sendPasswordResetEmail(email)
       .then(
-        () => console.log('email sent')
+        () => {
+          console.log('email sent');
+        }
       )
       .catch(
         (error) => console.log(error)

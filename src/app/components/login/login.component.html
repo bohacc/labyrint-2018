@@ -1,15 +1,23 @@
-<div>přihlášení</div>
+<mat-card class="app-content">
+  <h1>Přihlášení</h1>
 
-<form action="" (ngSubmit)="login()" [formGroup]="loginForm">
-  <label for="email">email:</label>
-  <input type="text" id="email" formControlName="email">
+  <form action="" (ngSubmit)="login()" [formGroup]="loginForm">
+    <div class="login-field">
+      <mat-form-field>
+        <input matInput type="text" id="email" placeholder="Email" [formControl]="email">
+      </mat-form-field>
+    </div>
 
-  <br>
+    <br>
 
-  <label for="password">heslo:</label>
-  <input type="password" id="password" formControlName="password">
+    <div class="login-field">
+      <mat-form-field>
+        <input matInput type="password" id="password" placeholder="Heslo" [formControl]="password">
+      </mat-form-field>
+    </div>
 
-  <br>
+    <br>
 
-  <button type="submit">Přihlásit</button>
-</form>
+    <button mat-raised-button color="accent" [disabled]="loginForm.invalid" type="submit">Přihlásit</button>
+  </form>
+</mat-card>

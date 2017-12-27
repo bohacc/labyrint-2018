@@ -103,8 +103,8 @@ export class TeamRegistrationComponent implements OnInit {
     // TODO: create email, password format validators
     this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
     this.email = new FormControl('', [Validators.required, ValidateEmail]);
-    this.password = new FormControl('', [Validators.required, Validators.minLength(5)]);
-    this.password2 = new FormControl('', [Validators.required, Validators.minLength(5)]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    this.password2 = new FormControl('', [Validators.required, Validators.minLength(6)]);
     this.phone = new FormControl('', [Validators.required, ValidatePhone]); // TODO: add format validator
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
@@ -191,7 +191,6 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public sendForm() {
-    console.log(this.mainForm.get('data'));
     if (!this.mainForm.get('data').valid) {
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
@@ -201,21 +200,16 @@ export class TeamRegistrationComponent implements OnInit {
       this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
       return;
     }
-    console.log('STEP 1');
-    console.log(this.mainForm.get('captcha'));
     if (!this.mainForm.get('captcha').valid) {
-      console.log('STEP 2');
       // this.recaptcha.reset();
       this.recaptcha.execute();
     } else {
-      console.log('STEP 3');
       this.sendValidateForm();
     }
   }
 
   public sendValidateForm() {
     this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(false));
-    console.log(this.mainForm.get('captcha'));
     const team = this.mainForm.value.data;
     delete team.captcha;
     this.teamsService.addItem(team);

@@ -69,14 +69,12 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
 
   registerReCaptchaCallback() {
     window.reCaptchaLoad = () => {
-      console.log('RECAPTCHA LOAD');
       const config = {
         ...this.config,
         'sitekey': this.key,
         'callback': this.onSuccess.bind(this),
         'expired-callback': this.onExpired.bind(this)
       };
-      console.log(config);
       this.widgetId = this.render(this.element.nativeElement, config);
     };
   }
@@ -101,7 +99,6 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
    * Therefore, we need to call updateValueAndValidity to trigger the update
    */
   private setValidators() {
-    console.log(this.control);
     this.control.setValidators(Validators.required);
     this.control.updateValueAndValidity();
   }
@@ -146,8 +143,6 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
    * @param token
    */
   verifyToken( token: string ) {
-    console.log('verifyToken');
-    console.log(this.control);
     this.control.setAsyncValidators(this.reCaptchaAsyncValidator.validateToken(token));
     this.control.updateValueAndValidity();
   }

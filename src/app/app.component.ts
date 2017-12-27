@@ -8,7 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from './modules/captcha/directives/recaptcha.directive';
 import { StoreService } from './shared/store/store.service';
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './shared/auth/auth.service';
 import { UserAuthDto } from './modules/teams/models/UserAuthDto';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';

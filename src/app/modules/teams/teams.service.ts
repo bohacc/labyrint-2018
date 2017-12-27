@@ -41,7 +41,6 @@ export class TeamsService implements OnDestroy {
   public addItem(team: TeamDto) {
     // TODO: generate var symb
     // TODO: check rooms capacity
-    console.log(team);
     if (!team || !team.name) {
       return;
     }
@@ -53,9 +52,7 @@ export class TeamsService implements OnDestroy {
     this.db.database.ref('/teams/')
       .once('value', (snapchot) => {
         teams = this.toolsService.getArray(snapchot.val());
-        console.log(teams);
         const exists: CheckExistsTeamDto = this.teamExists(team, teams);
-        console.log(exists);
         if (exists.exists) {
           const error: ErrorDto = {
             code: 'REGISTRATION_EXISTS',
@@ -70,12 +67,10 @@ export class TeamsService implements OnDestroy {
           .then(
             (accommodationsResult) => {
               accommodations = this.toolsService.getArray(accommodationsResult.val());
-              console.log(accommodations);
               return this.db.database.ref('/config').once('value');
             })
           .then(
             (snapchotConfig) => {
-              console.log(snapchotConfig.val());
               // available type accommodation
               if (!this.availableAccommodation(team.accommodation, accommodations, snapchotConfig.val(), teams)) {
                 const error: ErrorDto = {
@@ -97,15 +92,28 @@ export class TeamsService implements OnDestroy {
             if (success) {
               this.store.dispatch(new CreateTeamAction(team));
               this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
-                .then(() => {
-                  this.router.navigate(['teams/registration-success']);
-                });
+                .then(
+                  () => {
+                    this.router.navigate(['teams/registration-success']);
+                  },
+                  (err) => {
+                    let msg = '';
+                    if (err && err.code === 'auth/weak-password') {
+                      msg = 'Chybný formát hesla (' + err.message + ')';
+                    }
+                    const error: ErrorDto = {
+                      code: 'REGISTRATION_EXISTS',
+                      title: 'Chyba registrace',
+                      description: msg
+                    };
+                    this.store.dispatch(new RegistrateTeamExistsAction(error));
+                  }
+                );
             }
           },
           (err) => {
             // TODO: show error
             // add dispatch action
-            console.log('ADD ITEM ERROR');
             console.log(err);
           }
         );
@@ -119,14 +127,12 @@ export class TeamsService implements OnDestroy {
       .ref('/teams/' + team.name)
       .update(team)
       .catch((err) => {
-        console.log('CATCH');
         console.log(err);
         success = false;
       })
       .then(
         () => {
           // TODO: show success message
-          console.log('update success');
           if (success) {
             this.store.dispatch(new UpdateTeamAction(team));
           }
@@ -146,14 +152,12 @@ export class TeamsService implements OnDestroy {
       .ref('/teams/' + team.name)
       .remove()
       .catch((err) => {
-        console.log('CATCH');
         console.log(err);
         success = false;
       })
       .then(
         () => {
           // TODO: show success message
-          console.log('update success');
           if (success) {
             this.store.dispatch(new RemoveTeamAction(team));
           }
@@ -185,7 +189,6 @@ export class TeamsService implements OnDestroy {
   }
 
   public availableAccommodation(accommodation: string, accommodations: Accommodation[], config: ConfigDbDto, teams: TeamDto[]): boolean {
-    console.log(accommodation);
     let result = false;
     let count = 0;
     try {
@@ -219,14 +222,8 @@ export class TeamsService implements OnDestroy {
       })
       .subscribe(
         (teams: TeamDto[]) => {
-          console.log(teams);
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
   }
-}
-
-export interface Msg {
-  success: boolean;
-  msg: any;
 }

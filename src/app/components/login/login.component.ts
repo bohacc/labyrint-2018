@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { AuthService } from '../../shared/auth/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+import { ValidateEmail } from '../../shared/validators/email.validator';
 
 @Component({
   selector: 'login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+  public email: FormControl;
+  public password: FormControl;
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder
@@ -23,9 +28,12 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm() {
+    this.email = new FormControl('', [Validators.required, ValidateEmail]);
+    this.password = new FormControl('', [Validators.required]);
+
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      email: this.email,
+      password: this.password
     });
   }
 }

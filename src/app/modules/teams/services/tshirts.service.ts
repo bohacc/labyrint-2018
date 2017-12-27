@@ -32,8 +32,6 @@ export class TshirtsService implements OnDestroy {
       .takeUntil(this.unsubscribe)
       .subscribe(
         (tshirts: TShirt[]) => {
-          console.log('TSHIRTS');
-          console.log(tshirts);
           this.store.dispatch(new LoadTShirtsAction(tshirts));
         }
       );

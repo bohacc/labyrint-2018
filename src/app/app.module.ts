@@ -34,6 +34,7 @@ import { ResultsComponent } from './components/results/results.component';
 import { CiphersComponent } from './components/ciphers/ciphers.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { ToolsService } from './shared/services/tools.service';
+import { AuthGuardService } from './shared/auth/auth.guard.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ToolsService } from './shared/services/tools.service';
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     MediaMatcher,
-    ToolsService
+    ToolsService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
