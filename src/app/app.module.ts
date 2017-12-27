@@ -35,6 +35,7 @@ import { CiphersComponent } from './components/ciphers/ciphers.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { ToolsService } from './shared/services/tools.service';
 import { AuthGuardService } from './shared/auth/auth.guard.service';
+import { LoginSuccessComponent } from './components/login-success/login-success.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AuthGuardService } from './shared/auth/auth.guard.service';
     ContactComponent,
     ResultsComponent,
     CiphersComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    LoginSuccessComponent
   ],
   entryComponents: [
     AlertComponent

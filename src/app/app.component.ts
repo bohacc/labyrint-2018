@@ -13,6 +13,8 @@ import { UserAuthDto } from './modules/teams/models/UserAuthDto';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
 import { AppState } from './state/app.state';
+import { UserAuthAction } from './modules/teams/state/actions/userAuth.actions';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 declare const grecaptcha: any;
 
@@ -41,18 +43,29 @@ export class AppComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private store: Store<AppState>,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    private afAuth: AngularFireAuth
   ) {
+    this.afAuth.auth.onAuthStateChanged(
+      (user) => {
+        const userAuth: UserAuthDto = {
+          email: user ? user.email : null,
+          uid: user ? user.uid : null,
+          isLoged: !!user,
+          url: user ? user['A'] : null
+        };
+        this.store.dispatch(new UserAuthAction(userAuth));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     this.userAuth = this.store.select(state => {
       return state.userAuth;
     });
-
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.userAuth = this.store.select(state => {
-      return state.userAuth;
-    });
   }
 
   ngOnDestroy(): void {

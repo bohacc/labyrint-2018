@@ -19,20 +19,6 @@ export class AuthService {
     private router: Router,
     private store: Store<AppState>
   ) {
-    this.afAuth.auth.onAuthStateChanged(
-      (user) => {
-        const userAuth: UserAuthDto = {
-          email: user ? user.email : null,
-          uid: user ? user.uid : null,
-          isLoged: !!user,
-          url: user ? user['A'] : null
-        };
-        this.store.dispatch(new UserAuthAction(userAuth));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   public facebookLogin() {
@@ -53,7 +39,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
         (user) => {
-
+          this.router.navigate(['login-success']);
         },
         (err) => {
           const error: ErrorDto = {
