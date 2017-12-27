@@ -33,6 +33,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ResultsComponent } from './components/results/results.component';
 import { CiphersComponent } from './components/ciphers/ciphers.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { ToolsService } from './shared/services/tools.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { MyAccountComponent } from './components/my-account/my-account.component
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-    MediaMatcher
+    MediaMatcher,
+    ToolsService
   ],
   bootstrap: [AppComponent]
 })

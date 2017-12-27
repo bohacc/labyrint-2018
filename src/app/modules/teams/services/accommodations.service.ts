@@ -9,11 +9,13 @@ import { Accommodation } from '../models/AccommodationDto';
 import { ConfigDbDto } from '../models/ConfigDbDto';
 import { LoadConfigAction } from '../state/actions/config.actions';
 import { TeamsService } from '../teams.service';
+import { TeamDto } from '../models/TeamDto';
 
 @Injectable()
 export class AccommodationsService implements OnDestroy {
   private itemsRef: AngularFireList<{accommodation: Accommodation}[]>;
-  private itemsRefConfig: AngularFireList<ConfigDbDto>;
+  private itemsRefConfig: AngularFireList<ConfigDbDto[]>;
+  private itemsRefTeams: AngularFireList<TeamDto[]>;
   private unsubscribe: Subject<any> = new Subject();
 
   constructor(
@@ -23,6 +25,7 @@ export class AccommodationsService implements OnDestroy {
   ) {
     this.itemsRef = this.db.list('accommodations');
     this.itemsRefConfig = this.db.list('config');
+    this.itemsRefTeams = this.db.list('teams');
   }
 
   ngOnDestroy() {
@@ -32,13 +35,23 @@ export class AccommodationsService implements OnDestroy {
 
   public loadAccommodations() {
     let configDb: ConfigDbDto;
-    this.itemsRefConfig.snapshotChanges()
+    let teams: TeamDto[];
+    this.itemsRefTeams.snapshotChanges()
       .takeUntil(this.unsubscribe)
       .map(changes => {
         return changes.map(c => ({...c.payload.val()}));
       })
-      .switchMap((config: ConfigDbDto[]) => {
-        configDb = config[0];
+      .switchMap((items: TeamDto[]) => {
+        teams = items;
+        console.log(teams);
+        return this.itemsRefConfig.snapshotChanges()
+          .map(changes => {
+            return changes.map(c => ({...c.payload.val()}));
+          });
+      })
+      .switchMap((config: any[]) => {
+        configDb = {config: config[0]};
+        console.log(configDb);
         return this.itemsRef.snapshotChanges()
           .map(changes => {
             this.store.dispatch(new LoadConfigAction(configDb));
@@ -47,15 +60,19 @@ export class AccommodationsService implements OnDestroy {
       })
       .subscribe(
         (accommodations: Accommodation[]) => {
-          const filteredAccommodations: Accommodation[] = this.getAvailableAccommodations(configDb, accommodations);
+          const filteredAccommodations: Accommodation[] = this.getAvailableAccommodations(configDb, accommodations, teams);
           this.store.dispatch(new LoadAccommodationsAction(filteredAccommodations));
         }
       );
   }
 
-  private getAvailableAccommodations(config: ConfigDbDto, accommodations: Accommodation[]): Accommodation[] {
-    // TODO: implement logic
-    this.teamsService.availableAccommodation(accommodations[0].value, config, []); // teams
-    return [];
+  private getAvailableAccommodations(config: ConfigDbDto, accommodations: Accommodation[], teams: TeamDto[]): Accommodation[] {
+    let filtered: Accommodation[] = [];
+    console.log(accommodations);
+    filtered = accommodations.filter((item: Accommodation) => {
+      console.log(item);
+      return this.teamsService.availableAccommodation(item.value, accommodations, config, teams);
+    });
+    return filtered || [];
   }
 }

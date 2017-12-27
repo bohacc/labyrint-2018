@@ -7,7 +7,7 @@ export interface State {
 
 export const initialState: State = {
   config: {
-    accommodation: {
+    config: {
       building4: null,
       hut2: null,
       hut4: null,

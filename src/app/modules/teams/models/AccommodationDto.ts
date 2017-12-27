@@ -4,4 +4,5 @@ export interface Accommodation {
   value: string;
   name: string;
   type: AccommodationEnum;
+  count: number;
 }
