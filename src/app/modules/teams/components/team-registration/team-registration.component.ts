@@ -22,6 +22,7 @@ import * as TeamAction from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 import * as TeamsActions from '../../state/actions/teams.actions';
+import { ValidatePasswords } from '../../../../shared/validators/passwords.validator';
 
 @Component({
   selector: 'registration-form',
@@ -33,6 +34,7 @@ export class TeamRegistrationComponent implements OnInit {
   public mainForm: FormGroup;
   public name: FormControl;
   public email: FormControl;
+  public passwords: FormGroup;
   public password: FormControl;
   public password2: FormControl;
   public phone: FormControl;
@@ -105,6 +107,13 @@ export class TeamRegistrationComponent implements OnInit {
     this.email = new FormControl('', [Validators.required, ValidateEmail]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
     this.password2 = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    this.passwords = this.fb.group(
+      {
+        password: this.password,
+        password2: this.password2,
+      },
+      { validator: [ValidatePasswords] }
+    );
     this.phone = new FormControl('', [Validators.required, ValidatePhone]); // TODO: add format validator
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
@@ -132,8 +141,7 @@ export class TeamRegistrationComponent implements OnInit {
       data: this.fb.group({
         name: this.name,
         email: this.email,
-        password: this.password,
-        password2: this.password2,
+        passwords: this.passwords,
         phone: this.phone,
         accommodation: this.accommodation,
         player1: this.fb.group(
@@ -211,6 +219,7 @@ export class TeamRegistrationComponent implements OnInit {
   public sendValidateForm() {
     this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(false));
     const team = this.mainForm.value.data;
+    team.password = team.password.password;
     delete team.captcha;
     this.teamsService.addItem(team);
   }

@@ -40,7 +40,6 @@ export class TeamsService implements OnDestroy {
 
   public addItem(team: TeamDto) {
     // TODO: generate var symb
-    // TODO: check rooms capacity
     if (!team || !team.name) {
       return;
     }
