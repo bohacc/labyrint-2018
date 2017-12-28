@@ -36,7 +36,10 @@
 
     <div class="email-column-2">
       <mat-form-field class="">
-        <input matInput placeholder="Heslo" [formControl]="passwords.get('password')" type="password" [formGroup]="passwords">
+        <input matInput placeholder="Heslo"
+               [formControl]="passwords.get('password')"
+               type="password"
+               [errorStateMatcher]="matcher">
 
         <mat-hint>pro přihlášení, min. 6 znaků</mat-hint>
         <mat-error *ngIf="passwords.get('password').hasError('minlength') && !passwords.get('password').hasError('required')">
@@ -50,13 +53,11 @@
 
     <div class="email-column-3">
       <mat-form-field class="">
-        <input matInput placeholder="Heslo pro ověření" [formControl]="passwords.get('password2')" type="password" [formGroup]="passwords">
+        <input matInput placeholder="Heslo pro ověření"
+               [formControl]="passwords.get('password2')"
+               type="password"
+               [errorStateMatcher]="matcher">
 
-        <mat-error>
-          <span *ngIf="passwords.hasError('validPasswords') && !passwords.get('password2').hasError('required')">
-            Heslo pro ověření je jiné než heslo
-          </span>
-        </mat-error>
         <mat-error *ngIf="passwords.get('password2').hasError('minlength') && !passwords.get('password2').hasError('required')">
           Heslo musí mít alespoň 6 znaků
         </mat-error>
@@ -64,6 +65,10 @@
           Heslo pro ověření je <strong>povinné</strong>
         </mat-error>
       </mat-form-field>
+      <mat-error *ngIf="passwords.hasError('validPasswords') && !passwords.get('password2').hasError('required')"
+                 class="mat-error-passwords">
+        Heslo pro ověření je jiné než heslo
+      </mat-error>
     </div>
 
     <div class="clear"></div>

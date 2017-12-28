@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ReCaptchaDirective } from '../../../captcha/directives/recaptcha.directive';
@@ -23,6 +23,7 @@ import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 import * as TeamsActions from '../../state/actions/teams.actions';
 import { ValidatePasswords } from '../../../../shared/validators/passwords.validator';
+import { ErrorStateMatcher } from '@angular/material';
 
 @Component({
   selector: 'registration-form',
