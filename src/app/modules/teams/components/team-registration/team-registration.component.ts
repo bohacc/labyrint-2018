@@ -189,7 +189,8 @@ export class TeamRegistrationComponent implements OnInit {
             food: this.food5,
           },
           {validator: [ValidatePlayer]}
-        )
+        ),
+        payId: ''
       }),
       captcha: ['']
     });

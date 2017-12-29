@@ -1,6 +1,3 @@
 <div *ngFor="let team of teams | async">
-  <span>{{team.id}} - {{team.name}}</span>
-  <span>
-    <a href="javascript:void(0);" (click)="removeTeam(team)">smazat</a>
-  </span>
+  <h2>{{team.name}}</h2>
 </div>

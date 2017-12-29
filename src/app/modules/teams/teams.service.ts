@@ -46,7 +46,7 @@ export class TeamsService implements OnDestroy {
     let success = true;
     let teams: TeamDto[];
     let accommodations: Accommodation[];
-    const teamWithoutPswd: any = {...team};
+    const teamWithoutPswd: any = {...team, ...{payId: (Date.now() + '').substr(3)}};
     delete teamWithoutPswd.password;
     this.db.database.ref('/teams/')
       .once('value', (snapchot) => {

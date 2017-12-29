@@ -25,4 +25,5 @@ export interface TeamDto {
   lastName5: string;
   tshirt5: string;
   food5: string;
+  payId: string;
 }
