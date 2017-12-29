@@ -211,7 +211,6 @@ export class TeamRegistrationComponent implements OnInit {
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
-      // this.recaptcha.reset();
       this.recaptcha.execute();
     } else {
       this.sendValidateForm();
@@ -221,7 +220,7 @@ export class TeamRegistrationComponent implements OnInit {
   public sendValidateForm() {
     this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(false));
     const team = this.mainForm.value.data;
-    team.password = team.password.password;
+    team.password = team.passwords.password;
     delete team.captcha;
     this.teamsService.addItem(team);
   }

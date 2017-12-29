@@ -36,6 +36,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { ToolsService } from './shared/services/tools.service';
 import { AuthGuardService } from './shared/auth/auth.guard.service';
 import { LoginSuccessComponent } from './components/login-success/login-success.component';
+import { DatabaseService } from './shared/services/database.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { LoginSuccessComponent } from './components/login-success/login-success.
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     MediaMatcher,
     ToolsService,
-    AuthGuardService
+    AuthGuardService,
+    DatabaseService
   ],
   bootstrap: [AppComponent]
 })

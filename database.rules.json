@@ -1,5 +1,9 @@
 {
   "rules": {
+    "news": {
+      ".read": true,
+      ".write": false
+    },
     "config": {
       ".read": true,
       ".write": false,
