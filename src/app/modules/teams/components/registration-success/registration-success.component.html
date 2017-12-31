@@ -1,9 +1,9 @@
 <mat-card class="app-content">
-  <h1>Registrace byla úspěšně provedena</h1>
+  <h1>Registrace byla úspěšně provedena {{(loginUser$ | async).name}}</h1>
 
   <div>Údaje pro platbu:</div>
 
   <div>číslo účtu: </div>
-  <div>variabilní symbol: </div>
+  <div>variabilní symbol: {{(loginUser$ | async).payId}}</div>
   <div>částka: </div>
 </mat-card>>

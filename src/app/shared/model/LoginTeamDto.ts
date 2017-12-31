@@ -1,10 +1,8 @@
-import { PersonDto } from '../../../shared/model/PersonDto';
+import { PersonDto } from './PersonDto';
 
-export interface TeamDto {
+export interface LoginTeamDto {
   name: string;
   email: string;
-  password?: string;
-  password2?: string;
   phone: string;
   accommodation: string;
   payId: string;

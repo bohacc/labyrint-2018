@@ -1,5 +1,31 @@
 <mat-card class="app-content">
   <div class="text-md-right">
-    <button mat-button (click)="logout()">Odhlásit</button>
+    uživatel:&nbsp;{{(loginUser$ | async).email}}
+    <button mat-button (click)="logout()">Odhlásit </button>
+  </div>
+  <div>
+    <h1>{{(loginUser$ | async).name}}</h1>
+  </div>
+  <div>
+    {{(loginUser$ | async).email}}
+  </div>
+  <div>
+    {{(loginUser$ | async).phone}}
+  </div>
+  <div>
+    {{(loginUser$ | async).accommodation}}
+  </div>
+  <div>
+    <h2>Údaje pro platbu</h2>
+  </div>
+  <div>
+    {{(loginUser$ | async).payId}}
+  </div>
+  <br>
+  <div>
+    <button color="accent" mat-raised-button (click)="saveTeam()">Uložit změny</button>
+    &nbsp;
+    &nbsp;
+    <button color="accent" mat-button (click)="saveTeam()">Reset hesla</button>
   </div>
 </mat-card>

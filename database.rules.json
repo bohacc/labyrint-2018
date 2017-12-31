@@ -9,7 +9,7 @@
       ".write": false,
       "accommodations": {
         ".read": true,
-        ".write": false,
+        ".write": false
       }
     },
     "accommodations": {

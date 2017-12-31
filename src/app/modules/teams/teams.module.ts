@@ -33,7 +33,7 @@ import { EffectsModule } from '@ngrx/effects';
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('teams', reducers),
-    EffectsModule.forFeature(effects),
+    EffectsModule.forFeature([]),
     ReCaptchaModule,
     CustomMaterialModule
   ],

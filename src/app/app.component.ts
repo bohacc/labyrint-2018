@@ -10,6 +10,7 @@ import { AppState } from './state/app.state';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserAuthAction } from './state/actions/userAuth.actions';
 import { UserAuthDto } from './shared/model/UserAuthDto';
+import { DatabaseService } from './shared/services/database.service';
 
 declare const grecaptcha: any;
 
@@ -39,7 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private databaseService: DatabaseService
   ) {
     this.afAuth.auth.onAuthStateChanged(
       (user) => {
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
           url: user ? user['A'] : null
         };
         this.store.dispatch(new UserAuthAction(userAuth));
+        this.databaseService.getLoginTeam(userAuth);
         console.log(user);
       },
       (error) => {
