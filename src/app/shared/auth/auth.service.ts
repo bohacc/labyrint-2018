@@ -4,12 +4,10 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AppState } from '../../state/app.state';
 import { Store } from '@ngrx/store';
-import { UserAuthAction } from '../../modules/teams/state/actions/userAuth.actions';
+import { UserAuthAction } from '../../state/actions/userAuth.actions';
 import * as firebase from 'firebase/app';
-import { UserAuthDto } from '../../modules/teams/models/UserAuthDto';
-import { stringifyElement } from '@angular/platform-browser/testing/src/browser_util';
 import { ErrorDto } from '../model/ErrorDto';
-import * as TeamsActions from '../../modules/teams/state/actions/teams.actions';
+import * as ErrorsActions from '../../state/actions/errors.actions';
 
 @Injectable()
 export class AuthService {
@@ -48,7 +46,7 @@ export class AuthService {
             description: (err && err.code === 'auth/user-not-found' ?
               'Zadaný uživatel neexistuje' : 'Došlo k chybě při přihlášení, zkuste akci opakovat.')
           };
-          this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
+          this.store.dispatch(new ErrorsActions.ErrorAction([error]));
           console.log(err);
         }
       )
@@ -58,7 +56,7 @@ export class AuthService {
           title: 'Chyba přihlášení',
           description: 'Došlo k chybě při přihlášení, zkuste akci opakovat.'
         };
-        this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
+        this.store.dispatch(new ErrorsActions.ErrorAction([error]));
         console.log(err);
       });
   }

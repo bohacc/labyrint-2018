@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UserAuthDto } from '../../models/UserAuthDto';
+import { UserAuthDto } from '../../shared/model/UserAuthDto';
 
 export const AUTH_USER = '[AUTH_USER] - auth user';
 

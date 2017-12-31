@@ -15,6 +15,9 @@ import { FoodService } from './services/foods.service';
 import { AccommodationsService } from './services/accommodations.service';
 import { RegistrationSuccessComponent } from './components/registration-success/registration-success.component';
 import { TeamsComponent } from './teams.component';
+import { StoreModule } from '@ngrx/store';
+import { effects, reducers } from './state/reducers/module.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { TeamsComponent } from './teams.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    StoreModule.forFeature('teams', reducers),
+    EffectsModule.forFeature(effects),
     ReCaptchaModule,
     CustomMaterialModule
   ],

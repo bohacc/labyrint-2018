@@ -1,15 +1,12 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { ReCaptchaDirective } from '../../../captcha/directives/recaptcha.directive';
 import { StoreService } from '../../../../shared/store/store.service';
 import { TeamsService } from '../../teams.service';
 import { ValidateEmail } from '../../../../shared/validators/email.validator';
-import { SelectOptionDto } from '../../../../shared/model/SelectOptionDto';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../state/app.state';
 import { TShirt } from '../../models/TShirtDto';
 import { TshirtsService } from '../../services/tshirts.service';
 import { Food } from '../../models/FoodDto';
@@ -18,12 +15,12 @@ import { Accommodation } from '../../models/AccommodationDto';
 import { AccommodationsService } from '../../services/accommodations.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
-import * as TeamAction from '../../state/actions/teams.actions';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 import * as TeamsActions from '../../state/actions/teams.actions';
 import { ValidatePasswords } from '../../../../shared/validators/passwords.validator';
-import { ErrorStateMatcher } from '@angular/material';
+import * as ErrorsActions from '../../../../state/actions/errors.actions';
+import { State } from '../../state/reducers/module.reducer';
 
 @Component({
   selector: 'registration-form',
@@ -72,7 +69,7 @@ export class TeamRegistrationComponent implements OnInit {
     private db: AngularFireDatabase,
     private storeService: StoreService,
     private teamsService: TeamsService,
-    private store: Store<AppState>,
+    private store: Store<State>,
     private tshirtsService: TshirtsService,
     private foodService: FoodService,
     private accommodationsService: AccommodationsService,
@@ -90,11 +87,11 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   private initStore() {
-    this.tshirts = this.store.select(state => state.tshirts.list);
-    this.foods = this.store.select(state => state.foods.list);
-    this.accommodations = this.store.select(state => state.accommodations.list);
+    this.tshirts = this.store.select(state => state.teams.tshirts.list);
+    this.foods = this.store.select(state => state.teams.foods.list);
+    this.accommodations = this.store.select(state => state.teams.accommodations.list);
     // captcha success
-    this.store.select(state => state.teams.registrationFormSuccess)
+    this.store.select(state => state.teams.teams.registrationFormSuccess)
       .subscribe((result: boolean) => {
         if (result) {
           this.sendValidateForm();
@@ -207,7 +204,7 @@ export class TeamRegistrationComponent implements OnInit {
         title: 'Chyba vyplnění registrace',
         description: 'Povinná pole musíte vyplnit'
       };
-      this.store.dispatch(new TeamsActions.RegistrateTeamExistsAction(error));
+      this.store.dispatch(new ErrorsActions.ErrorAction([error]));
       return;
     }
     if (!this.mainForm.get('captcha').valid) {

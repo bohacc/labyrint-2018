@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GameRulesComponent } from './components/game-rules/game-rules.component';
 import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { MyAccountComponent } from './components/my-account/my-account.component';
+import { MyAccountComponent } from './modules/teams/components/my-account/my-account.component';
 import { CiphersComponent } from './components/ciphers/ciphers.component';
 import { ResultsComponent } from './components/results/results.component';
 import { AuthGuardService } from './shared/auth/auth.guard.service';

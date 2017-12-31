@@ -9,6 +9,7 @@ export interface State {
   };
   errors: ErrorDto[];
   registrationFormSuccess: boolean;
+  team: TeamDto;
 }
 
 export const initialState: State = {
@@ -17,7 +18,36 @@ export const initialState: State = {
     name: null
   },
   errors: [],
-  registrationFormSuccess: null
+  registrationFormSuccess: null,
+  team: {
+    accommodation: null,
+    email: null,
+    firstName: null,
+    firstName2: null,
+    firstName3: null,
+    firstName4: null,
+    firstName5: null,
+    food: null,
+    food2: null,
+    food3: null,
+    food4: null,
+    food5: null,
+    lastName: null,
+    lastName2: null,
+    lastName3: null,
+    lastName4: null,
+    lastName5: null,
+    name: null,
+    password: null,
+    password2: null,
+    payId: null,
+    phone: null,
+    tshirt: null,
+    tshirt2: null,
+    tshirt3: null,
+    tshirt4: null,
+    tshirt5: null
+  }
 };
 
 export function teamsReducer(state = initialState, action: TeamsActions.TeamsActions) {
@@ -48,6 +78,11 @@ export function teamsReducer(state = initialState, action: TeamsActions.TeamsAct
       return {
         ...state,
         registrationFormSuccess: action.payload
+      };
+    case TeamsActions.LOAD_TEAM:
+      return {
+        ...state,
+        team: action.payload
       };
     default:
       return state;

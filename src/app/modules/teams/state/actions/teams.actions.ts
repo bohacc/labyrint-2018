@@ -3,6 +3,7 @@ import { TeamDto } from '../../models/TeamDto';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 
 export const LOAD_TEAMS = '[TEAMS] - load teams';
+export const LOAD_TEAM = '[TEAM] - load team';
 export const REMOVE_TEAM = '[TEAMS] - remove team';
 export const CREATE_TEAM = '[TEAMS] - create team';
 export const UPDATE_TEAM = '[TEAMS] - update team';
@@ -11,7 +12,7 @@ export const REGISTRATION_FORM_SUCCESS_TEAM = '[TEAMS] - registration form succe
 
 export type TeamsActions =
   LoadTeamsAction | RemoveTeamAction | CreateTeamAction | UpdateTeamAction | RegistrateTeamExistsAction |
-  RegistrationFormSuccessAction;
+  RegistrationFormSuccessAction | LoadTeamAction;
 
 export class LoadTeamsAction implements Action {
   readonly type = LOAD_TEAMS;
@@ -41,4 +42,9 @@ export class RegistrateTeamExistsAction implements Action {
 export class RegistrationFormSuccessAction implements Action {
   readonly type = REGISTRATION_FORM_SUCCESS_TEAM;
   constructor(public payload: boolean) {}
+}
+
+export class LoadTeamAction implements Action {
+  readonly type = LOAD_TEAM;
+  constructor(public payload: TeamDto) {}
 }

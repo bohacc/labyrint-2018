@@ -16,7 +16,7 @@ export class AlertsComponent {
     public dialog: MatDialog,
     private store: Store<AppState>
   ) {
-    this.store.select(state => state.teams.errors)
+    this.store.select(state => state.errors.errors)
       .subscribe((errors) => {
         this.msg = errors[0];
         if (this.msg) {

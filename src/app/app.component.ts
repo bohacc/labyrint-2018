@@ -1,20 +1,15 @@
 import {
-  Component, OnInit, ElementRef, AfterViewInit, ViewChild, ChangeDetectorRef, OnDestroy,
+  Component, OnInit, ChangeDetectorRef, OnDestroy,
   HostListener
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { ReCaptchaDirective } from './modules/captcha/directives/recaptcha.directive';
-import { StoreService } from './shared/store/store.service';
 import { AuthService } from './shared/auth/auth.service';
-import { UserAuthDto } from './modules/teams/models/UserAuthDto';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
 import { AppState } from './state/app.state';
-import { UserAuthAction } from './modules/teams/state/actions/userAuth.actions';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UserAuthAction } from './state/actions/userAuth.actions';
+import { UserAuthDto } from './shared/model/UserAuthDto';
 
 declare const grecaptcha: any;
 
@@ -55,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
           url: user ? user['A'] : null
         };
         this.store.dispatch(new UserAuthAction(userAuth));
+        console.log(user);
       },
       (error) => {
         console.log(error);

@@ -12,7 +12,7 @@ import { routes } from './app.routes';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { ActionReducerMap, combineReducers, StoreModule } from '@ngrx/store';
-import { reducers } from './state/app.reducer';
+import { reducers } from './state/reducers/app.reducer';
 import { HomeComponent } from './components/home/home.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -32,11 +32,12 @@ import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ResultsComponent } from './components/results/results.component';
 import { CiphersComponent } from './components/ciphers/ciphers.component';
-import { MyAccountComponent } from './components/my-account/my-account.component';
+import { MyAccountComponent } from './modules/teams/components/my-account/my-account.component';
 import { ToolsService } from './shared/services/tools.service';
 import { AuthGuardService } from './shared/auth/auth.guard.service';
 import { LoginSuccessComponent } from './components/login-success/login-success.component';
 import { DatabaseService } from './shared/services/database.service';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { DatabaseService } from './shared/services/database.service';
     AngularFireAuthModule,
     NgbModule.forRoot(),
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states

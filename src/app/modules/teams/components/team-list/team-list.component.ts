@@ -5,6 +5,7 @@ import { AppState } from '../../../../state/app.state';
 import { Store } from '@ngrx/store';
 import { TeamDto } from '../../models/TeamDto';
 import { InitCaptchaAction } from '../../../captcha/state/actions/captcha.actions';
+import { State } from '../../state/reducers/module.reducer';
 
 @Component({
   selector: 'team-list',
@@ -17,11 +18,11 @@ export class TeamListComponent implements OnInit {
 
   constructor(
     private teamsService: TeamsService,
-    private store: Store<AppState>
+    private store: Store<State>
   ) {
     // subscribe teams from store
     this.teams = this.store.select(state => {
-      return state.teams.list;
+      return state.teams.teams.list;
     });
   }
 

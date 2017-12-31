@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AuthService } from '../../shared/auth/auth.service';
 import { Observable } from 'rxjs/Observable';
-import { UserAuthDto } from '../../modules/teams/models/UserAuthDto';
+import { UserAuthDto } from '../../shared/model/UserAuthDto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import { MediaMatcher } from '@angular/cdk/layout';

@@ -4,7 +4,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import {
-  CreateTeamAction, LoadTeamsAction, RegistrateTeamExistsAction, RemoveTeamAction,
+  CreateTeamAction, LoadTeamAction, LoadTeamsAction, RegistrateTeamExistsAction, RemoveTeamAction,
   UpdateTeamAction
 } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
@@ -17,6 +17,7 @@ import { Accommodation } from './models/AccommodationDto';
 import { ToolsService } from '../../shared/services/tools.service';
 import { AccommodationEnum } from './models/AccommodationEnum';
 import { Subject } from 'rxjs/Subject';
+import { UserAuthAction } from '../../state/actions/userAuth.actions';
 
 @Injectable()
 export class TeamsService implements OnDestroy {
@@ -224,5 +225,10 @@ export class TeamsService implements OnDestroy {
           this.store.dispatch(new LoadTeamsAction(teams || []));
         }
       );
+  }
+
+  public loadTeam(userId: string): Observable<TeamDto> {
+    // return this.db.database.ref('/teams/');
+    return Observable.of(null);
   }
 }
