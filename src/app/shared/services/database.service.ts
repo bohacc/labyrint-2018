@@ -34,9 +34,7 @@ export class DatabaseService {
     let loginTeam: LoginTeamDto;
     this.db.database.ref('/teams/').once('value')
       .then((snapchot) => {
-        console.log('SSSSSSSSSSSSSSSSSSSs');
         const teams: TeamDto[] = this.toolsService.getArray(snapchot.val());
-        console.log(teams);
         const currentTeam: any = teams.filter((team: TeamDto) => {
           return team.email === userAuth.email;
         }).map((team) => {
@@ -45,9 +43,6 @@ export class DatabaseService {
         delete currentTeam.password;
         delete currentTeam.password2;
         loginTeam = {...currentTeam, ...{payAccount: null, payAmount: null}};
-        console.log(loginTeam);
-        // this.store.dispatch(new LoginTeamAction(loginTeam));
-
         return this.db.database.ref('/accommodations/').once('value');
       })
       .then(
@@ -90,5 +85,16 @@ export class DatabaseService {
       (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
     loginTeam.payAccount = config.config.pay_account;
     loginTeam.payAmount = accommodationPrice + tshirtsPrice;
+  }
+
+  public getRulesOfTheGame(): Observable<string> {
+    return this.db.list('/rules_of_the_game/')
+      .valueChanges()
+      .map(rules => rules[0]);
+
+    /*this.db.database.ref('/rules_of_the_game/').once('value')
+      .then((snapchot) => {
+        snapchot.val();
+      });*/
   }
 }

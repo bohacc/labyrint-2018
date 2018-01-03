@@ -37,6 +37,7 @@ import { AuthGuardService } from './shared/auth/auth.guard.service';
 import { LoginSuccessComponent } from './components/login-success/login-success.component';
 import { DatabaseService } from './shared/services/database.service';
 import { EffectsModule } from '@ngrx/effects';
+import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EffectsModule } from '@ngrx/effects';
     ContactComponent,
     ResultsComponent,
     CiphersComponent,
-    LoginSuccessComponent
+    LoginSuccessComponent,
+    TrustHtmlPipe
   ],
   entryComponents: [
     AlertComponent

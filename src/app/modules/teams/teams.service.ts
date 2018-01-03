@@ -40,7 +40,6 @@ export class TeamsService implements OnDestroy {
   }
 
   public addItem(team: TeamDto) {
-    // TODO: generate var symb
     if (!team || !team.name) {
       return;
     }
@@ -112,8 +111,12 @@ export class TeamsService implements OnDestroy {
             }
           },
           (err) => {
-            // TODO: show error
-            // add dispatch action
+            const error: ErrorDto = {
+              code: 'REGISTRATION_EXISTS',
+              title: 'Chyba registrace',
+              description: err
+            };
+            this.store.dispatch(new RegistrateTeamExistsAction(error));
             console.log(err);
           }
         );

@@ -100,7 +100,6 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   private initForm() {
-    // TODO: create email, password format validators
     this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
     this.email = new FormControl('', [Validators.required, ValidateEmail]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
@@ -112,7 +111,7 @@ export class TeamRegistrationComponent implements OnInit {
       },
       { validator: [ValidatePasswords] }
     );
-    this.phone = new FormControl('', [Validators.required, ValidatePhone]); // TODO: add format validator
+    this.phone = new FormControl('', [Validators.required, ValidatePhone]);
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
     this.firstName2 = new FormControl('');

@@ -1,5 +1,9 @@
 {
   "rules": {
+    "rules_of_the_game": {
+      ".read": true,
+      ".write": false
+    },
     "news": {
       ".read": true,
       ".write": false
