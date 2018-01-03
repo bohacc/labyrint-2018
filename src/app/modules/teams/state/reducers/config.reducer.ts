@@ -1,5 +1,5 @@
 import * as ConfigActions from '../actions/config.actions';
-import { ConfigDbDto } from '../../models/ConfigDbDto';
+import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 
 export interface State {
   config: ConfigDbDto;
@@ -12,7 +12,8 @@ export const initialState: State = {
       hut2: null,
       hut4: null,
       close_registration: null,
-      open_registration: null
+      open_registration: null,
+      pay_account: null
     }
   }
 };

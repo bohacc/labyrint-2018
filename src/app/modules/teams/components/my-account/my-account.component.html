@@ -1,7 +1,7 @@
 <mat-card class="app-content">
   <div class="text-md-right">
     uživatel:&nbsp;{{(loginUser$ | async).email}}
-    <button mat-button (click)="logout()">Odhlásit </button>
+    <button mat-button color="accent" (click)="logout()">Odhlásit </button>
   </div>
   <div>
     <h1>{{(loginUser$ | async).name}}</h1>
@@ -19,7 +19,13 @@
     <h2>Údaje pro platbu</h2>
   </div>
   <div>
+    {{(loginUser$ | async).payAccount}}
+  </div>
+  <div>
     {{(loginUser$ | async).payId}}
+  </div>
+  <div>
+    {{(loginUser$ | async).payAmount | number: '1.0-0'}}
   </div>
   <br>
   <div>

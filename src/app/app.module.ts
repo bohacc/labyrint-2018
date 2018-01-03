@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -32,7 +32,6 @@ import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ResultsComponent } from './components/results/results.component';
 import { CiphersComponent } from './components/ciphers/ciphers.component';
-import { MyAccountComponent } from './modules/teams/components/my-account/my-account.component';
 import { ToolsService } from './shared/services/tools.service';
 import { AuthGuardService } from './shared/auth/auth.guard.service';
 import { LoginSuccessComponent } from './components/login-success/login-success.component';
@@ -53,7 +52,6 @@ import { EffectsModule } from '@ngrx/effects';
     ContactComponent,
     ResultsComponent,
     CiphersComponent,
-    MyAccountComponent,
     LoginSuccessComponent
   ],
   entryComponents: [
@@ -82,6 +80,7 @@ import { EffectsModule } from '@ngrx/effects';
     CustomMaterialModule,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'cs' },
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     MediaMatcher,
     ToolsService,

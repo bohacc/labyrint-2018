@@ -12,7 +12,7 @@ import { onerror } from 'q';
 import { ErrorDto } from '../../shared/model/ErrorDto';
 import { CheckExistsTeamDto } from './models/CheckExistsTeamDto';
 import { Router } from '@angular/router';
-import { ConfigDbDto } from './models/ConfigDbDto';
+import { ConfigDbDto } from '../../shared/model/ConfigDbDto';
 import { Accommodation } from './models/AccommodationDto';
 import { ToolsService } from '../../shared/services/tools.service';
 import { AccommodationEnum } from './models/AccommodationEnum';

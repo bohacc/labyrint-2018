@@ -18,6 +18,7 @@ import { TeamsComponent } from './teams.component';
 import { StoreModule } from '@ngrx/store';
 import { effects, reducers } from './state/reducers/module.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EffectsModule } from '@ngrx/effects';
     TeamsPageComponent,
     TeamRegistrationComponent,
     RegistrationSuccessComponent,
-    TeamsComponent
+    TeamsComponent,
+    MyAccountComponent
   ],
   imports: [
     HttpClientModule,

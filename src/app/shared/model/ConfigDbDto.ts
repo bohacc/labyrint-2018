@@ -5,5 +5,6 @@ export interface ConfigDbDto {
     hut4: number;
     close_registration: Date;
     open_registration: Date;
+    pay_account: string;
   };
 }

@@ -10,8 +10,10 @@ export const initialState: State = {
     accommodation: null,
     email: null,
     name: null,
-    payId: null,
     phone: null,
+    payId: null,
+    payAmount: null,
+    payAccount: null,
     player1: {
       firstName: null,
       lastName: null,
