@@ -1,5 +1,6 @@
 <mat-card class="app-content">
-  <p>
-    Šifry a doplňkové úkoly ze hry budou zveřejněny po hře
-  </p>
+  <h1>
+    Šifry a doplňkové úkoly
+  </h1>
+  <p [innerHTML]="content | trustHtml"></p>
 </mat-card>

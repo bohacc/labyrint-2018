@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../../shared/services/database.service';
 
 @Component({
   selector: 'app-ciphers',
@@ -6,8 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ciphers.component.scss']
 })
 export class CiphersComponent implements OnInit {
+  public content: string;
 
-  constructor() { }
+  constructor(
+    private databaseService: DatabaseService,
+  ) {
+    this.databaseService.getCiphersOfTheGame()
+      .subscribe((html) => {
+        this.content = html[0].value;
+      });
+  }
 
   ngOnInit() {
   }

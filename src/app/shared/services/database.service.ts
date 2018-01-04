@@ -87,14 +87,35 @@ export class DatabaseService {
     loginTeam.payAmount = accommodationPrice + tshirtsPrice;
   }
 
-  public getRulesOfTheGame(): Observable<string> {
+  public getRulesOfTheGame(): Observable<any> {
     return this.db.list('/rules_of_the_game/')
-      .valueChanges()
-      .map(rules => rules[0]);
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      });
+  }
 
-    /*this.db.database.ref('/rules_of_the_game/').once('value')
-      .then((snapchot) => {
-        snapchot.val();
-      });*/
+  public getCiphersOfTheGame(): Observable<any> {
+    return this.db.list('/ciphers/')
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      });
+  }
+
+  public getResultsOfTheGame(): Observable<any> {
+    return this.db.list('/results/')
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      });
+  }
+
+  public getContactOfTheGame(): Observable<any> {
+    return this.db.list('/contact/')
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val() }));
+      });
   }
 }

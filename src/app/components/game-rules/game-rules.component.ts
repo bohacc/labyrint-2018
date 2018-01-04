@@ -8,12 +8,15 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./game-rules.component.scss']
 })
 export class GameRulesComponent implements OnInit {
-  public rules$: Observable<string>;
+  public content: string;
 
   constructor(
     private databaseService: DatabaseService,
   ) {
-    this.rules$ = this.databaseService.getRulesOfTheGame();
+    this.databaseService.getRulesOfTheGame()
+      .subscribe((html) => {
+        this.content = html[0].value;
+      });
   }
 
   ngOnInit() {

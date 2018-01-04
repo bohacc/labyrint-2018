@@ -1,5 +1,17 @@
 {
   "rules": {
+    "ciphers_of_the_game": {
+      ".read": true,
+      ".write": false
+    },
+    "results_of_the_game": {
+      ".read": true,
+      ".write": false
+    },
+    "contact_of_the_game": {
+      ".read": true,
+      ".write": false
+    },
     "rules_of_the_game": {
       ".read": true,
       ".write": false
