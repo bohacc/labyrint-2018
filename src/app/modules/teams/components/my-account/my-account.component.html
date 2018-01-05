@@ -1,37 +1,42 @@
 <mat-card class="app-content">
-  <div class="text-md-right">
-    uživatel:&nbsp;{{(loginUser$ | async).email}}
-    <button mat-button color="accent" (click)="logout()">Odhlásit </button>
-  </div>
-  <div>
-    <h1>{{(loginUser$ | async).name}}</h1>
-  </div>
-  <div>
-    {{(loginUser$ | async).email}}
-  </div>
-  <div>
-    {{(loginUser$ | async).phone}}
-  </div>
-  <div>
-    {{(loginUser$ | async).accommodation}}
-  </div>
-  <div>
-    <h2>Údaje pro platbu</h2>
-  </div>
-  <div>
-    {{(loginUser$ | async).payAccount}}
-  </div>
-  <div>
-    {{(loginUser$ | async).payId}}
-  </div>
-  <div>
-    {{(loginUser$ | async).payAmount | number: '1.0-0'}}
-  </div>
-  <br>
-  <div>
-    <button color="accent" mat-raised-button (click)="saveTeam()">Uložit změny</button>
-    &nbsp;
-    &nbsp;
-    <button color="accent" mat-button (click)="saveTeam()">Reset hesla</button>
-  </div>
+  <h1>Údaje týmu</h1>
+  <form action="?" (ngSubmit)="sendForm()" [formGroup]="mainForm" class="grid-form">
+    <div class="text-md-right">
+      uživatel:&nbsp;{{(loginUser$ | async).email}}
+      <button mat-button color="accent" (click)="logout()">Odhlásit </button>
+    </div>
+    <div>
+      <h1>{{(loginUser$ | async).name}}</h1>
+    </div>
+    <div>
+      <mat-form-field class="">
+        <input matInput placeholder="Název týmu" [formControl]="email" maxlength="100">
+      </mat-form-field>
+    </div>
+    <div>
+      {{(loginUser$ | async).phone}}
+    </div>
+    <div>
+      {{(loginUser$ | async).accommodation}}
+    </div>
+    <div>
+      <h2>Údaje pro platbu</h2>
+    </div>
+    <div>
+      {{(loginUser$ | async).payAccount}}
+    </div>
+    <div>
+      {{(loginUser$ | async).payId}}
+    </div>
+    <div>
+      {{(loginUser$ | async).payAmount | number: '1.0-0'}}
+    </div>
+    <br>
+    <div>
+      <button color="accent" mat-raised-button (click)="saveTeam()">Uložit změny</button>
+      &nbsp;
+      &nbsp;
+      <button color="accent" mat-button (click)="saveTeam()">Reset hesla</button>
+    </div>
+  </form>
 </mat-card>

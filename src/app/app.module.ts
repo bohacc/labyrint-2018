@@ -38,6 +38,7 @@ import { LoginSuccessComponent } from './components/login-success/login-success.
 import { DatabaseService } from './shared/services/database.service';
 import { EffectsModule } from '@ngrx/effects';
 import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
+import { LogoutSuccessComponent } from './components/logout-success/logout-success.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
     ResultsComponent,
     CiphersComponent,
     LoginSuccessComponent,
-    TrustHtmlPipe
+    TrustHtmlPipe,
+    LogoutSuccessComponent
   ],
   entryComponents: [
     AlertComponent
