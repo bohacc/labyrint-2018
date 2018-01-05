@@ -2,54 +2,54 @@
   "rules": {
     "ciphers_of_the_game": {
       ".read": true,
-      ".write": false
+      ".write": "auth.token.admin === true"
     },
     "results_of_the_game": {
       ".read": true,
-      ".write": false
+      ".write": "auth.token.admin === true"
     },
     "contact_of_the_game": {
       ".read": true,
-      ".write": false
+      ".write": "auth.token.admin === true"
     },
     "rules_of_the_game": {
       ".read": true,
-      ".write": false
+      ".write": "auth.token.admin === true"
     },
     "news": {
       ".read": true,
-      ".write": false
+      ".write": "auth.token.admin === true"
     },
     "config": {
       ".read": true,
-      ".write": false,
+      ".write": "auth.token.admin === true",
       "accommodations": {
         ".read": true,
-        ".write": false
+        ".write": "auth.token.admin === true"
       }
     },
     "accommodations": {
       ".read": true,
-      ".write": false,
+      ".write": "auth.token.admin === true",
       "$code": {
         ".read": true,
-        ".write": false
+        ".write": "auth.token.admin === true"
       }
     },
     "foods": {
       ".read": true,
-      ".write": false,
+      ".write": "auth.token.admin === true",
       "$code": {
         ".read": true,
-        ".write": false
+        ".write": "auth.token.admin === true"
       }
     },
     "tshirts": {
       ".read": true,
-      ".write": false,
+      ".write": "auth.token.admin === true",
       "$tshirt": {
         ".read": true,
-        ".write": false
+        ".write": "auth.token.admin === true"
       }
     },
     "teams": {

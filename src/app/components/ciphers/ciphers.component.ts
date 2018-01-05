@@ -7,7 +7,7 @@ import { DatabaseService } from '../../shared/services/database.service';
   styleUrls: ['./ciphers.component.scss']
 })
 export class CiphersComponent implements OnInit {
-  public content: string;
+  public content = '';
 
   constructor(
     private databaseService: DatabaseService,

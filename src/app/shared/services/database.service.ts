@@ -96,7 +96,7 @@ export class DatabaseService {
   }
 
   public getCiphersOfTheGame(): Observable<any> {
-    return this.db.list('/ciphers/')
+    return this.db.list('/ciphers_of_the_game/')
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
@@ -104,7 +104,7 @@ export class DatabaseService {
   }
 
   public getResultsOfTheGame(): Observable<any> {
-    return this.db.list('/results/')
+    return this.db.list('/results_of_the_game/')
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
@@ -112,7 +112,7 @@ export class DatabaseService {
   }
 
   public getContactOfTheGame(): Observable<any> {
-    return this.db.list('/contact/')
+    return this.db.list('/contact_of_the_game/')
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));

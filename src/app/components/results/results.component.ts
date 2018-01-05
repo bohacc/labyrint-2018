@@ -7,7 +7,7 @@ import { DatabaseService } from '../../shared/services/database.service';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  public content: string;
+  public content = '';
 
   constructor(
     private databaseService: DatabaseService,

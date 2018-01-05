@@ -7,7 +7,7 @@ import { DatabaseService } from '../../shared/services/database.service';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-  public content: string;
+  public content = '';
 
   constructor(
     private databaseService: DatabaseService,

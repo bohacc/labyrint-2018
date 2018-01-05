@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./game-rules.component.scss']
 })
 export class GameRulesComponent implements OnInit {
-  public content: string;
+  public content = '';
 
   constructor(
     private databaseService: DatabaseService,
