@@ -52,6 +52,7 @@ export class MyAccountComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.loginUser$ = this.store.select(state => state.loginTeam.team);
+    this.initForm();
   }
 
   ngOnInit() {
@@ -62,8 +63,8 @@ export class MyAccountComponent implements OnInit {
   }
 
   private initForm() {
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
-    this.email = new FormControl('', [Validators.required, ValidateEmail]);
+    this.name = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
+    this.email = new FormControl({value: '', disabled: true}, [Validators.required, ValidateEmail]);
     this.phone = new FormControl('', [Validators.required, ValidatePhone]);
     this.firstName = new FormControl('', Validators.required);
     this.lastName = new FormControl('', Validators.required);
@@ -140,7 +141,7 @@ export class MyAccountComponent implements OnInit {
         ),
         payId: ''
       }),
-      captcha: ['']
+      /*captcha: ['']*/
     });
   }
 
