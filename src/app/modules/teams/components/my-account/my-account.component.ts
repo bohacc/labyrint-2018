@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../state/app.state';
 import { Observable } from 'rxjs/Observable';
 import { LoginTeamDto } from '../../../../shared/model/LoginTeamDto';
-import { ValidatePasswords } from '../../../../shared/validators/passwords.validator';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidateEmail } from '../../../../shared/validators/email.validator';
+import { TeamsService } from '../../teams.service';
+import { TshirtsService } from '../../services/tshirts.service';
+import { FoodService } from '../../services/foods.service';
+import { AccommodationsService } from '../../services/accommodations.service';
+import { Accommodation } from '../../models/AccommodationDto';
+import { Food } from '../../models/FoodDto';
+import { TShirt } from '../../models/TShirtDto';
+import { State } from '../../state/reducers/module.reducer';
 
 @Component({
   selector: 'app-my-account',
@@ -16,7 +22,7 @@ import { ValidateEmail } from '../../../../shared/validators/email.validator';
   styleUrls: ['./my-account.component.scss']
 })
 export class MyAccountComponent implements OnInit {
-  public loginUser$: Observable<LoginTeamDto>;
+  public loginUser: LoginTeamDto;
   public mainForm: FormGroup;
   public name: FormControl;
   public email: FormControl;
@@ -45,48 +51,69 @@ export class MyAccountComponent implements OnInit {
   public food4: FormControl;
   public food5: FormControl;
   public accommodation: FormControl;
+  public tshirts: Observable<TShirt[]>;
+  public foods: Observable<Food[]>;
+  public accommodations: Observable<Accommodation[]>;
 
   constructor(
     private authService: AuthService,
-    private store: Store<AppState>,
-    private fb: FormBuilder
+    private store: Store<State>,
+    private fb: FormBuilder,
+    private teamsService: TeamsService,
+    private tshirtsService: TshirtsService,
+    private foodService: FoodService,
+    private accommodationsService: AccommodationsService
   ) {
-    this.loginUser$ = this.store.select(state => state.loginTeam.team);
-    this.initForm();
+    this.initStore();
   }
 
   ngOnInit() {
+    this.tshirtsService.loadTShirts();
+    this.foodService.loadFoods();
+    this.accommodationsService.loadAccommodations();
   }
 
   public logout() {
     this.authService.logout();
   }
 
+  private initStore() {
+    this.tshirts = this.store.select(state => state.teams.tshirts.list);
+    this.foods = this.store.select(state => state.teams.foods.list);
+    this.accommodations = this.store.select(state => state.teams.accommodations.list);
+    this.store.select(state => state.loginTeam.team)
+      .subscribe((team: LoginTeamDto) => {
+        this.loginUser = team;
+        this.initForm();
+      });
+  }
+
   private initForm() {
-    this.name = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
-    this.email = new FormControl({value: '', disabled: true}, [Validators.required, ValidateEmail]);
-    this.phone = new FormControl('', [Validators.required, ValidatePhone]);
-    this.firstName = new FormControl('', Validators.required);
-    this.lastName = new FormControl('', Validators.required);
-    this.firstName2 = new FormControl('');
-    this.lastName2 = new FormControl('');
-    this.firstName3 = new FormControl('');
-    this.lastName3 = new FormControl('');
-    this.firstName4 = new FormControl('');
-    this.lastName4 = new FormControl('');
-    this.firstName5 = new FormControl('');
-    this.lastName5 = new FormControl('');
-    this.tshirt = new FormControl('');
-    this.tshirt2 = new FormControl('');
-    this.tshirt3 = new FormControl('');
-    this.tshirt4 = new FormControl('');
-    this.tshirt5 = new FormControl('');
-    this.food = new FormControl('', Validators.required);
-    this.food2 = new FormControl('');
-    this.food3 = new FormControl('');
-    this.food4 = new FormControl('');
-    this.food5 = new FormControl('');
-    this.accommodation = new FormControl('', Validators.required);
+    this.name = new FormControl({value: this.loginUser.name, disabled: true},
+      [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
+    this.email = new FormControl({value: this.loginUser.email, disabled: true}, [Validators.required, ValidateEmail]);
+    this.phone = new FormControl(this.loginUser.phone, [Validators.required, ValidatePhone]);
+    this.firstName = new FormControl(this.loginUser.player1.firstName, Validators.required);
+    this.lastName = new FormControl(this.loginUser.player1.lastName, Validators.required);
+    this.firstName2 = new FormControl(this.loginUser.player2.firstName);
+    this.lastName2 = new FormControl(this.loginUser.player2.lastName);
+    this.firstName3 = new FormControl(this.loginUser.player3.firstName);
+    this.lastName3 = new FormControl(this.loginUser.player3.lastName);
+    this.firstName4 = new FormControl(this.loginUser.player4.firstName);
+    this.lastName4 = new FormControl(this.loginUser.player4.lastName);
+    this.firstName5 = new FormControl(this.loginUser.player5.firstName);
+    this.lastName5 = new FormControl(this.loginUser.player5.lastName);
+    this.tshirt = new FormControl(this.loginUser.player1.tshirt);
+    this.tshirt2 = new FormControl(this.loginUser.player2.tshirt);
+    this.tshirt3 = new FormControl(this.loginUser.player3.tshirt);
+    this.tshirt4 = new FormControl(this.loginUser.player4.tshirt);
+    this.tshirt5 = new FormControl(this.loginUser.player5.tshirt);
+    this.food = new FormControl(this.loginUser.player1.food, Validators.required);
+    this.food2 = new FormControl(this.loginUser.player2.food);
+    this.food3 = new FormControl(this.loginUser.player3.food);
+    this.food4 = new FormControl(this.loginUser.player4.food);
+    this.food5 = new FormControl(this.loginUser.player5.food);
+    this.accommodation = new FormControl(this.loginUser.accommodation, Validators.required);
 
     this.mainForm = this.fb.group({
       data: this.fb.group({
@@ -145,5 +172,12 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
-  public saveTeam() {}
+  public saveTeam() {
+    this.teamsService.updateItem(this.mainForm.value);
+  }
+
+  public resetPassword() {
+    this.authService.resetPassword(this.loginUser.email);
+    // TODO: show reset password page
+  }
 }

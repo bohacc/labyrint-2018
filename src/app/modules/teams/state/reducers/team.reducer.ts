@@ -26,6 +26,7 @@ export const initialState: State = {
     password: null,
     password2: null,
     payId: null,
+    paySent: null,
     phone: null,
     player1: {
       firstName: null,

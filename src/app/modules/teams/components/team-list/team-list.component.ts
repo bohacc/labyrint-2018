@@ -27,7 +27,7 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new InitCaptchaAction(false));
+    this.teamsService.loadTeams();
   }
 
   public removeTeam(team: TeamDto) {

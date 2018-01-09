@@ -8,6 +8,7 @@ export interface TeamDto {
   phone: string;
   accommodation: string;
   payId: string;
+  paySent: boolean;
   player1: PersonDto;
   player2: PersonDto;
   player3: PersonDto;

@@ -13,7 +13,6 @@ import { Food } from '../../models/FoodDto';
 import { FoodService } from '../../services/foods.service';
 import { Accommodation } from '../../models/AccommodationDto';
 import { AccommodationsService } from '../../services/accommodations.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import { ValidatePlayer } from '../../../../shared/validators/player.validator';
 import { ValidatePhone } from '../../../../shared/validators/phone.validator';
@@ -72,9 +71,7 @@ export class TeamRegistrationComponent implements OnInit {
     private store: Store<State>,
     private tshirtsService: TshirtsService,
     private foodService: FoodService,
-    private accommodationsService: AccommodationsService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private accommodationsService: AccommodationsService
   ) {
     this.initStore();
     this.initForm();
@@ -186,7 +183,8 @@ export class TeamRegistrationComponent implements OnInit {
           },
           {validator: [ValidatePlayer]}
         ),
-        payId: ''
+        payId: '',
+        paySent: '',
       }),
       captcha: ['']
     });
