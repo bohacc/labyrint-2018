@@ -9,10 +9,11 @@ export const CREATE_TEAM = '[TEAMS] - create team';
 export const UPDATE_TEAM = '[TEAMS] - update team';
 export const REGISTER_EXISTS_TEAM = '[TEAMS] - register exists team';
 export const REGISTRATION_FORM_SUCCESS_TEAM = '[TEAMS] - registration form success';
+export const SET_PENDING = '[TEAMS] - set pending';
 
 export type TeamsActions =
   LoadTeamsAction | RemoveTeamAction | CreateTeamAction | UpdateTeamAction | RegistrateTeamExistsAction |
-  RegistrationFormSuccessAction | LoadTeamAction;
+  RegistrationFormSuccessAction | LoadTeamAction | PendingActions;
 
 export class LoadTeamsAction implements Action {
   readonly type = LOAD_TEAMS;
@@ -47,4 +48,9 @@ export class RegistrationFormSuccessAction implements Action {
 export class LoadTeamAction implements Action {
   readonly type = LOAD_TEAM;
   constructor(public payload: TeamDto) {}
+}
+
+export class PendingActions implements Action {
+  readonly type = SET_PENDING;
+  constructor(public payload: boolean) {}
 }

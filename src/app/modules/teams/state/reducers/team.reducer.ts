@@ -7,6 +7,7 @@ export interface State {
   registration: {
     name: string
   };
+  pending: boolean;
   errors: ErrorDto[];
   registrationFormSuccess: boolean;
   team: TeamDto;
@@ -17,6 +18,7 @@ export const initialState: State = {
   registration: {
     name: null
   },
+  pending: false,
   errors: [],
   registrationFormSuccess: null,
   team: {
@@ -93,6 +95,11 @@ export function teamsReducer(state = initialState, action: TeamsActions.TeamsAct
       return {
         ...state,
         team: action.payload
+      };
+    case TeamsActions.SET_PENDING:
+      return {
+        ...state,
+        pending: action.payload
       };
     default:
       return state;

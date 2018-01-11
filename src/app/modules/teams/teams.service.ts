@@ -4,8 +4,8 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import {
-  CreateTeamAction, LoadTeamAction, LoadTeamsAction, RegistrateTeamExistsAction, RemoveTeamAction,
-  UpdateTeamAction
+  CreateTeamAction, LoadTeamsAction, RegistrateTeamExistsAction, RemoveTeamAction,
+  UpdateTeamAction, PendingActions
 } from './state/actions/teams.actions';
 import { TeamDto } from './models/TeamDto';
 import { onerror } from 'q';
@@ -17,7 +17,7 @@ import { Accommodation } from './models/AccommodationDto';
 import { ToolsService } from '../../shared/services/tools.service';
 import { AccommodationEnum } from './models/AccommodationEnum';
 import { Subject } from 'rxjs/Subject';
-import { UserAuthAction } from '../../state/actions/userAuth.actions';
+import * as ErrorsActions from '../../state/actions/errors.actions';
 
 @Injectable()
 export class TeamsService implements OnDestroy {
@@ -58,7 +58,8 @@ export class TeamsService implements OnDestroy {
             title: 'Chyba při přihlášení',
             description: exists.name ? 'Název týmu již existuje, zadejte jiný' : 'Email je již zaregistrovaný u jiného týmu'
           };
-          this.store.dispatch(new RegistrateTeamExistsAction(error));
+          // this.store.dispatch(new RegistrateTeamExistsAction(error));
+          this.store.dispatch(new ErrorsActions.ErrorAction([error]));
           return;
         }
 
@@ -77,7 +78,8 @@ export class TeamsService implements OnDestroy {
                   title: 'Chyba výběru ubytování',
                   description: 'Vybrané ubytování není možné rezervovat, zkuste vybrat jiné.'
                 };
-                this.store.dispatch(new RegistrateTeamExistsAction(error));
+                // this.store.dispatch(new RegistrateTeamExistsAction(error));
+                this.store.dispatch(new ErrorsActions.ErrorAction([error]));
 
                 success = false;
                 return null;
@@ -105,9 +107,13 @@ export class TeamsService implements OnDestroy {
                       title: 'Chyba registrace',
                       description: msg
                     };
-                    this.store.dispatch(new RegistrateTeamExistsAction(error));
+                    // this.store.dispatch(new RegistrateTeamExistsAction(error));
+                    this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+                    this.store.dispatch(new PendingActions(false));
                   }
                 );
+            } else {
+              this.store.dispatch(new PendingActions(false));
             }
           },
           (err) => {
@@ -116,7 +122,9 @@ export class TeamsService implements OnDestroy {
               title: 'Chyba registrace',
               description: err
             };
-            this.store.dispatch(new RegistrateTeamExistsAction(error));
+            // this.store.dispatch(new RegistrateTeamExistsAction(error));
+            this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+            this.store.dispatch(new PendingActions(false));
             console.log(err);
           }
         );

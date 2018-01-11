@@ -15,6 +15,7 @@ import { Accommodation } from '../../models/AccommodationDto';
 import { Food } from '../../models/FoodDto';
 import { TShirt } from '../../models/TShirtDto';
 import { State } from '../../state/reducers/module.reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-account',
@@ -62,7 +63,8 @@ export class MyAccountComponent implements OnInit {
     private teamsService: TeamsService,
     private tshirtsService: TshirtsService,
     private foodService: FoodService,
-    private accommodationsService: AccommodationsService
+    private accommodationsService: AccommodationsService,
+    private router: Router
   ) {
     this.initStore();
   }
@@ -177,7 +179,9 @@ export class MyAccountComponent implements OnInit {
   }
 
   public resetPassword() {
-    this.authService.resetPassword(this.loginUser.email);
-    // TODO: show reset password page
+    this.authService.resetPassword(this.loginUser.email)
+      .then(() => {
+        this.router.navigate(['/reset-password']);
+      });
   }
 }

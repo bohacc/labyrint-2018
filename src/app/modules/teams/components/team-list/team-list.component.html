@@ -1,3 +1,5 @@
 <div *ngFor="let team of teams | async">
-  <span [class]="{pay: team.paySent}">{{team.name}}</span> - <span *ngIf="!!team.paySent">zaplaceno</span><span *ngIf="!team.paySent">zaplaceno</span>
+  <span [ngClass]="{pay: !!team.paySent}">{{team.name}}</span> -
+  <span *ngIf="!!team.paySent">zaplaceno</span>
+  <span *ngIf="!team.paySent">nezaplaceno</span>
 </div>

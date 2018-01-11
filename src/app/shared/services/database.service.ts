@@ -40,6 +40,9 @@ export class DatabaseService {
         }).map((team) => {
           return team;
         })[0];
+        if (!currentTeam) {
+          return;
+        }
         delete currentTeam.password;
         delete currentTeam.password2;
         loginTeam = {...currentTeam, ...{payAccount: null, payAmount: null}};
@@ -47,30 +50,41 @@ export class DatabaseService {
       })
       .then(
         (snapchot) => {
-          accommodations = this.toolsService.getArray(snapchot.val());
+          if (snapchot) {
+            accommodations = this.toolsService.getArray(snapchot.val());
+          }
           return this.db.database.ref('/tshirts/').once('value');
         }
       )
       .then(
         (snapchot) => {
-          tshirts = this.toolsService.getArray(snapchot.val());
+          if (snapchot) {
+            tshirts = this.toolsService.getArray(snapchot.val());
+          }
           return this.db.database.ref('/config/').once('value');
         }
       )
       .then(
       (snapchot) => {
-        config = snapchot.val();
+        if (snapchot) {
+          config = snapchot.val();
+        }
         this.updateWithPayInfo(loginTeam, tshirts, accommodations, config);
-        this.store.dispatch(new LoginTeamAction(loginTeam));
+        if (loginTeam) {
+          this.store.dispatch(new LoginTeamAction(loginTeam));
+        } else {
+          this.store.dispatch(new LoginTeamAction(null));
+        }
       }
     );
   }
 
   private updateWithPayInfo(loginTeam: LoginTeamDto, tshirts: TshirtDto[], accommodations: AccommodationDto[],
                             config: ConfigDbDto) {
-    const accommodationPrice = (accommodations || []).filter((acc: AccommodationDto) => {
+    const accommodation = (accommodations || [{price: 0}]).filter((acc: AccommodationDto) => {
       return acc.value === loginTeam.accommodation;
-    })[0].price;
+    })[0];
+    const accommodationPrice = accommodation && accommodation[0] ? accommodation[0].price : 0;
     const playerCount: number =
       (!!(loginTeam.player1.firstName + loginTeam.player1.lastName) ? 1 : 0) +
       (!!(loginTeam.player2.firstName + loginTeam.player2.lastName) ? 1 : 0) +

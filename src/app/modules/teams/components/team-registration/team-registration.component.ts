@@ -60,6 +60,7 @@ export class TeamRegistrationComponent implements OnInit {
   public foods: Observable<Food[]>;
   public accommodations: Observable<Accommodation[]>;
   public showFillMessage = false;
+  public isPending = false;
 
   constructor(
     private http: HttpClient,
@@ -89,10 +90,14 @@ export class TeamRegistrationComponent implements OnInit {
     this.accommodations = this.store.select(state => state.teams.accommodations.list);
     // captcha success
     this.store.select(state => state.teams.teams.registrationFormSuccess)
-      .subscribe((result: boolean) => {
+      .subscribe((result) => {
         if (result) {
           this.sendValidateForm();
         }
+      });
+    this.store.select(state => state.teams.teams)
+      .subscribe((result) => {
+        this.isPending = result.pending;
       });
   }
 
@@ -191,10 +196,12 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public onRecaptchaValidateResponse(response) {
-    this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
+    // this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
+    this.sendValidateForm();
   }
 
   public sendForm() {
+    this.isPending = true;
     if (!this.mainForm.get('data').valid) {
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
@@ -212,7 +219,7 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   public sendValidateForm() {
-    this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(false));
+    this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
     const team = this.mainForm.value.data;
     team.password = team.passwords.password;
     delete team.captcha;

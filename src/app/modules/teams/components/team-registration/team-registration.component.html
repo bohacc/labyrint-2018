@@ -357,7 +357,7 @@
     </div>
     <br>
     <div class="send-form-col-1">
-      <button type="submit" mat-raised-button color="accent">Registrovat tým</button>
+      <button type="submit" mat-raised-button color="accent" [disabled]="isPending">Registrovat tým</button>
     </div>
     <div class="send-form-col-2" *ngIf="showFillMessage">Povinná pole musíte vyplnit</div>
     <div class="clear"></div>

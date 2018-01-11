@@ -19,6 +19,7 @@ import { StoreModule } from '@ngrx/store';
 import { effects, reducers } from './state/reducers/module.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     TeamRegistrationComponent,
     RegistrationSuccessComponent,
     TeamsComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    ResetPasswordComponent
   ],
   imports: [
     HttpClientModule,

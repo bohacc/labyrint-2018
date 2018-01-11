@@ -5,6 +5,7 @@ import { TeamsPageComponent } from './components/teams-page/teams-page.component
 import { TeamsComponent } from './teams.component';
 import { AuthGuardService } from '../../shared/auth/auth.guard.service';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
   // {path: 'list', component: TeamsComponent},
@@ -13,5 +14,6 @@ export const routes: Routes = [
       {path: 'registration', component: TeamRegistrationComponent},
       {path: 'registration-success', component: RegistrationSuccessComponent},
       {path: 'my-account', component: MyAccountComponent, canActivate: [AuthGuardService]},
+      {path: 'reset-password', component: ResetPasswordComponent},
     ]}
 ];

@@ -10,7 +10,7 @@ import { State } from '../../state/reducers/module.reducer';
 @Component({
   selector: 'team-list',
   templateUrl: 'team-list.component.html',
-  styles: [],
+  styleUrls: ['team-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamListComponent implements OnInit {

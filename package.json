@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --locale cs",
-    "start-app": "ng build && set GCLOUD_PROJECT=labyrint-2018 && node server.js",
+    "start-app": "ng build --locale cs && set GCLOUD_PROJECT=labyrint-2018 && node server.js",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",
