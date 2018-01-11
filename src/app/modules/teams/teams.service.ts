@@ -50,6 +50,7 @@ export class TeamsService implements OnDestroy {
     delete teamWithoutPswd.password;
     this.db.database.ref('/teams/')
       .once('value', (snapchot) => {
+        console.log('addItem');
         teams = this.toolsService.getArray(snapchot.val());
         const exists: CheckExistsTeamDto = this.teamExists(team, teams);
         if (exists.exists) {
@@ -58,11 +59,10 @@ export class TeamsService implements OnDestroy {
             title: 'Chyba při přihlášení',
             description: exists.name ? 'Název týmu již existuje, zadejte jiný' : 'Email je již zaregistrovaný u jiného týmu'
           };
-          // this.store.dispatch(new RegistrateTeamExistsAction(error));
           this.store.dispatch(new ErrorsActions.ErrorAction([error]));
           return;
         }
-
+        console.log('addItem 2');
         this.db.database.ref('/accommodations').once('value')
           .then(
             (accommodationsResult) => {
@@ -78,11 +78,10 @@ export class TeamsService implements OnDestroy {
                   title: 'Chyba výběru ubytování',
                   description: 'Vybrané ubytování není možné rezervovat, zkuste vybrat jiné.'
                 };
-                // this.store.dispatch(new RegistrateTeamExistsAction(error));
-                this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+                // this.store.dispatch(new ErrorsActions.ErrorAction([error]));
 
                 success = false;
-                return null;
+                return Promise.reject(error);
               }
               return this.db.database.ref('/teams/' + teamWithoutPswd.name).set(teamWithoutPswd)
                 .catch((err) => {
@@ -107,7 +106,6 @@ export class TeamsService implements OnDestroy {
                       title: 'Chyba registrace',
                       description: msg
                     };
-                    // this.store.dispatch(new RegistrateTeamExistsAction(error));
                     this.store.dispatch(new ErrorsActions.ErrorAction([error]));
                     this.store.dispatch(new PendingActions(false));
                   }
@@ -117,13 +115,13 @@ export class TeamsService implements OnDestroy {
             }
           },
           (err) => {
-            const error: ErrorDto = {
+            /*const error: ErrorDto = {
               code: 'REGISTRATION_EXISTS',
               title: 'Chyba registrace',
               description: err
-            };
+            };*/
             // this.store.dispatch(new RegistrateTeamExistsAction(error));
-            this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+            this.store.dispatch(new ErrorsActions.ErrorAction([err]));
             this.store.dispatch(new PendingActions(false));
             console.log(err);
           }

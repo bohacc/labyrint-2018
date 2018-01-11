@@ -85,20 +85,29 @@ export class DatabaseService {
       return acc.value === loginTeam.accommodation;
     })[0];
     const accommodationPrice = accommodation && accommodation[0] ? accommodation[0].price : 0;
-    const playerCount: number =
-      (!!(loginTeam.player1.firstName + loginTeam.player1.lastName) ? 1 : 0) +
-      (!!(loginTeam.player2.firstName + loginTeam.player2.lastName) ? 1 : 0) +
-      (!!(loginTeam.player3.firstName + loginTeam.player3.lastName) ? 1 : 0) +
-      (!!(loginTeam.player4.firstName + loginTeam.player4.lastName) ? 1 : 0) +
-      (!!(loginTeam.player5.firstName + loginTeam.player5.lastName) ? 1 : 0);
-    const tshirtsPrice =
-      (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player1.tshirt)[0] || {price: 0}).price +
-      (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player2.tshirt)[0] || {price: 0}).price +
-      (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player3.tshirt)[0] || {price: 0}).price +
-      (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player4.tshirt)[0] || {price: 0}).price +
-      (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
-    loginTeam.payAccount = config.config.pay_account;
-    loginTeam.payAmount = accommodationPrice + tshirtsPrice;
+    let tshirtsPrice = 0;
+    let playerCount = 0;
+    if (loginTeam && loginTeam.player1 &&
+      loginTeam && loginTeam.player2 &&
+      loginTeam && loginTeam.player3 &&
+      loginTeam && loginTeam.player4 &&
+      loginTeam && loginTeam.player5
+    ) {
+      playerCount =
+        (!!(loginTeam.player1.firstName + loginTeam.player1.lastName) ? 1 : 0) +
+        (!!(loginTeam.player2.firstName + loginTeam. player2.lastName) ? 1 : 0) +
+        (!!(loginTeam.player3.firstName + loginTeam.player3.lastName) ? 1 : 0) +
+        (!!(loginTeam.player4.firstName + loginTeam.player4.lastName) ? 1 : 0) +
+        (!!(loginTeam.player5.firstName + loginTeam.player5.lastName) ? 1 : 0);
+      tshirtsPrice =
+        (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player1.tshirt)[0] || {price: 0}).price +
+        (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player2.tshirt)[0] || {price: 0}).price +
+        (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player3.tshirt)[0] || {price: 0}).price +
+        (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player4.tshirt)[0] || {price: 0}).price +
+        (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
+      loginTeam.payAccount = config.config.pay_account;
+      loginTeam.payAmount = accommodationPrice + tshirtsPrice;
+    }
   }
 
   public getRulesOfTheGame(): Observable<any> {
