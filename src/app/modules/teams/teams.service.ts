@@ -48,85 +48,89 @@ export class TeamsService implements OnDestroy {
     let accommodations: Accommodation[];
     const teamWithoutPswd: any = {...team, ...{payId: (Date.now() + '').substr(3)}};
     delete teamWithoutPswd.password;
+    console.log('addItem 0');
     this.db.database.ref('/teams/')
-      .once('value', (snapchot) => {
-        console.log('addItem');
-        teams = this.toolsService.getArray(snapchot.val());
-        const exists: CheckExistsTeamDto = this.teamExists(team, teams);
-        if (exists.exists) {
-          const error: ErrorDto = {
-            code: 'REGISTRATION_EXISTS',
-            title: 'Chyba při přihlášení',
-            description: exists.name ? 'Název týmu již existuje, zadejte jiný' : 'Email je již zaregistrovaný u jiného týmu'
-          };
-          this.store.dispatch(new ErrorsActions.ErrorAction([error]));
-          return;
-        }
-        console.log('addItem 2');
-        this.db.database.ref('/accommodations').once('value')
-          .then(
-            (accommodationsResult) => {
-              accommodations = this.toolsService.getArray(accommodationsResult.val());
-              return this.db.database.ref('/config').once('value');
-            })
-          .then(
-            (snapchotConfig) => {
-              // available type accommodation
-              if (!this.availableAccommodation(team.accommodation, accommodations, snapchotConfig.val(), teams)) {
-                const error: ErrorDto = {
-                  code: 'REGISTRATION_EXISTS',
-                  title: 'Chyba výběru ubytování',
-                  description: 'Vybrané ubytování není možné rezervovat, zkuste vybrat jiné.'
-                };
-                // this.store.dispatch(new ErrorsActions.ErrorAction([error]));
-
-                success = false;
-                return Promise.reject(error);
-              }
-              return this.db.database.ref('/teams/' + teamWithoutPswd.name).set(teamWithoutPswd)
-                .catch((err) => {
-                  success = false;
-                });
-              })
-          .then(() => {
-            if (success) {
-              this.store.dispatch(new CreateTeamAction(team));
-              this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
-                .then(
-                  () => {
-                    this.router.navigate(['teams/registration-success']);
-                  },
-                  (err) => {
-                    let msg = '';
-                    if (err && err.code === 'auth/weak-password') {
-                      msg = 'Chybný formát hesla (' + err.message + ')';
-                    }
-                    const error: ErrorDto = {
-                      code: 'REGISTRATION_EXISTS',
-                      title: 'Chyba registrace',
-                      description: msg
-                    };
-                    this.store.dispatch(new ErrorsActions.ErrorAction([error]));
-                    this.store.dispatch(new PendingActions(false));
-                  }
-                );
-            } else {
-              this.store.dispatch(new PendingActions(false));
-            }
-          },
-          (err) => {
-            /*const error: ErrorDto = {
+      .once('value')
+      .then(
+        (snapchot) => {
+          console.log('addItem');
+          teams = this.toolsService.getArray(snapchot.val());
+          const exists: CheckExistsTeamDto = this.teamExists(team, teams);
+          if (exists.exists) {
+            const error: ErrorDto = {
               code: 'REGISTRATION_EXISTS',
-              title: 'Chyba registrace',
-              description: err
-            };*/
-            // this.store.dispatch(new RegistrateTeamExistsAction(error));
-            this.store.dispatch(new ErrorsActions.ErrorAction([err]));
-            this.store.dispatch(new PendingActions(false));
-            console.log(err);
+              title: 'Chyba při přihlášení',
+              description: exists.name ? 'Název týmu již existuje, zadejte jiný' : 'Email je již zaregistrovaný u jiného týmu'
+            };
+            this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+            return;
           }
-        );
-      });
+          console.log('addItem 2');
+          this.db.database.ref('/accommodations')
+            .once('value')
+            .then(
+              (accommodationsResult) => {
+                accommodations = this.toolsService.getArray(accommodationsResult.val());
+                return this.db.database.ref('/config').once('value');
+              })
+            .then(
+              (snapchotConfig) => {
+                // available type accommodation
+                if (!this.availableAccommodation(team.accommodation, accommodations, snapchotConfig.val(), teams)) {
+                  const error: ErrorDto = {
+                    code: 'REGISTRATION_EXISTS',
+                    title: 'Chyba výběru ubytování',
+                    description: 'Vybrané ubytování není možné rezervovat, zkuste vybrat jiné.'
+                  };
+                  // this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+
+                  success = false;
+                  return Promise.reject(error);
+                }
+                return this.db.database.ref('/teams/' + teamWithoutPswd.name).set(teamWithoutPswd)
+                  .catch((err) => {
+                    success = false;
+                  });
+              })
+            .then(() => {
+                if (success) {
+                  this.store.dispatch(new CreateTeamAction(team));
+                  this.db.app.auth().createUserWithEmailAndPassword(team.email, team.password)
+                    .then(
+                      () => {
+                        this.router.navigate(['teams/registration-success']);
+                      },
+                      (err) => {
+                        let msg = '';
+                        if (err && err.code === 'auth/weak-password') {
+                          msg = 'Chybný formát hesla (' + err.message + ')';
+                        }
+                        const error: ErrorDto = {
+                          code: 'REGISTRATION_EXISTS',
+                          title: 'Chyba registrace',
+                          description: msg
+                        };
+                        this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+                        this.store.dispatch(new PendingActions(false));
+                      }
+                    );
+                } else {
+                  this.store.dispatch(new PendingActions(false));
+                }
+              },
+              (err) => {
+                /*const error: ErrorDto = {
+                  code: 'REGISTRATION_EXISTS',
+                  title: 'Chyba registrace',
+                  description: err
+                };*/
+                // this.store.dispatch(new RegistrateTeamExistsAction(error));
+                this.store.dispatch(new ErrorsActions.ErrorAction([err]));
+                this.store.dispatch(new PendingActions(false));
+                console.log(err);
+              }
+            );
+        });
   }
 
   public updateItem(team: TeamDto) {

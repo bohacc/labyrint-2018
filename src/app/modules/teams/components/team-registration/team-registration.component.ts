@@ -92,6 +92,7 @@ export class TeamRegistrationComponent implements OnInit {
     this.store.select(state => state.teams.teams.registrationFormSuccess)
       .subscribe((result) => {
         if (result) {
+          console.log('from initStore');
           this.sendValidateForm();
         }
       });
@@ -197,6 +198,7 @@ export class TeamRegistrationComponent implements OnInit {
 
   public onRecaptchaValidateResponse(response) {
     // this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
+    console.log('from onRecaptchaValidateResponse');
     this.sendValidateForm();
   }
 
@@ -209,11 +211,13 @@ export class TeamRegistrationComponent implements OnInit {
         description: 'Povinná pole musíte vyplnit'
       };
       this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+      this.isPending = false;
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
       this.recaptcha.execute();
     } else {
+      console.log('from sendForm');
       this.sendValidateForm();
     }
   }
