@@ -89,13 +89,13 @@ export class TeamRegistrationComponent implements OnInit {
     this.foods = this.store.select(state => state.teams.foods.list);
     this.accommodations = this.store.select(state => state.teams.accommodations.list);
     // captcha success
-    this.store.select(state => state.teams.teams.registrationFormSuccess)
+    /*this.store.select(state => state.teams.teams.registrationFormSuccess)
       .subscribe((result) => {
         if (result) {
           console.log('from initStore');
           this.sendValidateForm();
         }
-      });
+      });*/
     this.store.select(state => state.teams.teams)
       .subscribe((result) => {
         this.isPending = result.pending;

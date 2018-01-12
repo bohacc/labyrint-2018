@@ -48,12 +48,10 @@ export class TeamsService implements OnDestroy {
     let accommodations: Accommodation[];
     const teamWithoutPswd: any = {...team, ...{payId: (Date.now() + '').substr(3)}};
     delete teamWithoutPswd.password;
-    console.log('addItem 0');
     this.db.database.ref('/teams/')
       .once('value')
       .then(
         (snapchot) => {
-          console.log('addItem');
           teams = this.toolsService.getArray(snapchot.val());
           const exists: CheckExistsTeamDto = this.teamExists(team, teams);
           if (exists.exists) {
@@ -65,7 +63,6 @@ export class TeamsService implements OnDestroy {
             this.store.dispatch(new ErrorsActions.ErrorAction([error]));
             return;
           }
-          console.log('addItem 2');
           this.db.database.ref('/accommodations')
             .once('value')
             .then(
@@ -104,6 +101,9 @@ export class TeamsService implements OnDestroy {
                         let msg = '';
                         if (err && err.code === 'auth/weak-password') {
                           msg = 'Chybný formát hesla (' + err.message + ')';
+                        }
+                        if (err && err.code === 'auth/email-already-in-use') {
+                          msg = 'The email address is already in use by another account(' + team.email + ')';
                         }
                         const error: ErrorDto = {
                           code: 'REGISTRATION_EXISTS',
