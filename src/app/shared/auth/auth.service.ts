@@ -40,11 +40,18 @@ export class AuthService {
           this.router.navigate(['login-success']);
         },
         (err) => {
+          let text = '';
+          if (err && err.code === 'auth/user-not-found') {
+            text = 'Zadaný uživatel neexistuje';
+          } else if (err && err.code === 'auth/wrong-password') {
+            text = 'Chybné jméno nebo heslo';
+          } else {
+            text = 'Došlo k chybě při přihlášení, zkuste akci opakovat.';
+          }
           const error: ErrorDto = {
             code: 'LOGIN_ERROR',
             title: 'Chyba přihlášení',
-            description: (err && err.code === 'auth/user-not-found' ?
-              'Zadaný uživatel neexistuje' : 'Došlo k chybě při přihlášení, zkuste akci opakovat.')
+            description: text
           };
           this.store.dispatch(new ErrorsActions.ErrorAction([error]));
           console.log(err);

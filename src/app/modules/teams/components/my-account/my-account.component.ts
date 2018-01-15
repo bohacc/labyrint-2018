@@ -16,6 +16,8 @@ import { Food } from '../../models/FoodDto';
 import { TShirt } from '../../models/TShirtDto';
 import { State } from '../../state/reducers/module.reducer';
 import { Router } from '@angular/router';
+import { ErrorDto } from '../../../../shared/model/ErrorDto';
+import * as ErrorsActions from '../../../../state/actions/errors.actions';
 
 @Component({
   selector: 'app-my-account',
@@ -86,7 +88,9 @@ export class MyAccountComponent implements OnInit {
     this.store.select(state => state.loginTeam.team)
       .subscribe((team: LoginTeamDto) => {
         this.loginUser = team;
-        this.initForm();
+        if (this.loginUser) {
+          this.initForm();
+        }
       });
   }
 
@@ -180,8 +184,18 @@ export class MyAccountComponent implements OnInit {
 
   public resetPassword() {
     this.authService.resetPassword(this.loginUser.email)
-      .then(() => {
-        this.router.navigate(['/reset-password']);
-      });
+      .then(
+        () => {
+          this.router.navigate(['/reset-password']);
+        },
+        () => {
+          const error: ErrorDto = {
+            code: 'REGISTRATION_EXISTS',
+            title: 'Chyba při resetování hesla',
+            description: 'Kontaktujte prosím organizátory'
+          };
+          this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+        }
+      );
   }
 }
