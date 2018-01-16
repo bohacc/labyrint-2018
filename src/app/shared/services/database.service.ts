@@ -81,11 +81,10 @@ export class DatabaseService {
 
   private updateWithPayInfo(loginTeam: LoginTeamDto, tshirts: TshirtDto[], accommodations: AccommodationDto[],
                             config: ConfigDbDto) {
-    // TODO: issue with return 0
     const accommodation = (accommodations || [{price: 0}]).filter((acc: AccommodationDto) => {
       return acc.value === loginTeam.accommodation;
     })[0];
-    const accommodationPrice = accommodation && accommodation[0] ? accommodation[0].price : 0;
+    const accommodationPrice = accommodation ? accommodation.price : 0;
     let tshirtsPrice = 0;
     let playerCount = 0;
     if (loginTeam && loginTeam.player1 &&

@@ -178,15 +178,16 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
-  public saveTeam() {
+  public sendForm() {
     this.teamsService.updateItem(this.mainForm.value);
   }
 
   public resetPassword() {
+    console.log('reset password');
     this.authService.resetPassword(this.loginUser.email)
       .then(
         () => {
-          this.router.navigate(['/reset-password']);
+          this.router.navigate(['/teams/reset-password']);
         },
         () => {
           const error: ErrorDto = {

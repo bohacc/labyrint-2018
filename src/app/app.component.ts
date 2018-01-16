@@ -53,7 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
         };
         this.store.dispatch(new UserAuthAction(userAuth));
         this.databaseService.getLoginTeam(userAuth);
-        console.log(user);
       },
       (error) => {
         console.log(error);
