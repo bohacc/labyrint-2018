@@ -74,7 +74,6 @@ export class AuthService {
     return auth.sendPasswordResetEmail(email)
       .then(
         () => {
-          console.log('email sent');
         }
       )
       .catch(

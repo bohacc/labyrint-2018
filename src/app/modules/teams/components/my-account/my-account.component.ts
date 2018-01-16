@@ -183,7 +183,6 @@ export class MyAccountComponent implements OnInit {
   }
 
   public resetPassword() {
-    console.log('reset password');
     this.authService.resetPassword(this.loginUser.email)
       .then(
         () => {
