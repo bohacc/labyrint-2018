@@ -146,6 +146,7 @@ export class TeamsService implements OnDestroy {
       .then(
         () => {
           // TODO: show success message
+          // TODO: refresh loginUser
           if (success) {
             this.store.dispatch(new UpdateTeamAction(team));
           }
