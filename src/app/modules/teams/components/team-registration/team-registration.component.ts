@@ -227,6 +227,7 @@ export class TeamRegistrationComponent implements OnInit {
     const team = this.mainForm.value.data;
     team.password = team.passwords.password;
     delete team.captcha;
+    delete team.passwords;
     this.teamsService.addItem(team);
   }
 }

@@ -134,8 +134,8 @@ export class TeamsService implements OnDestroy {
   }
 
   public updateItem(team: TeamDto) {
+    console.log(team);
     let success = true;
-    // TODO: disable edit registration email
     this.db.database
       .ref('/teams/' + team.name)
       .update(team)

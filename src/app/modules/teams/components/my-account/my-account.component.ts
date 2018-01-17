@@ -172,14 +172,14 @@ export class MyAccountComponent implements OnInit {
           },
           {validator: [ValidatePlayer]}
         ),
-        payId: ''
+        payId: this.loginUser.payId
       }),
       /*captcha: ['']*/
     });
   }
 
   public sendForm() {
-    this.teamsService.updateItem(this.mainForm.value);
+    this.teamsService.updateItem(this.mainForm.getRawValue().data);
   }
 
   public resetPassword() {
