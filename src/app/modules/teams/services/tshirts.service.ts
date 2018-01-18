@@ -16,7 +16,7 @@ export class TshirtsService implements OnDestroy {
     private store: Store<AppState>,
     private db: AngularFireDatabase
   ) {
-    this.itemsRef = this.db.list('tshirts');
+    this.itemsRef = this.db.list('tshirts', ref => ref.orderByChild('sort_order') );
   }
 
   ngOnDestroy() {

@@ -23,7 +23,7 @@ export class AccommodationsService implements OnDestroy {
     private db: AngularFireDatabase,
     private teamsService: TeamsService
   ) {
-    this.itemsRef = this.db.list('accommodations');
+    this.itemsRef = this.db.list('accommodations', ref => ref.orderByChild('sort_order'));
     this.itemsRefConfig = this.db.list('config');
     this.itemsRefTeams = this.db.list('teams');
   }

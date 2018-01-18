@@ -16,7 +16,7 @@ export class FoodService implements OnDestroy {
     private store: Store<AppState>,
     private db: AngularFireDatabase
   ) {
-    this.itemsRef = this.db.list('foods');
+    this.itemsRef = this.db.list('foods', ref => ref.orderByChild('sort_order'));
   }
 
   ngOnDestroy() {

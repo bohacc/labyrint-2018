@@ -18,6 +18,11 @@ import { ToolsService } from '../../shared/services/tools.service';
 import { AccommodationEnum } from './models/AccommodationEnum';
 import { Subject } from 'rxjs/Subject';
 import * as ErrorsActions from '../../state/actions/errors.actions';
+import { LoginTeamAction } from '../../state/actions/login-team.actions';
+import { LoginTeamDto } from '../../shared/model/LoginTeamDto';
+import { DatabaseService } from '../../shared/services/database.service';
+import * as MessagesActions from '../../state/actions/messages.actions';
+import { MessageDto } from '../../shared/model/messageDto';
 
 @Injectable()
 export class TeamsService implements OnDestroy {
@@ -29,7 +34,8 @@ export class TeamsService implements OnDestroy {
     private db: AngularFireDatabase,
     private store: Store<AppState>,
     private router: Router,
-    private toolsService: ToolsService
+    private toolsService: ToolsService,
+    private databaseService: DatabaseService
   ) {
     this.itemsRef = this.db.list('teams');
   }
@@ -133,8 +139,7 @@ export class TeamsService implements OnDestroy {
         });
   }
 
-  public updateItem(team: TeamDto) {
-    console.log(team);
+  public updateItem(team: LoginTeamDto) {
     let success = true;
     this.db.database
       .ref('/teams/' + team.name)
@@ -145,14 +150,24 @@ export class TeamsService implements OnDestroy {
       })
       .then(
         () => {
-          // TODO: show success message
-          // TODO: refresh loginUser
           if (success) {
-            this.store.dispatch(new UpdateTeamAction(team));
+            this.store.dispatch(new LoginTeamAction(team));
+            this.databaseService.getLoginTeam(team);
+            const msg: MessageDto = {
+              code: 'REGISTRATION_EDIT',
+              title: 'Úprava registrace',
+              description: 'Změny byly uloženy'
+            };
+            this.store.dispatch(new MessagesActions.MessageAction([msg]));
           }
         },
         (err) => {
-          // TODO: show error
+          const error: ErrorDto = {
+            code: 'REGISTRATION_EDIT_ERROR',
+            title: 'Chyba při ukládání změn registrace',
+            description: 'Registrace nebyla uložena.(' + err + ')'
+          };
+          this.store.dispatch(new ErrorsActions.ErrorAction([error]));
           console.log(err);
         }
       );

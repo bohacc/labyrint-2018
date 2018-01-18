@@ -12,6 +12,7 @@ import { Accommodation } from '../../modules/teams/models/AccommodationDto';
 import { TshirtDto } from '../model/TshirtDto';
 import { AccommodationDto } from '../model/AccommodationDto';
 import { ConfigDbDto } from '../model/ConfigDbDto';
+import { NewsDto } from '../model/newsDto';
 
 @Injectable()
 export class DatabaseService {
@@ -23,11 +24,12 @@ export class DatabaseService {
 
   }
 
-  public getNews(): Observable<any> {
-    return this.db.list('news').valueChanges();
+  public getNews(): Observable<any[]> {
+    return this.db.list('news', ref => ref.orderByChild('sort_order')).valueChanges()
+      .map((items) => items.reverse());
   }
 
-  public getLoginTeam(userAuth: UserAuthDto) {
+  public getLoginTeam(userAuth: UserAuthDto | LoginTeamDto | TeamDto) {
     let accommodations: AccommodationDto[] = [];
     let tshirts: TshirtDto[] = [];
     let config: ConfigDbDto;
@@ -111,7 +113,7 @@ export class DatabaseService {
   }
 
   public getRulesOfTheGame(): Observable<any> {
-    return this.db.list('/rules_of_the_game/')
+    return this.db.list('/rules_of_the_game/', ref => ref.orderByChild('sort_order'))
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
@@ -119,7 +121,7 @@ export class DatabaseService {
   }
 
   public getCiphersOfTheGame(): Observable<any> {
-    return this.db.list('/ciphers_of_the_game/')
+    return this.db.list('/ciphers_of_the_game/', ref => ref.orderByChild('sort_order'))
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
@@ -127,7 +129,7 @@ export class DatabaseService {
   }
 
   public getResultsOfTheGame(): Observable<any> {
-    return this.db.list('/results_of_the_game/')
+    return this.db.list('/results_of_the_game/', ref => ref.orderByChild('sort_order'))
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
@@ -135,7 +137,7 @@ export class DatabaseService {
   }
 
   public getContactOfTheGame(): Observable<any> {
-    return this.db.list('/contact_of_the_game/')
+    return this.db.list('/contact_of_the_game/', ref => ref.orderByChild('sort_order'))
       .snapshotChanges()
       .map(changes => {
         return changes.map(c => ({...c.payload.val() }));
