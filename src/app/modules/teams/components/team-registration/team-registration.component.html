@@ -38,8 +38,7 @@
       <mat-form-field class="">
         <input matInput placeholder="Heslo"
                [formControl]="passwords.get('password')"
-               type="password"
-               [errorStateMatcher]="matcher">
+               type="password">
 
         <mat-hint>pro přihlášení, min. 6 znaků</mat-hint>
         <mat-error *ngIf="passwords.get('password').hasError('minlength') && !passwords.get('password').hasError('required')">
@@ -55,8 +54,7 @@
       <mat-form-field class="">
         <input matInput placeholder="Heslo pro ověření"
                [formControl]="passwords.get('password2')"
-               type="password"
-               [errorStateMatcher]="matcher">
+               type="password">
 
         <mat-error *ngIf="passwords.get('password2').hasError('minlength') && !passwords.get('password2').hasError('required')">
           Heslo musí mít alespoň 6 znaků

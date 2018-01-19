@@ -22,11 +22,16 @@ export class AlertsComponent implements OnDestroy {
   ) {
     this.store.select(state => state.errors.errors)
       .takeUntil(this.unsubscribe)
-      .mergeMap(() => {
+      .mergeMap((errors) => {
+        if (errors[0]) {
+          this.msg = errors[0];
+        }
         return this.store.select(state => state.messages.messages);
       })
       .subscribe((errors) => {
-        this.msg = errors[0];
+        if (errors[0]) {
+          this.msg = errors[0];
+        }
         if (this.msg) {
           this.openDialog();
         }

@@ -9,21 +9,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedServiceModule } from './modules/shared-service.module';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
-import { AppHeaderComponent } from './components/app-header/app-header.component';
-import { AppFooterComponent } from './components/app-footer/app-footer.component';
-import { ActionReducerMap, combineReducers, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { reducers } from './state/reducers/app.reducer';
 import { HomeComponent } from './components/home/home.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomRouterStateSerializer } from './shared/utils';
-import { teamsReducer } from './modules/teams/state/reducers/team.reducer';
-import { captchaReducer } from './modules/captcha/state/reducers/captcha.reducer';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './modules/material/material.module';
-import {CdkTableModule} from '@angular/cdk/table';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { AlertComponent } from './components/alerts/alert/alert.component';
@@ -43,8 +38,6 @@ import { LogoutSuccessComponent } from './components/logout-success/logout-succe
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent,
-    AppFooterComponent,
     HomeComponent,
     LoginComponent,
     AlertsComponent,
@@ -72,12 +65,12 @@ import { LogoutSuccessComponent } from './components/logout-success/logout-succe
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
-    StoreDevtoolsModule.instrument({
+    /*StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
-    })
-    /*!environment.production ? StoreDevtoolsModule.instrument({
+    })*/
+    !environment.production ? StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
-    }) : []*/,
+    }) : [],
     SharedServiceModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,

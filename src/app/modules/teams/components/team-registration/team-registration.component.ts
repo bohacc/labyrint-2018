@@ -88,14 +88,6 @@ export class TeamRegistrationComponent implements OnInit {
     this.tshirts = this.store.select(state => state.teams.tshirts.list);
     this.foods = this.store.select(state => state.teams.foods.list);
     this.accommodations = this.store.select(state => state.teams.accommodations.list);
-    // captcha success
-    /*this.store.select(state => state.teams.teams.registrationFormSuccess)
-      .subscribe((result) => {
-        if (result) {
-          console.log('from initStore');
-          this.sendValidateForm();
-        }
-      });*/
     this.store.select(state => state.teams.teams)
       .subscribe((result) => {
         this.isPending = result.pending;
@@ -196,14 +188,13 @@ export class TeamRegistrationComponent implements OnInit {
     });
   }
 
-  public onRecaptchaValidateResponse(response) {
-    // this.store.dispatch(new TeamsActions.RegistrationFormSuccessAction(true));
-    console.log('from onRecaptchaValidateResponse');
+  public onRecaptchaValidateResponse() {
     this.sendValidateForm();
   }
 
   public sendForm() {
     this.isPending = true;
+    console.log(this.mainForm.get('data'));
     if (!this.mainForm.get('data').valid) {
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
@@ -212,12 +203,12 @@ export class TeamRegistrationComponent implements OnInit {
       };
       this.store.dispatch(new ErrorsActions.ErrorAction([error]));
       this.isPending = false;
+      console.log('CHYBA VALID');
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
       this.recaptcha.execute();
     } else {
-      console.log('from sendForm');
       this.sendValidateForm();
     }
   }
