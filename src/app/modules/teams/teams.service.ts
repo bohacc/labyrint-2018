@@ -37,7 +37,7 @@ export class TeamsService implements OnDestroy {
     private toolsService: ToolsService,
     private databaseService: DatabaseService
   ) {
-    this.itemsRef = this.db.list('teams');
+    this.itemsRef = this.db.list('teams', ref => ref.orderByChild('name'));
   }
 
   ngOnDestroy() {

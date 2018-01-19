@@ -1,4 +1,17 @@
 .pay {
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
+}
+
+.noPay {
+  font-size: 1.5em;
+  // font-weight: bold;
+}
+
+.paySent {
+  font-style: italic;
+}
+
+.payNoSent {
+  font-style: italic;
 }

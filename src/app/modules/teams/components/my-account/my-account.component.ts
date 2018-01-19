@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -18,13 +18,15 @@ import { State } from '../../state/reducers/module.reducer';
 import { Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import * as ErrorsActions from '../../../../state/actions/errors.actions';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.scss']
 })
-export class MyAccountComponent implements OnInit {
+export class MyAccountComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<any> = new Subject();
   public loginUser: LoginTeamDto;
   public mainForm: FormGroup;
   public name: FormControl;
@@ -77,6 +79,11 @@ export class MyAccountComponent implements OnInit {
     this.accommodationsService.loadAccommodations();
   }
 
+  ngOnDestroy() {
+    this.unsubscribe.next(null);
+    this.unsubscribe.complete();
+  }
+
   public logout() {
     this.authService.logout();
   }
@@ -86,6 +93,7 @@ export class MyAccountComponent implements OnInit {
     this.foods = this.store.select(state => state.teams.foods.list);
     this.accommodations = this.store.select(state => state.teams.accommodations.list);
     this.store.select(state => state.loginTeam.team)
+      .takeUntil(this.unsubscribe)
       .subscribe((team: LoginTeamDto) => {
         this.loginUser = team;
         if (this.loginUser) {
