@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return state.userAuth;
     });
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges(); 
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
