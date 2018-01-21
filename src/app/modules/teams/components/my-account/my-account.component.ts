@@ -59,6 +59,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public tshirts: Observable<TShirt[]>;
   public foods: Observable<Food[]>;
   public accommodations: Observable<Accommodation[]>;
+  public isPending = false;
 
   constructor(
     private authService: AuthService,
@@ -92,10 +93,11 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     this.tshirts = this.store.select(state => state.teams.tshirts.list);
     this.foods = this.store.select(state => state.teams.foods.list);
     this.accommodations = this.store.select(state => state.teams.accommodations.list);
-    this.store.select(state => state.loginTeam.team)
+    this.store.select(state => state)
       .takeUntil(this.unsubscribe)
-      .subscribe((team: LoginTeamDto) => {
-        this.loginUser = team;
+      .subscribe((state) => {
+        this.isPending = state.teams.teams.pending;
+        this.loginUser = state.loginTeam.team;
         if (this.loginUser) {
           this.initForm();
         }
@@ -187,6 +189,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   public sendForm() {
+    this.isPending = true;
     this.teamsService.updateItem(this.mainForm.getRawValue().data);
   }
 

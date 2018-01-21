@@ -4,10 +4,12 @@ import { userAuthReducer } from './userAuth.reducer';
 import { errorsReducer } from './errors.reducer';
 import { loginTeamReducer } from './login-team.reducer';
 import { messagesReducer } from './messages.reducer';
+import { pendingReducer } from './pending.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   userAuth: userAuthReducer,
   errors: errorsReducer,
   loginTeam: loginTeamReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  pending: pendingReducer
 };

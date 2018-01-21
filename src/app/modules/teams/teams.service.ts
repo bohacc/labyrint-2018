@@ -147,6 +147,7 @@ export class TeamsService implements OnDestroy {
       .catch((err) => {
         console.log(err);
         success = false;
+        this.store.dispatch(new PendingActions(false));
       })
       .then(
         () => {
@@ -159,6 +160,7 @@ export class TeamsService implements OnDestroy {
               description: 'Změny byly uloženy'
             };
             this.store.dispatch(new MessagesActions.MessageAction([msg]));
+            this.store.dispatch(new PendingActions(false));
           }
         },
         (err) => {
@@ -168,6 +170,7 @@ export class TeamsService implements OnDestroy {
             description: 'Registrace nebyla uložena.(' + err + ')'
           };
           this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+          this.store.dispatch(new PendingActions(false));
           console.log(err);
         }
       );

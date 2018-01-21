@@ -316,7 +316,7 @@
     <div class="clear"></div>
 
     <div>
-      <button color="accent" type="submit" mat-raised-button [disabled]="mainForm.invalid">Uložit změny</button>
+      <button color="accent" type="submit" mat-raised-button [disabled]="mainForm.invalid || isPending">Uložit změny</button>
       &nbsp;
       &nbsp;
       <button color="accent" type="button" mat-button (click)="resetPassword()">Reset hesla</button>
