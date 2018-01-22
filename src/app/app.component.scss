@@ -10,31 +10,41 @@
   top: 0px;
   position: fixed;
   z-index: 999;
-  min-width: 162px;
-  min-height: 171px;
+  width: 162px;
+  height: 171px;
   content:url('/assets/smurf.png');
+  background-image:url('/assets/smurf.png');
 }
 
 .smurf2 {
   /*position: fixed;
   z-index: 999;*/
+  width: 30px;
+  height: 53px;
   content:url('/assets/smurf5.png');
+  background-image:url('/assets/smurf5.png');
 }
 
 .smurf3 {
+  width: 284px;
+  height: 163px;
   position: fixed;
   z-index: 999;
   bottom: 0;
   left: 50%;
   content:url('/assets/smurf2.png');
+  background-image:url('/assets/smurf2.png');
 }
 
 .smurf4 {
+  width: 165px;
+  height: 211px;
   position: fixed;
   z-index: 999;
   right: 0;
   top: 25%;
   content:url('/assets/smurf3.png');
+  background-image:url('/assets/smurf3.png');
 }
 
 .smurf-space {
