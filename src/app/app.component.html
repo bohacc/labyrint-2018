@@ -1,13 +1,13 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
-    <span class="smurf-space" *ngIf="!mobileQuery.matches"></span>
+    <span class="smurf-space" *ngIf="!mobileQuery.matches">&nbsp;</span>
     <button mat-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="example-app-name">
       <a routerLink="/" class="title-text">Labyrint 2018</a>
     </h1>
-    <span class="smurf2"></span>
+    <span class="smurf2">&nbsp;</span>
 
     <div *ngIf="!mobileQuery.matches">
       <a mat-button href="javascript:void(0);" routerLink="/teams/registration" >
@@ -69,9 +69,9 @@
 
     <mat-sidenav-content>
       <div *ngIf="!mobileQuery.matches">
-        <span class="smurf"></span>
-        <span class="smurf3"></span>
-        <span class="smurf4" [ngStyle]="{right: smurf4style + 'px'}"></span>
+        <span class="smurf">&nbsp;</span>
+        <span class="smurf3">&nbsp;</span>
+        <span class="smurf4" [ngStyle]="{right: smurf4style + 'px'}">&nbsp;</span>
       </div>
 
       <app-alerts></app-alerts>
