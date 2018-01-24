@@ -1,6 +1,6 @@
 <mat-card class="app-content">
   <div *ngFor="let item of news">
-    <div>{{item.value}}</div>
+    <div [innerHTML]="item.value | trustHtml"></div>
     <br>
   </div>
 </mat-card>
