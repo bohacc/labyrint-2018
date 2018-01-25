@@ -13,7 +13,8 @@ export const initialState: State = {
       hut4: null,
       close_registration: null,
       open_registration: null,
-      pay_account: null
+      pay_account: null,
+      registration_price: null
     }
   }
 };

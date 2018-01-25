@@ -103,8 +103,8 @@
     <div class="accommodations accommodations-column-1">
       <mat-form-field class="">
         <mat-select placeholder="Ubytování" [formControl]="accommodation">
-          <mat-option *ngFor="let item of accommodations | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of accommodations$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
         <mat-error *ngIf="accommodation.hasError('required')">
@@ -147,8 +147,8 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt">
-          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -157,7 +157,7 @@
     <div class="people-column-4">
       <mat-form-field>
         <mat-select placeholder="Vybrané jídlo" [formControl]="food">
-          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+          <mat-option *ngFor="let item of foods$ | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -198,8 +198,8 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt2">
-          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -208,7 +208,7 @@
     <div class="people-column-4">
       <mat-form-field>
         <mat-select placeholder="Vybrané jídlo" [formControl]="food2">
-          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+          <mat-option *ngFor="let item of foods$ | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -249,8 +249,8 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt3">
-          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -259,7 +259,7 @@
     <div class="people-column-4">
       <mat-form-field>
         <mat-select placeholder="Vybrané jídlo" [formControl]="food3">
-          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+          <mat-option *ngFor="let item of foods$ | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -300,8 +300,8 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt4">
-          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -310,7 +310,7 @@
     <div class="people-column-4">
       <mat-form-field>
         <mat-select placeholder="Vybrané jídlo" [formControl]="food4">
-          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+          <mat-option *ngFor="let item of foods$ | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -351,8 +351,8 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt5">
-          <mat-option *ngFor="let item of tshirts | async" [value]="item.value">
-            {{ item.name }}
+          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+            {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -361,7 +361,7 @@
     <div class="people-column-4">
       <mat-form-field>
         <mat-select placeholder="Vybrané jídlo" [formControl]="food5">
-          <mat-option *ngFor="let item of foods | async" [value]="item.value">
+          <mat-option *ngFor="let item of foods$ | async" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -380,6 +380,18 @@
          (captchaResponse)="onRecaptchaValidateResponse()"
          formControlName="captcha">
     </div>
+    <br>
+    <div>
+      <strong>Cena registrace</strong>
+    </div>
+    <div class="people-column-1">Startovné:</div><div class="people-column-2">{{(config$ | async).config.registration_price | number}} Kč</div>
+    <div class="clear"></div>
+    <div class="people-column-1">Ubytování:</div><div class="people-column-2">0</div>
+    <div class="clear"></div>
+    <div class="people-column-1">Trička:</div><div class="people-column-2">0</div>
+    <div class="clear"></div>
+    <div class="people-column-1"><strong>Celkem:</strong></div><div class="people-column-2"><strong>0</strong></div>
+    <div class="clear"></div>
     <br>
     <div class="send-form-col-1">
       <button type="submit" mat-raised-button color="accent" [disabled]="isPending">Registrovat tým</button>

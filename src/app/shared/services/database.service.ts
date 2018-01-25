@@ -108,7 +108,7 @@ export class DatabaseService {
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player4.tshirt)[0] || {price: 0}).price +
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
       loginTeam.payAccount = config.config.pay_account;
-      loginTeam.payAmount = accommodationPrice + tshirtsPrice;
+      loginTeam.payAmount = accommodationPrice + tshirtsPrice + (config.config.registration_price || 0);
     }
   }
 

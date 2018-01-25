@@ -20,6 +20,7 @@ import * as TeamsActions from '../../state/actions/teams.actions';
 import { ValidatePasswords } from '../../../../shared/validators/passwords.validator';
 import * as ErrorsActions from '../../../../state/actions/errors.actions';
 import { State } from '../../state/reducers/module.reducer';
+import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 
 @Component({
   selector: 'registration-form',
@@ -56,11 +57,12 @@ export class TeamRegistrationComponent implements OnInit {
   public food4: FormControl;
   public food5: FormControl;
   public accommodation: FormControl;
-  public tshirts: Observable<TShirt[]>;
-  public foods: Observable<Food[]>;
-  public accommodations: Observable<Accommodation[]>;
+  public tshirts$: Observable<TShirt[]>;
+  public foods$: Observable<Food[]>;
+  public accommodations$: Observable<Accommodation[]>;
   public showFillMessage = false;
   public isPending = false;
+  public config$: Observable<ConfigDbDto>;
 
   constructor(
     private http: HttpClient,
@@ -85,9 +87,10 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   private initStore() {
-    this.tshirts = this.store.select(state => state.teams.tshirts.list);
-    this.foods = this.store.select(state => state.teams.foods.list);
-    this.accommodations = this.store.select(state => state.teams.accommodations.list);
+    this.tshirts$ = this.store.select(state => state.teams.tshirts.list);
+    this.foods$ = this.store.select(state => state.teams.foods.list);
+    this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
+    this.config$ = this.store.select(state => state.teams.config.config);
     this.store.select(state => state.teams.teams)
       .subscribe((result) => {
         this.isPending = result.pending;
