@@ -86,9 +86,9 @@
 
     <!--UBYTOVANI-->
 
-    <div class="accommodations-title">
+    <h2 class="accommodations-title">
       <strong>Ubytování</strong>
-    </div>
+    </h2>
 
     <div class="accommodationsDescription">
       Dispozice objektu je taková, že naprostá většina ubytovacích kapacit sestává ze 4-lůžkových chatek nebo pokojů. Pětičlenné týmy si tak zvolí jednu z variant ubytování 4+1. Pátý člen získává úžasný bonus strávit noc na sdíleném pokoji a poznat nové kamarády. Doporučujeme vyčlenit nejvíce chrápajícího nebo nejdéle pařícího šmoulu.
@@ -103,7 +103,7 @@
     <div class="accommodations accommodations-column-1">
       <mat-form-field class="">
         <mat-select placeholder="Ubytování" [formControl]="accommodation">
-          <mat-option *ngFor="let item of accommodations$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of accommodations$ | async" [value]="item.value" (click)="setAccommodationPrice(item)">
             {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
@@ -115,9 +115,9 @@
 
     <!--HRACI-->
 
-    <div class="team-people">
+    <h2 class="team-people">
       <strong>Složení týmu</strong>
-    </div>
+    </h2>
 
     <!--ROW-->
     <div>
@@ -147,7 +147,7 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt">
-          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of tshirts" [value]="item.value" (click)="setTshirtPrice(item)">
             {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
@@ -198,7 +198,7 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt2">
-          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of tshirts" [value]="item.value" (click)="setTshirtPrice(item)">
             {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
@@ -249,7 +249,7 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt3">
-          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of tshirts" [value]="item.value" (click)="setTshirtPrice(item)">
             {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
@@ -300,7 +300,7 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt4">
-          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of tshirts" [value]="item.value" (click)="setTshirtPrice(item)">
             {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
@@ -351,7 +351,7 @@
     <div class="people-column-3">
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt5">
-          <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
+          <mat-option *ngFor="let item of tshirts" [value]="item.value" (click)="setTshirtPrice(item)">
             {{ item.name }}&nbsp;({{ item.price | number }} Kč)
           </mat-option>
         </mat-select>
@@ -381,18 +381,30 @@
          formControlName="captcha">
     </div>
     <br>
-    <div>
+    <h2>
       <strong>Cena registrace</strong>
-    </div>
-    <div class="people-column-1">Startovné:</div><div class="people-column-2">{{(config$ | async).config.registration_price | number}} Kč</div>
+    </h2>
+
+    <div class="payment-column-1">Startovné:</div>
+    <div class="payment-column-2">{{config?.registration_price | number}} Kč</div>
     <div class="clear"></div>
-    <div class="people-column-1">Ubytování:</div><div class="people-column-2">0</div>
+
+    <div class="payment-column-1">Ubytování:</div>
+    <div class="payment-column-2">{{accommodationPrice | number}} Kč</div>
     <div class="clear"></div>
-    <div class="people-column-1">Trička:</div><div class="people-column-2">0</div>
+
+    <div class="payment-column-1">Trička:</div>
+    <div class="payment-column-2">{{tshirtsPrice | number}} Kč</div>
     <div class="clear"></div>
-    <div class="people-column-1"><strong>Celkem:</strong></div><div class="people-column-2"><strong>0</strong></div>
-    <div class="clear"></div>
+
     <br>
+
+    <div class="payment-column-1"><strong>Celkem:</strong></div>
+    <div class="payment-column-2"><strong>{{summaryPrice | number}} Kč</strong></div>
+    <div class="clear"></div>
+
+    <br>
+
     <div class="send-form-col-1">
       <button type="submit" mat-raised-button color="accent" [disabled]="isPending">Registrovat tým</button>
     </div>

@@ -32,7 +32,7 @@ export class DatabaseService {
   public getLoginTeam(userAuth: UserAuthDto | LoginTeamDto | TeamDto) {
     let accommodations: AccommodationDto[] = [];
     let tshirts: TshirtDto[] = [];
-    let config: ConfigDbDto;
+    let config: {config: ConfigDbDto};
     let loginTeam: LoginTeamDto;
     this.db.database.ref('/teams/').once('value')
       .then((snapchot) => {
@@ -71,7 +71,7 @@ export class DatabaseService {
         if (snapchot) {
           config = snapchot.val();
         }
-        this.updateWithPayInfo(loginTeam, tshirts, accommodations, config);
+        this.updateWithPayInfo(loginTeam, tshirts, accommodations, config.config);
         if (loginTeam) {
           this.store.dispatch(new LoginTeamAction(loginTeam));
         } else {
@@ -89,7 +89,7 @@ export class DatabaseService {
     const accommodationPrice = accommodation ? accommodation.price : 0;
     let tshirtsPrice = 0;
     let playerCount = 0;
-    const registrationPrice = (config.config.registration_price || 0);
+    const registrationPrice = (config.registration_price || 0);
     if (loginTeam && loginTeam.player1 &&
       loginTeam && loginTeam.player2 &&
       loginTeam && loginTeam.player3 &&
@@ -108,7 +108,7 @@ export class DatabaseService {
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player3.tshirt)[0] || {price: 0}).price +
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player4.tshirt)[0] || {price: 0}).price +
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
-      loginTeam.payAccount = config.config.pay_account;
+      loginTeam.payAccount = config.pay_account;
       loginTeam.payAmount = accommodationPrice + tshirtsPrice + registrationPrice;
       loginTeam.accommodationPrice = accommodationPrice;
       loginTeam.tshirtsPrice = tshirtsPrice;

@@ -17,5 +17,5 @@
   <div class="pay-column2"><strong>{{(loginUser$ | async).payAmount | number: '1.0-0'}}</strong> Kč</div>
 
   <div class="cleaner">&nbsp;</div>
-  <div><i>(startovné: {{(config$ | async).config.registration_price | number}} Kč, ubytování: {{(loginUser$ | async).accommodationPrice | number}} Kč, trička: {{(loginUser$ | async).tshirtsPrice | number}} Kč)</i></div>
+  <div><i>(startovné: {{(config$ | async).registration_price | number}} Kč, ubytování: {{(loginUser$ | async).accommodationPrice | number}} Kč, trička: {{(loginUser$ | async).tshirtsPrice | number}} Kč)</i></div>
 </mat-card>>

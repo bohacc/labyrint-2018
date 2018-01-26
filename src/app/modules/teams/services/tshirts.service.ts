@@ -6,10 +6,11 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { TShirt } from '../models/TShirtDto';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import { TshirtDto } from '../../../shared/model/TshirtDto';
 
 @Injectable()
 export class TshirtsService implements OnDestroy {
-  private itemsRef: AngularFireList<{tshirts: TShirt}[]>;
+  private itemsRef: AngularFireList<{tshirts: TshirtDto}[]>;
   private unsubscribe: Subject<any> = new Subject();
 
   constructor(
@@ -31,7 +32,7 @@ export class TshirtsService implements OnDestroy {
       })
       .takeUntil(this.unsubscribe)
       .subscribe(
-        (tshirts: TShirt[]) => {
+        (tshirts: TshirtDto[]) => {
           this.store.dispatch(new LoadTShirtsAction(tshirts));
         }
       );

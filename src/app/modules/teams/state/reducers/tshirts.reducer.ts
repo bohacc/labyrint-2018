@@ -1,8 +1,8 @@
 import * as TShirtsActions from '../actions/tshirts.action';
-import { TShirt } from '../../models/TShirtDto';
+import { TshirtDto } from '../../../../shared/model/TshirtDto';
 
 export interface State {
-  list: TShirt[];
+  list: TshirtDto[];
 }
 
 export const initialState: State = {

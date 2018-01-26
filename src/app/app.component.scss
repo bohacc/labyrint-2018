@@ -131,6 +131,17 @@ h1.example-app-name {
   float: left;
 }
 
+/deep/ .payment-column-1 {
+  width: 5em;
+  float: left;
+}
+
+/deep/ .payment-column-2 {
+  text-align: right;
+  float: left;
+  width: 5em;
+}
+
 /deep/ .cleaner {
   clear: both;
 }

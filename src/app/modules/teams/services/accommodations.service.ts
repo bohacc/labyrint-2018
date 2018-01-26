@@ -48,8 +48,8 @@ export class AccommodationsService implements OnDestroy {
             return changes.map(c => ({...c.payload.val()}));
           });
       })
-      .switchMap((config: any[]) => {
-        configDb = {config: config[0]};
+      .switchMap((config: ConfigDbDto[]) => {
+        configDb = config[0];
         return this.itemsRef.snapshotChanges()
           .map(changes => {
             this.store.dispatch(new LoadConfigAction(configDb));

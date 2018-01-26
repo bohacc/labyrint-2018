@@ -31,8 +31,8 @@ export class ConfigService implements OnDestroy {
       })
       .takeUntil(this.unsubscribe)
       .subscribe(
-        (config: any[]) => {
-          this.store.dispatch(new LoadConfigAction({ config: config[0] }));
+        (config: ConfigDbDto[]) => {
+          this.store.dispatch(new LoadConfigAction(config[0]));
         }
       );
   }

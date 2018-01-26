@@ -7,15 +7,13 @@ export interface State {
 
 export const initialState: State = {
   config: {
-    config: {
-      building4: null,
-      hut2: null,
-      hut4: null,
-      close_registration: null,
-      open_registration: null,
-      pay_account: null,
-      registration_price: null
-    }
+    building4: null,
+    hut2: null,
+    hut4: null,
+    close_registration: null,
+    open_registration: null,
+    pay_account: null,
+    registration_price: null
   }
 };
 
@@ -25,7 +23,7 @@ export function configReducer(state = initialState, action: ConfigActions.Config
       return {
         ...state,
         config: {
-          config: {...state.config.config, ...action.payload.config}
+          ...state.config, ...action.payload
         }
       };
     default:

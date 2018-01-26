@@ -237,9 +237,9 @@ export class TeamsService implements OnDestroy {
       });
 
       if (selected.type === AccommodationEnum.HUT) {
-        result = (selected.count + count) <= config.config.hut4;
+        result = (selected.count + count) <= config.hut4;
       } else if (selected.type === AccommodationEnum.BUILDING) {
-        result = (selected.count + count) <= config.config.building4;
+        result = (selected.count + count) <= config.building4;
       }
     } catch (err) {
       console.log(err);

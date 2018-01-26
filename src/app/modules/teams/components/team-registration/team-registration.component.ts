@@ -21,6 +21,8 @@ import { ValidatePasswords } from '../../../../shared/validators/passwords.valid
 import * as ErrorsActions from '../../../../state/actions/errors.actions';
 import { State } from '../../state/reducers/module.reducer';
 import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
+import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
+import { TshirtDto } from '../../../../shared/model/TshirtDto';
 
 @Component({
   selector: 'registration-form',
@@ -57,12 +59,15 @@ export class TeamRegistrationComponent implements OnInit {
   public food4: FormControl;
   public food5: FormControl;
   public accommodation: FormControl;
-  public tshirts$: Observable<TShirt[]>;
+  public tshirts: TshirtDto[];
   public foods$: Observable<Food[]>;
   public accommodations$: Observable<Accommodation[]>;
   public showFillMessage = false;
   public isPending = false;
-  public config$: Observable<ConfigDbDto>;
+  public config: ConfigDbDto;
+  public accommodationPrice = 0;
+  public tshirtsPrice = 0;
+  public summaryPrice = 0;
 
   constructor(
     private http: HttpClient,
@@ -87,13 +92,13 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   private initStore() {
-    this.tshirts$ = this.store.select(state => state.teams.tshirts.list);
     this.foods$ = this.store.select(state => state.teams.foods.list);
     this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
-    this.config$ = this.store.select(state => state.config.config);
-    this.store.select(state => state.teams.teams)
+    this.store.select(state => state)
       .subscribe((result) => {
-        this.isPending = result.pending;
+        this.isPending = result.teams.teams.pending;
+        this.config = result.config.config;
+        this.tshirts = result.teams.tshirts.list;
       });
   }
 
@@ -223,5 +228,45 @@ export class TeamRegistrationComponent implements OnInit {
     delete team.captcha;
     delete team.passwords;
     this.teamsService.addItem(team);
+  }
+
+  public setAccommodationPrice(item: AccommodationDto) {
+    this.accommodationPrice = item.price;
+    this.summaryPrice = this.config.registration_price + this.accommodationPrice + this.tshirtsPrice;
+  }
+
+  public setTshirtPrice() {
+    this.tshirtsPrice = 0;
+    const tshirt1 = this.mainForm.get('data').get('player1').get('tshirt').value;
+    const tshirt2 = this.mainForm.get('data').get('player2').get('tshirt').value;
+    const tshirt3 = this.mainForm.get('data').get('player3').get('tshirt').value;
+    const tshirt4 = this.mainForm.get('data').get('player4').get('tshirt').value;
+    const tshirt5 = this.mainForm.get('data').get('player5').get('tshirt').value;
+    if (tshirt1) {
+      this.tshirtsPrice += this.tshirts.filter((tshirt: TshirtDto) => {
+        return tshirt.value === tshirt1;
+      })[0].price;
+    }
+    if (tshirt2) {
+      this.tshirtsPrice += this.tshirts.filter((tshirt: TshirtDto) => {
+        return tshirt.value === tshirt2;
+      })[0].price;
+    }
+    if (tshirt3) {
+      this.tshirtsPrice += this.tshirts.filter((tshirt: TshirtDto) => {
+        return tshirt.value === tshirt3;
+      })[0].price;
+    }
+    if (tshirt4) {
+      this.tshirtsPrice += this.tshirts.filter((tshirt: TshirtDto) => {
+        return tshirt.value === tshirt4;
+      })[0].price;
+    }
+    if (tshirt5) {
+      this.tshirtsPrice += this.tshirts.filter((tshirt: TshirtDto) => {
+        return tshirt.value === tshirt5;
+      })[0].price;
+    }
+    this.summaryPrice = this.config.registration_price + this.accommodationPrice + this.tshirtsPrice;
   }
 }
