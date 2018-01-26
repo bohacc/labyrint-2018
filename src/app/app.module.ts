@@ -34,6 +34,7 @@ import { DatabaseService } from './shared/services/database.service';
 import { EffectsModule } from '@ngrx/effects';
 import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 import { LogoutSuccessComponent } from './components/logout-success/logout-success.component';
+import { ConfigService } from './shared/services/config.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { LogoutSuccessComponent } from './components/logout-success/logout-succe
     MediaMatcher,
     ToolsService,
     AuthGuardService,
-    DatabaseService
+    DatabaseService,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

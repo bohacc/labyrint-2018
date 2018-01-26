@@ -24,7 +24,9 @@ export function configReducer(state = initialState, action: ConfigActions.Config
     case ConfigActions.LOAD_CONFIG:
       return {
         ...state,
-        config: {...state.config, ...action.payload}
+        config: {
+          config: {...state.config.config, ...action.payload.config}
+        }
       };
     default:
       return state;

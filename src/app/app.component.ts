@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { UserAuthAction } from './state/actions/userAuth.actions';
 import { UserAuthDto } from './shared/model/UserAuthDto';
 import { DatabaseService } from './shared/services/database.service';
+import { ConfigService } from './shared/services/config.service';
 
 declare const grecaptcha: any;
 
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private afAuth: AngularFireAuth,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private configService: ConfigService
   ) {
     this.afAuth.auth.onAuthStateChanged(
       (user) => {
@@ -72,6 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.smurf4style = this.getScrollBarWidth() + '';
+    this.configService.loadConfig();
   }
 
   public logout() {

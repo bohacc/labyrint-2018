@@ -3,8 +3,19 @@
 
   <h2>Údaje pro platbu:</h2>
 
-  <div>číslo účtu:&nbsp;<strong>{{(loginUser$ | async).payAccount}}</strong></div>
-  <div>variabilní symbol:&nbsp;<strong>{{(loginUser$ | async).payId}}</strong></div>
-  <div>částka:&nbsp;<strong>{{(loginUser$ | async).payAmount | number: '1.0-0'}}</strong> Kč</div>
-  <div>(startovné: {{(config$ | async).config.registration_price | number}} Kč, ubytování: {{(loginUser$ | async).accommodationPrice | number}} Kč, trička: {{(loginUser$ | async).tshirtsPrice | number}} Kč)</div>
+  <div class="pay-column">Číslo účtu:</div>
+  <div class="pay-column2"><strong>{{(loginUser$ | async).payAccount}}</strong></div>
+
+  <div class="cleaner">&nbsp;</div>
+
+  <div class="pay-column">Variabilní symbol:</div>
+  <div class="pay-column2"><strong>{{(loginUser$ | async).payId}}</strong></div>
+
+  <div class="cleaner">&nbsp;</div>
+
+  <div class="pay-column">Částka:</div>
+  <div class="pay-column2"><strong>{{(loginUser$ | async).payAmount | number: '1.0-0'}}</strong> Kč</div>
+
+  <div class="cleaner">&nbsp;</div>
+  <div><i>(startovné: {{(config$ | async).config.registration_price | number}} Kč, ubytování: {{(loginUser$ | async).accommodationPrice | number}} Kč, trička: {{(loginUser$ | async).tshirtsPrice | number}} Kč)</i></div>
 </mat-card>>

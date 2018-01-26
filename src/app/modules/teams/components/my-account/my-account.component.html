@@ -8,22 +8,22 @@
 
     <h2>Údaje pro platbu</h2>
 
-    <div class="pay-column">účet:</div>
+    <div class="pay-column">Účet:</div>
     <div class="pay-column2"><strong>{{loginUser.payAccount}}</strong></div>
 
     <div class="cleaner">&nbsp;</div>
 
-    <div class="pay-column">variabilní symbol:</div>
+    <div class="pay-column">Variabilní symbol:</div>
     <div class="pay-column2"><strong>{{loginUser.payId}}</strong></div>
 
     <div class="cleaner">&nbsp;</div>
 
-    <div class="pay-column">částka:</div>
+    <div class="pay-column">Částka:</div>
     <div class="pay-column2"><strong>{{loginUser.payAmount | number: '1.0-0'}}</strong> Kč</div>
 
     <div class="cleaner">&nbsp;</div>
 
-    <div>(startovné: {{config.config.registration_price | number}} Kč, ubytování: {{loginUser.accommodationPrice | number}} Kč, trička: {{loginUser.tshirtsPrice | number}} Kč)</div>
+    <div><i>(startovné: {{config.config.registration_price | number}} Kč, ubytování: {{loginUser.accommodationPrice | number}} Kč, trička: {{loginUser.tshirtsPrice | number}} Kč)</i></div>
 
     <br>
 

@@ -122,3 +122,19 @@ h1.example-app-name {
   flex: 1 0 auto;
 }
 
+/deep/ .pay-column {
+  width: 10em;
+  float: left;
+}
+
+/deep/ .pay-column2 {
+  float: left;
+}
+
+/deep/ .cleaner {
+  clear: both;
+}
+
+/deep/ md-select {
+  width: 100%
+}
