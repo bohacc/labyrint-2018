@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
+import { ConfigDbDto } from '../../shared/model/ConfigDbDto';
 
 export const LOAD_CONFIG = '[LOAD_CONFIG] - load config';
 

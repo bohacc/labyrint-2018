@@ -5,11 +5,13 @@ import { errorsReducer } from './errors.reducer';
 import { loginTeamReducer } from './login-team.reducer';
 import { messagesReducer } from './messages.reducer';
 import { pendingReducer } from './pending.reducer';
+import { configReducer } from './config.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   userAuth: userAuthReducer,
   errors: errorsReducer,
   loginTeam: loginTeamReducer,
   messages: messagesReducer,
-  pending: pendingReducer
+  pending: pendingReducer,
+  config: configReducer
 };

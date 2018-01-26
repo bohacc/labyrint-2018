@@ -1,5 +1,5 @@
 import * as ConfigActions from '../actions/config.actions';
-import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
+import { ConfigDbDto } from '../../shared/model/ConfigDbDto';
 
 export interface State {
   config: ConfigDbDto;

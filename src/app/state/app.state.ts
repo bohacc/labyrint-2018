@@ -3,6 +3,7 @@ import * as ErrorsReducer from './reducers/errors.reducer';
 import * as LoginTeamReducer from './reducers/login-team.reducer';
 import * as MessagesReducer from './reducers/messages.reducer';
 import * as PendingReducer from './reducers/pending.reducer';
+import * as ConfigReducer from './reducers/config.reducer';
 
 export interface AppState {
   userAuth: UserAuthReducer.State;
@@ -10,4 +11,5 @@ export interface AppState {
   loginTeam: LoginTeamReducer.State;
   messages: MessagesReducer.State;
   pending: PendingReducer.State;
+  config: ConfigReducer.State;
 }

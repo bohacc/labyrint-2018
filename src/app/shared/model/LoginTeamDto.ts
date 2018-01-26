@@ -13,4 +13,6 @@ export interface LoginTeamDto {
   player3: PersonDto;
   player4: PersonDto;
   player5: PersonDto;
+  accommodationPrice: number;
+  tshirtsPrice: number;
 }

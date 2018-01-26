@@ -89,6 +89,7 @@ export class DatabaseService {
     const accommodationPrice = accommodation ? accommodation.price : 0;
     let tshirtsPrice = 0;
     let playerCount = 0;
+    const registrationPrice = (config.config.registration_price || 0);
     if (loginTeam && loginTeam.player1 &&
       loginTeam && loginTeam.player2 &&
       loginTeam && loginTeam.player3 &&
@@ -108,7 +109,9 @@ export class DatabaseService {
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player4.tshirt)[0] || {price: 0}).price +
         (tshirts.filter((tshirt: TshirtDto) => tshirt.value === loginTeam.player5.tshirt)[0] || {price: 0}).price;
       loginTeam.payAccount = config.config.pay_account;
-      loginTeam.payAmount = accommodationPrice + tshirtsPrice + (config.config.registration_price || 0);
+      loginTeam.payAmount = accommodationPrice + tshirtsPrice + registrationPrice;
+      loginTeam.accommodationPrice = accommodationPrice;
+      loginTeam.tshirtsPrice = tshirtsPrice;
     }
   }
 

@@ -90,7 +90,7 @@ export class TeamRegistrationComponent implements OnInit {
     this.tshirts$ = this.store.select(state => state.teams.tshirts.list);
     this.foods$ = this.store.select(state => state.teams.foods.list);
     this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
-    this.config$ = this.store.select(state => state.teams.config.config);
+    this.config$ = this.store.select(state => state.config.config);
     this.store.select(state => state.teams.teams)
       .subscribe((result) => {
         this.isPending = result.pending;

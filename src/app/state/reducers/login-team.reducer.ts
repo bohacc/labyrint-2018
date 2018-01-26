@@ -42,7 +42,9 @@ export const initialState: State = {
       lastName: null,
       food: null,
       tshirt: null,
-    }
+    },
+    accommodationPrice: null,
+    tshirtsPrice: null
   }
 };
 

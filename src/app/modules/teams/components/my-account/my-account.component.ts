@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { ErrorDto } from '../../../../shared/model/ErrorDto';
 import * as ErrorsActions from '../../../../state/actions/errors.actions';
 import { Subject } from 'rxjs/Subject';
+import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 
 @Component({
   selector: 'app-my-account',
@@ -56,10 +57,11 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public food4: FormControl;
   public food5: FormControl;
   public accommodation: FormControl;
-  public tshirts: Observable<TShirt[]>;
-  public foods: Observable<Food[]>;
-  public accommodations: Observable<Accommodation[]>;
+  public tshirts$: Observable<TShirt[]>;
+  public foods$: Observable<Food[]>;
+  public accommodations$: Observable<Accommodation[]>;
   public isPending = false;
+  public config: ConfigDbDto;
 
   constructor(
     private authService: AuthService,
@@ -90,14 +92,15 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   private initStore() {
-    this.tshirts = this.store.select(state => state.teams.tshirts.list);
-    this.foods = this.store.select(state => state.teams.foods.list);
-    this.accommodations = this.store.select(state => state.teams.accommodations.list);
+    this.tshirts$ = this.store.select(state => state.teams.tshirts.list);
+    this.foods$ = this.store.select(state => state.teams.foods.list);
+    this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
     this.store.select(state => state)
       .takeUntil(this.unsubscribe)
       .subscribe((state) => {
         this.isPending = state.teams.teams.pending;
         this.loginUser = state.loginTeam.team;
+        this.config = state.config.config;
         if (this.loginUser) {
           this.initForm();
         }

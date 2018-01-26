@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import { Accommodation } from '../models/AccommodationDto';
 import { ConfigDbDto } from '../../../shared/model/ConfigDbDto';
-import { LoadConfigAction } from '../state/actions/config.actions';
+import { LoadConfigAction } from '../../../state/actions/config.actions';
 import { TeamsService } from '../teams.service';
 import { TeamDto } from '../models/TeamDto';
 
