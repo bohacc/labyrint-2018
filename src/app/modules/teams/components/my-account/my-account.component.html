@@ -71,9 +71,10 @@
       <mat-form-field class="">
         <mat-select placeholder="Ubytování" [formControl]="accommodation">
           <mat-option *ngFor="let item of accommodations$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
+        <mat-hint>Cena zahrnuje polopenzi</mat-hint>
         <mat-error *ngIf="accommodation.hasError('required')">
           Ubytování je <strong>povinné</strong>
         </mat-error>
@@ -116,7 +117,7 @@
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt">
           <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -167,7 +168,7 @@
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt2">
           <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -218,7 +219,7 @@
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt3">
           <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -269,7 +270,7 @@
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt4">
           <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -320,7 +321,7 @@
       <mat-form-field>
         <mat-select placeholder="Vybrané tričko" [formControl]="tshirt5">
           <mat-option *ngFor="let item of tshirts$ | async" [value]="item.value">
-            {{ item.name }}
+            {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
       </mat-form-field>
