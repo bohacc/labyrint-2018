@@ -220,7 +220,11 @@ export class TeamsService implements OnDestroy {
     return exists;
   }
 
-  public availableAccommodation(accommodation: string, accommodations: Accommodation[], config: ConfigDbDto, teams: TeamDto[]): boolean {
+  public availableAccommodation(
+    accommodation: string, accommodations: Accommodation[],
+    config: {config: ConfigDbDto},
+    teams: TeamDto[]
+  ): boolean {
     let result = false;
     let count = 0;
     try {
@@ -237,9 +241,9 @@ export class TeamsService implements OnDestroy {
       });
 
       if (selected.type === AccommodationEnum.HUT) {
-        result = (selected.count + count) <= config.hut4;
+        result = (selected.count + count) <= config.config.hut4;
       } else if (selected.type === AccommodationEnum.BUILDING) {
-        result = (selected.count + count) <= config.building4;
+        result = (selected.count + count) <= config.config.building4;
       }
     } catch (err) {
       console.log(err);

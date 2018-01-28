@@ -67,7 +67,7 @@ export class AccommodationsService implements OnDestroy {
   private getAvailableAccommodations(config: ConfigDbDto, accommodations: Accommodation[], teams: TeamDto[]): Accommodation[] {
     let filtered: Accommodation[] = [];
     filtered = accommodations.filter((item: Accommodation) => {
-      return this.teamsService.availableAccommodation(item.value, accommodations, config, teams);
+      return this.teamsService.availableAccommodation(item.value, accommodations, {config: config}, teams);
     });
     return filtered || [];
   }
