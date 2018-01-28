@@ -94,7 +94,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   private initStore() {
     this.tshirts$ = this.store.select(state => state.teams.tshirts.list);
     this.foods$ = this.store.select(state => state.teams.foods.list);
-    this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
+    this.accommodations$ = this.store.select(state => state.teams.accommodations.listForEdit);
     this.store.select(state => state)
       .takeUntil(this.unsubscribe)
       .subscribe((state) => {

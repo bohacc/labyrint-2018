@@ -79,7 +79,7 @@ export class TeamsService implements OnDestroy {
             .then(
               (snapchotConfig) => {
                 // available type accommodation
-                if (!this.availableAccommodation(team.accommodation, accommodations, snapchotConfig.val(), teams)) {
+                if (!this.availableAccommodation(null, team.accommodation, accommodations, snapchotConfig.val(), teams)) {
                   const error: ErrorDto = {
                     code: 'REGISTRATION_EXISTS',
                     title: 'Chyba výběru ubytování',
@@ -167,7 +167,7 @@ export class TeamsService implements OnDestroy {
         (snapchot) => {
           accommodations = this.toolsService.getArray(snapchot.val());
 
-          if (!this.availableAccommodation(team.accommodation, accommodations, config, teams)) {
+          if (!this.availableAccommodation(team, team.accommodation, accommodations, config, teams)) {
             const error: ErrorDto = {
               code: 'REGISTRATION_EXISTS',
               title: 'Chyba výběru ubytování',
@@ -248,6 +248,7 @@ export class TeamsService implements OnDestroy {
   }
 
   public availableAccommodation(
+    currentTeam: TeamDto | LoginTeamDto,
     accommodation: string,
     accommodations: Accommodation[],
     config: {config: ConfigDbDto},
@@ -261,15 +262,14 @@ export class TeamsService implements OnDestroy {
       })[0];
       teams.forEach((team: TeamDto) => {
         const accommodationType: Accommodation = accommodations.filter((item) => {
-          return item.value === accommodation;
+          return item.value === team.accommodation;
         })[0];
-        if (accommodationType.type === selected.type) {
+        if (accommodationType.type === selected.type && (currentTeam ? currentTeam.email !== team.email : true)) {
           count += accommodations.filter((item: Accommodation) => {
             return item.value === team.accommodation;
           })[0].count;
         }
       });
-
       if (selected.type === AccommodationEnum.HUT) {
         result = (selected.count + count) <= config.config.hut4;
       } else if (selected.type === AccommodationEnum.BUILDING) {
