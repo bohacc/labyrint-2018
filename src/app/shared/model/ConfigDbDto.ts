@@ -6,4 +6,5 @@ export interface ConfigDbDto {
   open_registration: Date;
   pay_account: string;
   registration_price: number;
+  accommodation_description: string;
 }

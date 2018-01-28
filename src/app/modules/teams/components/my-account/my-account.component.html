@@ -57,10 +57,7 @@
       <strong>Ubytování</strong>
     </h2>
 
-    <div class="accommodationsDescription">
-      Dispozice objektu je taková, že naprostá většina ubytovacích kapacit sestává ze 4-lůžkových chatek nebo pokojů. Pětičlenné týmy si tak zvolí jednu z variant ubytování 4+1. Pátý člen získává úžasný bonus strávit noc na sdíleném pokoji a poznat nové kamarády. Doporučujeme vyčlenit nejvíce chrápajícího nebo nejdéle pařícího šmoulu.
-      Kapacita ubytování v budově je omezená na 40 míst a je přidělována podle rychlosti přihlášení. Nevyužitá kapacita bude následně nabídnut dalším týmům.
-      V případě nestandartních požadavků na ubytování nás raději kontaktujte, popřípadě pokud jedete ve více známých týmech a chcete bydlet pospolu. Pokusíme se vyhovět.
+    <div class="accommodationsDescription" [innerHTML]="config.accommodation_description | trustHtml">
     </div>
 
     <!--ROW-->

@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { StoreService } from '../shared/store/store.service';
 import { AuthService } from '../shared/auth/auth.service';
+import { TrustHtmlPipe } from '../shared/pipes/trust-html/trust-html.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    TrustHtmlPipe
+  ],
   imports: [],
-  exports: [],
+  exports: [TrustHtmlPipe],
   providers: [
     StoreService,
-    AuthService
+    AuthService,
+    TrustHtmlPipe
   ]
 })
 export class SharedServiceModule {

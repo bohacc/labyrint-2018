@@ -49,7 +49,6 @@ import { ConfigService } from './shared/services/config.service';
     ResultsComponent,
     CiphersComponent,
     LoginSuccessComponent,
-    TrustHtmlPipe,
     LogoutSuccessComponent
   ],
   entryComponents: [

@@ -196,13 +196,16 @@ export class TeamRegistrationComponent implements OnInit {
     });
   }
 
-  public onRecaptchaValidateResponse() {
-    this.sendValidateForm();
+  public onRecaptchaValidateResponse(token: any) {
+    // console.log(token);
+    if (token) {
+      // console.log('SUCCESS token');
+      this.sendValidateForm();
+    }
   }
 
   public sendForm() {
     this.isPending = true;
-    console.log(this.mainForm.get('data'));
     if (!this.mainForm.get('data').valid) {
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
@@ -211,7 +214,6 @@ export class TeamRegistrationComponent implements OnInit {
       };
       this.store.dispatch(new ErrorsActions.ErrorAction([error]));
       this.isPending = false;
-      console.log('CHYBA VALID');
       return;
     }
     if (!this.mainForm.get('captcha').valid) {

@@ -141,6 +141,9 @@ export class TeamsService implements OnDestroy {
 
   public updateItem(team: LoginTeamDto) {
     let success = true;
+    let teams: TeamDto[];
+    let accommodations: Accommodation[];
+    let config: {config: ConfigDbDto};
     this.db.database
       .ref('/teams/' + team.name)
       .update(team)
@@ -149,8 +152,32 @@ export class TeamsService implements OnDestroy {
         success = false;
         this.store.dispatch(new PendingActions(false));
       })
+      .then(() => {
+        return this.db.database.ref('/teams/').once('value');
+      })
+      .then((snapchot) => {
+        teams = this.toolsService.getArray(snapchot.val());
+        return this.db.database.ref('/config').once('value');
+      })
+      .then((snapchot) => {
+        config = snapchot.val();
+        return this.db.database.ref('/accommodations').once('value');
+      })
       .then(
-        () => {
+        (snapchot) => {
+          accommodations = this.toolsService.getArray(snapchot.val());
+
+          if (!this.availableAccommodation(team.accommodation, accommodations, config, teams)) {
+            const error: ErrorDto = {
+              code: 'REGISTRATION_EXISTS',
+              title: 'Chyba výběru ubytování',
+              description: 'Vybrané ubytování není možné rezervovat, zkuste vybrat jiné.'
+            };
+            this.store.dispatch(new ErrorsActions.ErrorAction([error]));
+            this.store.dispatch(new PendingActions(false));
+            return;
+          }
+
           if (success) {
             this.store.dispatch(new LoginTeamAction(team));
             this.databaseService.getLoginTeam(team);
@@ -221,7 +248,8 @@ export class TeamsService implements OnDestroy {
   }
 
   public availableAccommodation(
-    accommodation: string, accommodations: Accommodation[],
+    accommodation: string,
+    accommodations: Accommodation[],
     config: {config: ConfigDbDto},
     teams: TeamDto[]
   ): boolean {
@@ -231,9 +259,11 @@ export class TeamsService implements OnDestroy {
       const selected: Accommodation = accommodations.filter((item) => {
         return item.value === accommodation;
       })[0];
-
       teams.forEach((team: TeamDto) => {
-        if (team.accommodation === selected.type) {
+        const accommodationType: Accommodation = accommodations.filter((item) => {
+          return item.value === accommodation;
+        })[0];
+        if (accommodationType.type === selected.type) {
           count += accommodations.filter((item: Accommodation) => {
             return item.value === team.accommodation;
           })[0].count;

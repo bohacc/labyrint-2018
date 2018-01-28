@@ -13,7 +13,8 @@ export const initialState: State = {
     close_registration: null,
     open_registration: null,
     pay_account: null,
-    registration_price: null
+    registration_price: null,
+    accommodation_description: null
   }
 };
 
