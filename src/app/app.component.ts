@@ -12,6 +12,7 @@ import { UserAuthAction } from './state/actions/userAuth.actions';
 import { UserAuthDto } from './shared/model/UserAuthDto';
 import { DatabaseService } from './shared/services/database.service';
 import { ConfigService } from './shared/services/config.service';
+import { ToolsService } from './shared/services/tools.service';
 
 declare const grecaptcha: any;
 
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
     media: MediaMatcher,
     private afAuth: AngularFireAuth,
     private databaseService: DatabaseService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private toolsService: ToolsService
   ) {
     this.afAuth.auth.onAuthStateChanged(
       (user) => {
@@ -66,6 +68,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 1020px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    setInterval(() => {
+      this.toolsService.checkRegistrationLimits();
+    }, 1000 * 60);
   }
 
   ngOnDestroy(): void {

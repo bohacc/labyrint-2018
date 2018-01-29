@@ -13,5 +13,6 @@ export const reducers: ActionReducerMap<AppState> = {
   loginTeam: loginTeamReducer,
   messages: messagesReducer,
   pending: pendingReducer,
-  config: configReducer
+  config: configReducer,
+  registration: registrationReducer
 };
