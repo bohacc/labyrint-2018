@@ -18,6 +18,9 @@ import 'rxjs/add/operator/map';
 import { StoreService } from '../../../shared/store/store.service';
 import { ReCaptchaConfig } from '../RecaptchaConfig';
 import { ReCaptchaAsyncValidator } from '../validators/recaptcha.validator';
+import { PendingActions } from '../../teams/state/actions/teams.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../state/app.state';
 
 declare const grecaptcha: any;
 
@@ -58,7 +61,8 @@ export class ReCaptchaDirective implements OnInit, AfterViewInit, ControlValueAc
       private element: ElementRef,
       private  ngZone: NgZone,
       private injector: Injector,
-      private reCaptchaAsyncValidator: ReCaptchaAsyncValidator
+      private reCaptchaAsyncValidator: ReCaptchaAsyncValidator,
+      private store: Store<AppState>,
     ) {
   }
 
