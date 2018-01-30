@@ -29,6 +29,7 @@ export class TeamsService implements OnDestroy {
   private itemsRef: AngularFireList<{team: TeamDto}[]>;
   private items: Observable<TeamDto[]>;
   private unsubscribe: Subject<any> = new Subject();
+  private disableRegistration = true;
 
   constructor(
     private db: AngularFireDatabase,
@@ -38,6 +39,10 @@ export class TeamsService implements OnDestroy {
     private databaseService: DatabaseService
   ) {
     this.itemsRef = this.db.list('teams', ref => ref.orderByChild('registrationDate'));
+    this.store.select(state => state)
+      .subscribe((result) => {
+        this.disableRegistration = result.registration.end;
+      });
   }
 
   ngOnDestroy() {
@@ -46,7 +51,7 @@ export class TeamsService implements OnDestroy {
   }
 
   public addItem(team: TeamDto) {
-    if (!team || !team.name) {
+    if (!team || !team.name || this.disableRegistration) {
       return;
     }
     let success = true;

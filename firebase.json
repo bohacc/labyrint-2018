@@ -19,6 +19,10 @@
         "function": "checkRecaptcha"
       },
       {
+        "source": "/checkLimit",
+        "function": "checkLimit"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

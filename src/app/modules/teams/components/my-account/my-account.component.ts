@@ -105,8 +105,43 @@ export class MyAccountComponent implements OnInit, OnDestroy {
         if (this.loginUser) {
           this.initForm();
         }
-        this.disableRegistration = state.registration.end;
       });
+    this.store.select(state => state.registration.end)
+      .takeUntil(this.unsubscribe)
+      .subscribe((end) => {
+        this.disableRegistration = end;
+        this.setDisableControls();
+      });
+  }
+
+  private setDisableControls() {
+    if (this.disableRegistration) {
+      this.food.disable();
+      this.food2.disable();
+      this.food3.disable();
+      this.food4.disable();
+      this.food5.disable();
+      this.tshirt.disable();
+      this.tshirt2.disable();
+      this.tshirt3.disable();
+      this.tshirt4.disable();
+      this.tshirt5.disable();
+      this.accommodation.disable();
+      this.phone.disable();
+    } else {
+      this.food.enable();
+      this.food2.enable();
+      this.food3.enable();
+      this.food4.enable();
+      this.food5.enable();
+      this.tshirt.enable();
+      this.tshirt2.enable();
+      this.tshirt3.enable();
+      this.tshirt4.enable();
+      this.tshirt5.enable();
+      this.accommodation.enable();
+      this.phone.enable();
+    }
   }
 
   private initForm() {

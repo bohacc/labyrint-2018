@@ -35,6 +35,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 import { LogoutSuccessComponent } from './components/logout-success/logout-success.component';
 import { ConfigService } from './shared/services/config.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ConfigService } from './shared/services/config.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,

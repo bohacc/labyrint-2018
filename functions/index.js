@@ -35,3 +35,7 @@ exports.checkRecaptcha = functions.https.onRequest((req, res) => {
         res.json({success: false});
     })
 })
+
+exports.checkLimit = functions.https.onRequest((req, res) => {
+  res.json({date: Date.now()});
+});

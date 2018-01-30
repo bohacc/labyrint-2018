@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { ConfigDbDto } from '../model/ConfigDbDto';
 import { SetDisableRegistrationAction } from '../../state/actions/registration.actions';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ToolsService implements OnDestroy {
@@ -12,6 +13,7 @@ export class ToolsService implements OnDestroy {
 
   constructor(
     private store: Store<State>,
+    private http: HttpClient
   ) {
     this.store.select(state => state)
       .takeUntil(this.unsubscribe)
@@ -35,14 +37,28 @@ export class ToolsService implements OnDestroy {
     return arr;
   }
 
-  public checkRegistrationLimits() {
-    const start: Date = new Date(this.config.open_registration);
-    const end: Date = new Date(this.config.close_registration);
-    const current: Date = new Date();
+  private checkLimitDate(current: Date, start: Date, end: Date) {
     if (current >= start && current <= end) {
       this.store.dispatch(new SetDisableRegistrationAction(false));
     } else {
       this.store.dispatch(new SetDisableRegistrationAction(true));
     }
+  }
+
+  public checkRegistrationLimits() {
+    const start: Date = new Date(this.config.open_registration);
+    const end: Date = new Date(this.config.close_registration);
+    let current: Date = new Date();
+    this.http.get('/checkLimit')
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          current = new Date(response.date);
+          this.checkLimitDate(current, start, end);
+        },
+        () => {
+          this.checkLimitDate(current, start, end);
+        },
+      );
   }
 }
