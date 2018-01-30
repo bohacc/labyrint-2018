@@ -6,7 +6,11 @@ const datastore = Datastore({
 
 exports.registration = function (req, res, next) {
     res.json({});
-}
+};
+
+exports.checkLimit = function (req, res, next) {
+  res.json({date: Date.now()});
+};
 
 exports.addTeam = function (req, res, next) {
     const teamKey = datastore.key('Team');
@@ -27,7 +31,7 @@ exports.addTeam = function (req, res, next) {
         }
       ]
     };
-  
+
     datastore.save(entity)
       .then(() => {
         console.log(`Task ${teamKey.id} created successfully.`);

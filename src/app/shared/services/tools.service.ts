@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { ConfigDbDto } from '../model/ConfigDbDto';
 import { SetDisableRegistrationAction } from '../../state/actions/registration.actions';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ToolsService implements OnDestroy {
@@ -49,10 +49,14 @@ export class ToolsService implements OnDestroy {
     const start: Date = new Date(this.config.open_registration);
     const end: Date = new Date(this.config.close_registration);
     let current: Date = new Date();
-    this.http.get('/checkLimit')
+    const headersAdditional: HttpHeaders = new HttpHeaders();
+    headersAdditional.append('Cache-control', 'no-cache');
+    headersAdditional.append('Cache-control', 'no-store');
+    headersAdditional.append('Expires', '0');
+    headersAdditional.append('Pragma', 'no-cache');
+    this.http.get('/checkLimit?rnd=' + Math.random(), {headers: headersAdditional})
       .subscribe(
         (response: any) => {
-          console.log(response);
           current = new Date(response.date);
           this.checkLimitDate(current, start, end);
         },
