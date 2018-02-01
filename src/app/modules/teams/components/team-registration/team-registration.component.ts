@@ -23,6 +23,7 @@ import { State } from '../../state/reducers/module.reducer';
 import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
 import { TshirtDto } from '../../../../shared/model/TshirtDto';
+import { ValidateTeamName } from '../../../../shared/validators/team-name.validator';
 
 @Component({
   selector: 'registration-form',
@@ -105,7 +106,12 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   private initForm() {
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
+    this.name = new FormControl('', [
+      Validators.required,
+      ValidateTeamName,
+      Validators.minLength(3),
+      Validators.maxLength(100)
+    ]);
     this.email = new FormControl('', [Validators.required, ValidateEmail]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
     this.password2 = new FormControl('', [Validators.required, Validators.minLength(6)]);

@@ -36,6 +36,8 @@ import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 import { LogoutSuccessComponent } from './components/logout-success/logout-success.component';
 import { ConfigService } from './shared/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminGuard } from './shared/services/adminGuard.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { HttpClientModule } from '@angular/common/http';
     ResultsComponent,
     CiphersComponent,
     LoginSuccessComponent,
-    LogoutSuccessComponent
+    LogoutSuccessComponent,
+    AdminComponent
   ],
   entryComponents: [
     AlertComponent
@@ -85,7 +88,8 @@ import { HttpClientModule } from '@angular/common/http';
     ToolsService,
     AuthGuardService,
     DatabaseService,
-    ConfigService
+    ConfigService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

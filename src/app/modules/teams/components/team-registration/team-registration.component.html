@@ -17,6 +17,9 @@
         <mat-error *ngIf="name.hasError('required')">
           Název týmu je <strong>povinný</strong>
         </mat-error>
+        <mat-error *ngIf="name.hasError('validTeamName')">
+          Název týmu nesmí obsahovat znaky . # $ [ ]
+        </mat-error>
       </mat-form-field>
     </div>
 
