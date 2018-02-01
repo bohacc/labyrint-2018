@@ -24,6 +24,7 @@ import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
 import { TshirtDto } from '../../../../shared/model/TshirtDto';
 import { ValidateTeamName } from '../../../../shared/validators/team-name.validator';
+import { PendingActions } from '../../state/actions/teams.actions';
 
 @Component({
   selector: 'registration-form',
@@ -88,6 +89,7 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new PendingActions(false));
     this.tshirtsService.loadTShirts();
     this.foodService.loadFoods();
     this.accommodationsService.loadAccommodations();
@@ -98,10 +100,13 @@ export class TeamRegistrationComponent implements OnInit {
     this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
     this.store.select(state => state)
       .subscribe((result) => {
-        this.isPending = result.teams.teams.pending;
         this.config = result.config.config;
         this.tshirts = result.teams.tshirts.list;
         this.disableRegistration = result.registration.end;
+      });
+    this.store.select(state => state.teams.teams.pending)
+      .subscribe((result) => {
+        this.isPending = result;
       });
   }
 
@@ -214,6 +219,7 @@ export class TeamRegistrationComponent implements OnInit {
 
   public sendForm() {
     this.isPending = true;
+    this.store.dispatch(new PendingActions(true));
     if (!this.mainForm.get('data').valid) {
       const error: ErrorDto = {
         code: 'REGISTRATION_EXISTS',
@@ -222,6 +228,7 @@ export class TeamRegistrationComponent implements OnInit {
       };
       this.store.dispatch(new ErrorsActions.ErrorAction([error]));
       this.isPending = false;
+      this.store.dispatch(new PendingActions(false));
       return;
     }
     if (!this.mainForm.get('captcha').valid) {
