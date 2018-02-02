@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -25,13 +25,14 @@ import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
 import { TshirtDto } from '../../../../shared/model/TshirtDto';
 import { ValidateTeamName } from '../../../../shared/validators/team-name.validator';
 import { PendingActions } from '../../state/actions/teams.actions';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'registration-form',
   templateUrl: 'team-registration.component.html',
   styleUrls: ['team-registration.component.scss']
 })
-export class TeamRegistrationComponent implements OnInit {
+export class TeamRegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('recaptcha') recaptcha;
   public mainForm: FormGroup;
   public name: FormControl;
@@ -71,6 +72,7 @@ export class TeamRegistrationComponent implements OnInit {
   public tshirtsPrice = 0;
   public summaryPrice = 0;
   public disableRegistration = true;
+  private unsubscribe: Subject<any> = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -95,16 +97,23 @@ export class TeamRegistrationComponent implements OnInit {
     this.accommodationsService.loadAccommodations();
   }
 
+  ngOnDestroy() {
+    this.unsubscribe.next(null);
+    this.unsubscribe.complete();
+  }
+
   private initStore() {
     this.foods$ = this.store.select(state => state.teams.foods.list);
     this.accommodations$ = this.store.select(state => state.teams.accommodations.list);
     this.store.select(state => state)
+      .takeUntil(this.unsubscribe)
       .subscribe((result) => {
         this.config = result.config.config;
         this.tshirts = result.teams.tshirts.list;
         this.disableRegistration = result.registration.end;
       });
     this.store.select(state => state.teams.teams.pending)
+      .takeUntil(this.unsubscribe)
       .subscribe((result) => {
         this.isPending = result;
       });
