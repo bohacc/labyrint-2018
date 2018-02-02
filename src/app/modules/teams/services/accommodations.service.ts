@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../state/app.state';
 import { LoadAccommodationsAction, LoadAccommodationsForEditAction } from '../state/actions/accommodations.actions';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject';
@@ -11,6 +10,8 @@ import { LoadConfigAction } from '../../../state/actions/config.actions';
 import { TeamsService } from '../teams.service';
 import { TeamDto } from '../models/TeamDto';
 import { LoginTeamDto } from '../../../shared/model/LoginTeamDto';
+import { AccommodationDto } from '../../../shared/model/AccommodationDto';
+import { State } from '../state/reducers/module.reducer';
 
 @Injectable()
 export class AccommodationsService implements OnDestroy {
@@ -19,9 +20,10 @@ export class AccommodationsService implements OnDestroy {
   private itemsRefTeams: AngularFireList<TeamDto[]>;
   private unsubscribe: Subject<any> = new Subject();
   private loginTeam: LoginTeamDto;
+  private accommodations: AccommodationDto[];
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<State>,
     private db: AngularFireDatabase,
     private teamsService: TeamsService
   ) {
@@ -29,8 +31,10 @@ export class AccommodationsService implements OnDestroy {
     this.itemsRefConfig = this.db.list('config');
     this.itemsRefTeams = this.db.list('teams');
     this.store.select(state => state)
+      .takeUntil(this.unsubscribe)
       .subscribe((state) => {
         this.loginTeam = state.loginTeam.team;
+        this.accommodations = state.teams.accommodations.list;
       });
   }
 
@@ -72,6 +76,12 @@ export class AccommodationsService implements OnDestroy {
           this.store.dispatch(new LoadAccommodationsForEditAction(filteredAccommodationsEdit));
         }
       );
+  }
+
+  public getAccommodation(code: string): AccommodationDto {
+    return this.accommodations.filter((accommodation) => {
+      return accommodation.value === code;
+    })[0];
   }
 
   private getAvailableAccommodations(

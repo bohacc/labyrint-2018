@@ -5,4 +5,5 @@ export interface Accommodation {
   name: string;
   type: AccommodationEnum;
   count: number;
+  price: number;
 }
