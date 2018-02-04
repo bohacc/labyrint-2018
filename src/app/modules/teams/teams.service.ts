@@ -150,9 +150,11 @@ export class TeamsService implements OnDestroy {
     let teams: TeamDto[];
     let accommodations: Accommodation[];
     let config: {config: ConfigDbDto};
+    const saveTeam: LoginTeamDto = {...team};
+    delete saveTeam.key;
     this.db.database
       .ref('/teams/' + team.key)
-      .update(team)
+      .update(saveTeam)
       .catch((err) => {
         console.log(err);
         success = false;

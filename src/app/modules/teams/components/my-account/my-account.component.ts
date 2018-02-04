@@ -228,7 +228,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           },
           {validator: [ValidatePlayer]}
         ),
-        payId: this.loginUser.payId
+        payId: this.loginUser.payId,
+        key: this.loginUser.key
       }),
       /*captcha: ['']*/
     });
@@ -236,7 +237,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
 
   public sendForm() {
     this.isPending = true;
-    this.teamsService.updateItem({...this.loginUser, ...this.mainForm.getRawValue().data});
+    this.teamsService.updateItem(this.mainForm.getRawValue().data);
   }
 
   public resetPassword() {
