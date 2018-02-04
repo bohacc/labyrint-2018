@@ -20,8 +20,8 @@ import { effects, reducers } from './state/reducers/module.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { TrustHtmlPipe } from '../../shared/pipes/trust-html/trust-html.pipe';
 import { SharedServiceModule } from '../shared-service.module';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { SharedServiceModule } from '../shared-service.module';
     RegistrationSuccessComponent,
     TeamsComponent,
     MyAccountComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AdminComponent
   ],
   imports: [
     HttpClientModule,

@@ -32,11 +32,9 @@ import { AuthGuardService } from './shared/auth/auth.guard.service';
 import { LoginSuccessComponent } from './components/login-success/login-success.component';
 import { DatabaseService } from './shared/services/database.service';
 import { EffectsModule } from '@ngrx/effects';
-import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 import { LogoutSuccessComponent } from './components/logout-success/logout-success.component';
 import { ConfigService } from './shared/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
-import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuard } from './shared/services/adminGuard.service';
 
 @NgModule({
@@ -52,8 +50,7 @@ import { AdminGuard } from './shared/services/adminGuard.service';
     ResultsComponent,
     CiphersComponent,
     LoginSuccessComponent,
-    LogoutSuccessComponent,
-    AdminComponent
+    LogoutSuccessComponent
   ],
   entryComponents: [
     AlertComponent

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private authService: AuthService) {}
+  constructor(private route: ActivatedRoute) {}
 
-  canActivate() {
-    return true;
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ) {
+    return route.fragment === 'smoulovepico';
   }
 }

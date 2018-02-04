@@ -151,7 +151,7 @@ export class TeamsService implements OnDestroy {
     let accommodations: Accommodation[];
     let config: {config: ConfigDbDto};
     this.db.database
-      .ref('/teams/' + team.name)
+      .ref('/teams/' + team.key)
       .update(team)
       .catch((err) => {
         console.log(err);
@@ -212,9 +212,9 @@ export class TeamsService implements OnDestroy {
   public deleteItem(team: TeamDto) {
     let success = true;
     // TODO: add delete user auth
-    this.itemsRef.remove(team.name);
+    this.itemsRef.remove(team.key);
     this.db.database
-      .ref('/teams/' + team.name)
+      .ref('/teams/' + team.key)
       .remove()
       .catch((err) => {
         console.log(err);
@@ -241,7 +241,7 @@ export class TeamsService implements OnDestroy {
   private teamExists(newTeam: TeamDto, teams: TeamDto[]): CheckExistsTeamDto {
     const exists = {exists: false, eamil: false, name: false};
     teams.forEach((team: TeamDto) => {
-      if (team.name === newTeam.name) {
+      if (team.name === newTeam.name || team.key === newTeam.name) {
         exists.exists = true;
         exists.name = true;
       }
@@ -290,7 +290,7 @@ export class TeamsService implements OnDestroy {
   public loadTeams() {
     this.itemsRef.snapshotChanges()
       .map(changes => {
-        return changes.map(c => ({...c.payload.val() }));
+        return changes.map(c => ({...c.payload.val(), key: c.key }));
       })
       .subscribe(
         (teams: TeamDto[]) => {

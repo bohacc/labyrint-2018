@@ -34,51 +34,57 @@ export class DatabaseService {
     let tshirts: TshirtDto[] = [];
     let config: {config: ConfigDbDto};
     let loginTeam: LoginTeamDto;
-    this.db.database.ref('/teams/').once('value')
-      .then((snapchot) => {
-        const teams: TeamDto[] = this.toolsService.getArray(snapchot.val());
-        const currentTeam: any = teams.filter((team: TeamDto) => {
-          return team.email === userAuth.email;
-        }).map((team) => {
-          return team;
-        })[0];
-        if (!currentTeam) {
-          return;
-        }
-        delete currentTeam.password;
-        delete currentTeam.password2;
-        loginTeam = {...currentTeam, ...{payAccount: null, payAmount: null}};
-        return this.db.database.ref('/accommodations/').once('value');
+    this.db.list('/teams/')
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({...c.payload.val(), key: c.key }));
       })
-      .then(
-        (snapchot) => {
-          if (snapchot) {
-            accommodations = this.toolsService.getArray(snapchot.val());
-          }
-          return this.db.database.ref('/tshirts/').once('value');
+      .subscribe(
+        (teams: TeamDto[]) => {
+            // const teams: TeamDto[] = this.toolsService.getArray(snapchot.val());
+            const currentTeam: any = teams.filter((team: TeamDto) => {
+              return team.email === userAuth.email;
+            }).map((team) => {
+              return team;
+            })[0];
+            if (!currentTeam) {
+              return;
+            }
+            delete currentTeam.password;
+            delete currentTeam.password2;
+            loginTeam = {...currentTeam, ...{payAccount: null, payAmount: null}};
+            this.db.database.ref('/accommodations/').once('value')
+            .then(
+              (snapchot) => {
+                if (snapchot) {
+                  accommodations = this.toolsService.getArray(snapchot.val());
+                }
+                return this.db.database.ref('/tshirts/').once('value');
+              }
+            )
+            .then(
+              (snapchot) => {
+                if (snapchot) {
+                  tshirts = this.toolsService.getArray(snapchot.val());
+                }
+                return this.db.database.ref('/config/').once('value');
+              }
+            )
+            .then(
+              (snapchot) => {
+                if (snapchot) {
+                  config = snapchot.val();
+                }
+                this.updateWithPayInfo(loginTeam, tshirts, accommodations, config.config);
+                if (loginTeam) {
+                  this.store.dispatch(new LoginTeamAction(loginTeam));
+                } else {
+                  this.store.dispatch(new LoginTeamAction(null));
+                }
+              }
+            );
         }
-      )
-      .then(
-        (snapchot) => {
-          if (snapchot) {
-            tshirts = this.toolsService.getArray(snapchot.val());
-          }
-          return this.db.database.ref('/config/').once('value');
-        }
-      )
-      .then(
-      (snapchot) => {
-        if (snapchot) {
-          config = snapchot.val();
-        }
-        this.updateWithPayInfo(loginTeam, tshirts, accommodations, config.config);
-        if (loginTeam) {
-          this.store.dispatch(new LoginTeamAction(loginTeam));
-        } else {
-          this.store.dispatch(new LoginTeamAction(null));
-        }
-      }
-    );
+      );
   }
 
   private updateWithPayInfo(loginTeam: LoginTeamDto, tshirts: TshirtDto[], accommodations: AccommodationDto[],

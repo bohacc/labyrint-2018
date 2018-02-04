@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TeamDto } from '../../modules/teams/models/TeamDto';
-import { ConfigDbDto } from '../../shared/model/ConfigDbDto';
-import { TeamsService } from '../../modules/teams/teams.service';
-import { FoodService } from '../../modules/teams/services/foods.service';
-import { State } from '../../modules/teams/state/reducers/module.reducer';
+import { TeamDto } from '../../models/TeamDto';
+import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
+import { TeamsService } from '../../teams.service';
+import { FoodService } from '../../services/foods.service';
+import { State } from '../../state/reducers/module.reducer';
 import { Store } from '@ngrx/store';
-import { TshirtsService } from '../../modules/teams/services/tshirts.service';
-import { AccommodationsService } from '../../modules/teams/services/accommodations.service';
+import { TshirtsService } from '../../services/tshirts.service';
+import { AccommodationsService } from '../../services/accommodations.service';
 import { Subject } from 'rxjs/Subject';
-import { AccommodationsTypesEnum } from '../../modules/teams/models/AccommodationsTypesEnum';
-import { AccommodationDto } from '../../shared/model/AccommodationDto';
+import { AccommodationsTypesEnum } from '../../models/AccommodationsTypesEnum';
+import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
 
 @Component({
   selector: 'admin',

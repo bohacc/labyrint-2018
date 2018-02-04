@@ -1,6 +1,7 @@
 import { PersonDto } from '../../../shared/model/PersonDto';
 
 export interface TeamDto {
+  key: string;
   name: string;
   email: string;
   password?: string;

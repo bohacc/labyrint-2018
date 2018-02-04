@@ -1,6 +1,7 @@
 import { PersonDto } from './PersonDto';
 
 export interface LoginTeamDto {
+  key: string;
   name: string;
   email: string;
   phone: string;

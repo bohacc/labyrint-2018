@@ -7,6 +7,7 @@ export interface State {
 
 export const initialState: State = {
   team: {
+    key: null,
     accommodation: null,
     email: null,
     name: null,

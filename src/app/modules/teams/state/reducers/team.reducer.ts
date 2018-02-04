@@ -22,6 +22,7 @@ export const initialState: State = {
   errors: [],
   registrationFormSuccess: null,
   team: {
+    key: null,
     accommodation: null,
     email: null,
     name: null,

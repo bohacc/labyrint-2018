@@ -63,7 +63,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public isPending = false;
   public config: ConfigDbDto;
   public disableRegistration = true;
-  public disableRegistrationControl = new FormControl(false);
 
   constructor(
     private authService: AuthService,
@@ -237,7 +236,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
 
   public sendForm() {
     this.isPending = true;
-    this.teamsService.updateItem(this.mainForm.getRawValue().data);
+    this.teamsService.updateItem({...this.loginUser, ...this.mainForm.getRawValue().data});
   }
 
   public resetPassword() {
