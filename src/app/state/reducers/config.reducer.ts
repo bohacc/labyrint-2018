@@ -15,7 +15,8 @@ export const initialState: State = {
     pay_account: null,
     registration_price: null,
     accommodation_description: null,
-    teams_limit: null
+    teams_limit: null,
+    teams_description: null
   }
 };
 

@@ -1,6 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoadAccommodationsAction, LoadAccommodationsForEditAction } from '../state/actions/accommodations.actions';
+import {
+  LoadAccommodationsAction, LoadAccommodationsForEditAction,
+  LoadAllAccommodationsAction
+} from '../state/actions/accommodations.actions';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
@@ -21,6 +24,7 @@ export class AccommodationsService implements OnDestroy {
   private unsubscribe: Subject<any> = new Subject();
   private loginTeam: LoginTeamDto;
   private accommodations: AccommodationDto[];
+  private accommodationsAll: AccommodationDto[];
 
   constructor(
     private store: Store<State>,
@@ -35,6 +39,7 @@ export class AccommodationsService implements OnDestroy {
       .subscribe((state) => {
         this.loginTeam = state.loginTeam.team;
         this.accommodations = state.teams.accommodations.list;
+        this.accommodationsAll = state.teams.accommodations.listAll;
       });
   }
 
@@ -70,6 +75,7 @@ export class AccommodationsService implements OnDestroy {
         (accommodations: Accommodation[]) => {
           const filteredAccommodations: Accommodation[] =
             this.getAvailableAccommodations(null, configDb, accommodations, teams);
+          this.store.dispatch(new LoadAllAccommodationsAction(accommodations));
           this.store.dispatch(new LoadAccommodationsAction(filteredAccommodations));
           const filteredAccommodationsEdit: Accommodation[] =
             this.getAvailableAccommodations(this.loginTeam, configDb, accommodations, teams);
@@ -79,7 +85,7 @@ export class AccommodationsService implements OnDestroy {
   }
 
   public getAccommodation(code: string): AccommodationDto {
-    return this.accommodations.filter((accommodation) => {
+    return this.accommodationsAll.filter((accommodation) => {
       return accommodation.value === code;
     })[0];
   }

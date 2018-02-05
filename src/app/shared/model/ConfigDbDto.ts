@@ -8,4 +8,5 @@ export interface ConfigDbDto {
   registration_price: number;
   accommodation_description: string;
   teams_limit: number;
+  teams_description: string;
 }
