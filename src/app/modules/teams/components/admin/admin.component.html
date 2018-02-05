@@ -8,18 +8,25 @@
   <div>Počet lidí v chatkách: {{peopleHutCount}}</div>
   <div>Počet týmů v chatkách: {{teamsHutCount}}</div>
   <div>Počet jídel: {{peopleFoodCount}}</div>
-  <div>Vybraná jídla: FOR</div>
   <div>Počet triček: {{tshirtsCount}}</div>
-  <div>Vybraná trička: FOR</div>
   <div>Celkem za ubytování: {{payAmountAccommodations}}</div>
   <div>Celkem za trička: {{payAmountTshirts}}</div>
-  <div>Celková částka za týmy k platbě: {{SummaryForPay}}</div>
-  <div>Celková částka za týmy - zaplaceno: {{SummaryPay}}</div>
+  <div>Celková částka za týmy k platbě: {{summaryForPay}}</div>
+  <div>Celková částka za týmy - zaplaceno: {{summaryPay}}</div>
+  <hr>
+  <br>
+
+  <div>Vybraná trička: FOR</div>
+  <div>Vybraná jídla: FOR</div>
+
   <div>Týmy a jejich čísla: FOR</div>
   <div *ngFor="let team of teams; let i = index">
     <span [ngClass]="{pay: !!team.paySent, noPay: !team.paySent}">{{team.name}}</span> -
     <span class="paySent" *ngIf="!!team.paySent">zaplaceno</span>
     <span class="payNoSent" *ngIf="!team.paySent">nezaplaceno</span>
+    <span>,{{team.payId}}</span>
+    <span>,{{team.phone}}</span>
+    <span>,{{team.email}}</span>
     <div *ngIf="i === config.teams_limit - 1"><hr></div>
   </div>
   <!--
