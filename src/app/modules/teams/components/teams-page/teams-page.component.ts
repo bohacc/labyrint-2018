@@ -3,6 +3,9 @@ import { TeamsService } from '../../teams.service';
 import { State } from '../../state/reducers/module.reducer';
 import { Store } from '@ngrx/store';
 import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
+import { TeamDto } from '../../models/TeamDto';
+import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
+import { AccommodationsService } from '../../services/accommodations.service';
 
 @Component({
   selector: 'teams-page',
@@ -10,18 +13,36 @@ import { ConfigDbDto } from '../../../../shared/model/ConfigDbDto';
 })
 export class TeamsPageComponent implements OnInit {
   public config: ConfigDbDto;
+  private peopleAccommodationCount: number;
+  private teams: TeamDto[];
 
   constructor(
     private teamsService: TeamsService,
-    private store: Store<State>
+    private store: Store<State>,
+    private accommodationsService: AccommodationsService
   ) {
     this.store.select(state => state)
       .subscribe((state) => {
         this.config = state.config.config;
+        this.teams  = state.teams.teams.list;
+        this.recalculate();
       });
   }
 
   ngOnInit() {
     this.teamsService.loadTeams();
+  }
+
+  private recalculate() {
+    this.peopleAccommodationCount = this.teams.map((team: TeamDto) => {
+      const accommodation: AccommodationDto = this.accommodationsService.getAccommodation(team.accommodation);
+      return accommodation ? accommodation.count : 0;
+    }).reduce((a, b) => a + b, 0);
+
+    if (this.config && this.config.teams_description) {
+      this.config.teams_description = this.config.teams_description.replace(/@@PEOPLE_COUNT@@/g, this.peopleAccommodationCount + '');
+      this.config.teams_description = this.config.teams_description.replace(/@@TEAMS_COUNT@@/g, this.teams.length + '');
+      this.config.teams_description = this.config.teams_description.replace(/@@TEAMS_LIMIT@@/g, this.config.teams_limit + '');
+    }
   }
 }
