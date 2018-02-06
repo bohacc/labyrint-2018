@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   public teams: TeamDto[];
   public config: ConfigDbDto;
   private unsubscribe: Subject<any> = new Subject();
+  public payAmountRegistrations: number;
 
   constructor(
     private teamsService: TeamsService,
@@ -163,9 +164,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       return count;
     }).reduce((a, b) => a + b, 0);
 
-    this.summaryForPay = this.payAmountAccommodations + (this.teamsCount * this.config.registration_price);
+    this.summaryForPay =
+      (this.payAmountAccommodations || 0) + (this.teamsCount * this.config.registration_price) + (this.payAmountTshirts || 0);
 
-    this.summaryPay = this.teamsPayCount ? this.payAmountAccommodations + (this.teamsPayCount * this.config.registration_price) : 0;
+    this.payAmountRegistrations = this.teamsCount * this.config.registration_price;
+
+    this.summaryPay = this.teams.map((team) => {
+      return team.paySentAmount ? parseInt(team.paySentAmount, 10) : 0;
+    }).reduce((a, b) => a + b, 0);
   }
 
   public getAccommodation(code: string) {
