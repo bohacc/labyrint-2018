@@ -25,6 +25,12 @@
 
     <div><i>(startovné: {{config.registration_price | number}} Kč, ubytování: {{loginUser.accommodationPrice | number}} Kč, trička: {{loginUser.tshirtsPrice | number}} Kč)</i></div>
 
+    <div class="cleaner">&nbsp;</div>
+
+    <div class="pay-column">Máte zaplaceno:</div>
+    <div class="pay-column2"><strong>{{(loginUser.paySentAmount || 0) | number: '1.0-0'}}</strong> Kč</div>
+
+
     <br>
 
     <h2 class="team-name">{{loginUser.name}}</h2>

@@ -1,32 +1,52 @@
 <mat-card class="app-content">
-  <div>Počet týmů: {{teamsCount}}</div>
-  <div>Počet týmů, které mají zaplaceno: {{teamsPayCount}}</div>
-  <div>Počet lidí z registrace: {{peopleCount}}</div>
-  <div>Počet lidí z variant ubytovaní: {{peopleAccommodationCount}}</div>
-  <div>Počet lidí v budově: {{peopleBuildingCount}}</div>
-  <div>Počet týmů v budově: {{teamsBuildingCount}}</div>
-  <div>Počet lidí v chatkách: {{peopleHutCount}}</div>
-  <div>Počet týmů v chatkách: {{teamsHutCount}}</div>
-  <div>Počet jídel: {{peopleFoodCount}}</div>
-  <div>Počet triček: {{tshirtsCount}}</div>
-  <div>Celkem za ubytování: {{payAmountAccommodations}}</div>
-  <div>Celkem za trička: {{payAmountTshirts}}</div>
-  <div>Celková částka za týmy k platbě: {{summaryForPay}}</div>
-  <div>Celková částka za týmy - zaplaceno: {{summaryPay}}</div>
+  <div>Počet týmů: <strong>{{teamsCount}}</strong></div>
+  <br>
+  <div>Počet týmů, které mají zaplaceno: <strong>{{teamsPayCount}}</strong></div>
+  <br>
+  <div>Počet lidí z registrace: <strong>{{peopleCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet lidí z variant ubytovaní: <strong>{{peopleAccommodationCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet lidí v budově: <strong>{{peopleBuildingCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet týmů v budově: <strong>{{teamsBuildingCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet lidí v chatkách: <strong>{{peopleHutCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet týmů v chatkách: <strong>{{teamsHutCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet jídel: <strong>{{peopleFoodCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet triček: <strong>{{tshirtsCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Celkem za ubytování: <strong>{{payAmountAccommodations | number: '1.0-0'}}</strong> Kč</div>
+  <br>
+  <div>Celkem za trička: <strong>{{payAmountTshirts | number: '1.0-0'}}</strong> Kč</div>
+  <br>
+  <div>Celková částka za týmy k platbě: <strong>{{summaryForPay | number: '1.0-0'}}</strong> Kč</div>
+  <br>
+  <div>Celková částka za týmy - zaplaceno: <strong>{{summaryPay | number: '1.0-0'}}</strong> Kč</div>
   <hr>
   <br>
 
   <div>Vybraná trička: FOR</div>
   <div>Vybraná jídla: FOR</div>
 
-  <div>Týmy a jejich čísla: FOR</div>
+  <div>Týmy a jejich čísla:</div>
+  <br>
   <div *ngFor="let team of teams; let i = index">
-    <span [ngClass]="{pay: !!team.paySent, noPay: !team.paySent}">{{team.name}}</span> -
-    <span class="paySent" *ngIf="!!team.paySent">zaplaceno</span>
-    <span class="payNoSent" *ngIf="!team.paySent">nezaplaceno</span>
-    <span>,{{team.payId}}</span>
-    <span>,{{team.phone}}</span>
-    <span>,{{team.email}}</span>
+    <div>
+      <span [ngClass]="{pay: !!team.paySent, noPay: !team.paySent}"><strong>{{team.name}}</strong></span> -
+      <span class="paySent" *ngIf="!!team.paySent">zaplaceno</span>
+      <span class="payNoSent" *ngIf="!team.paySent">nezaplaceno</span>
+      <span>, VS: {{team.payId}}</span>
+      <span>, tel: {{team.phone}}</span>
+      <span>, email: {{team.email}}</span>
+    </div>
+    <div>ubytování: <strong>{{getAccommodation(team.accommodation)?.name}}</strong></div>
+    <div>jídlo: </div>
+    <div>trička: </div>
+    <br>
     <div *ngIf="i === config.teams_limit - 1"><hr></div>
   </div>
   <!--

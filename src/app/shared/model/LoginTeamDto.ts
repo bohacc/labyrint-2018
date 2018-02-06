@@ -9,6 +9,7 @@ export interface LoginTeamDto {
   payId: string;
   payAmount: number;
   payAccount: string;
+  paySentAmount: string;
   player1: PersonDto;
   player2: PersonDto;
   player3: PersonDto;

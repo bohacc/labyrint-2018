@@ -30,6 +30,7 @@ export const initialState: State = {
     password2: null,
     payId: null,
     paySent: null,
+    paySentAmount: null,
     phone: null,
     player1: {
       firstName: null,

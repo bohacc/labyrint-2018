@@ -10,6 +10,7 @@ export interface TeamDto {
   accommodation: string;
   payId: string;
   paySent: boolean;
+  paySentAmount: string;
   player1: PersonDto;
   player2: PersonDto;
   player3: PersonDto;

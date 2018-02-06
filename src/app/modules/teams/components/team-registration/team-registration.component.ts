@@ -212,7 +212,8 @@ export class TeamRegistrationComponent implements OnInit, OnDestroy {
           {validator: [ValidatePlayer]}
         ),
         payId: '',
-        paySent: ''
+        paySent: '',
+        paySentAmount: '',
       }),
       captcha: ['']
     });

@@ -15,6 +15,7 @@ export class TeamsPageComponent implements OnInit {
   public config: ConfigDbDto;
   private peopleAccommodationCount: number;
   private teams: TeamDto[];
+  public teamsDescription: string;
 
   constructor(
     private teamsService: TeamsService,
@@ -31,6 +32,7 @@ export class TeamsPageComponent implements OnInit {
 
   ngOnInit() {
     this.teamsService.loadTeams();
+    this.accommodationsService.loadAccommodations();
   }
 
   private recalculate() {
@@ -40,9 +42,10 @@ export class TeamsPageComponent implements OnInit {
     }).reduce((a, b) => a + b, 0);
 
     if (this.config && this.config.teams_description) {
-      this.config.teams_description = this.config.teams_description.replace(/@@PEOPLE_COUNT@@/g, this.peopleAccommodationCount + '');
-      this.config.teams_description = this.config.teams_description.replace(/@@TEAMS_COUNT@@/g, this.teams.length + '');
-      this.config.teams_description = this.config.teams_description.replace(/@@TEAMS_LIMIT@@/g, this.config.teams_limit + '');
+      this.teamsDescription = this.config.teams_description;
+      this.teamsDescription = this.teamsDescription.replace(/@@PEOPLE_COUNT@@/g, this.peopleAccommodationCount + '');
+      this.teamsDescription = this.teamsDescription.replace(/@@TEAMS_COUNT@@/g, this.teams.length + '');
+      this.teamsDescription = this.teamsDescription.replace(/@@TEAMS_LIMIT@@/g, this.config.teams_limit + '');
     }
   }
 }

@@ -167,4 +167,22 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.summaryPay = this.teamsPayCount ? this.payAmountAccommodations + (this.teamsPayCount * this.config.registration_price) : 0;
   }
+
+  public getAccommodation(code: string) {
+    return this.accommodationsService.getAccommodation(code);
+  }
+
+  public getTshirts(teams: TeamDto[]): any[] {
+    const tshirts: any[] = [];
+    teams.forEach((team: TeamDto) => {
+      tshirts.forEach((item) => {
+        // getTshirt(team.player1.tshirt)
+      });
+    });
+    return [];
+  }
+
+  public getFoods(teams: TeamDto[]): any[] {
+    return [];
+  }
 }
