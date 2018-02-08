@@ -31,10 +31,20 @@
   <hr>
   <br>
 
-  <div>Vybraná trička: FOR</div>
-  <div>Vybraná jídla: FOR</div>
+  <div>Vybraná trička:</div>
+  <div *ngFor="let tshirt of getTshirts(teams)">
+    <div>{{tshirt.name}}: {{tshirt.count}}, {{tshirt.price}} Kč</div>
+  </div>
+  <br>
 
-  <div>Týmy a jejich čísla:</div>
+  <div>Vybraná jídla:</div>
+  <div *ngFor="let food of getFoods(teams)">
+    <div>{{food.name}}: {{food.count}}, {{food.price}} Kč</div>
+  </div>
+  <br>
+
+  <br>
+  <div><strong>Týmy:</strong></div>
   <br>
   <div *ngFor="let team of teams; let i = index">
     <div>
@@ -42,10 +52,12 @@
       <span class="paySent" *ngIf="!!team.paySent">zaplaceno</span>
       <span class="payNoSent" *ngIf="!team.paySent">nezaplaceno</span>
       <span>, VS: {{team.payId}}</span>
+      <span>, předpis: {{team.payAmount}} Kč</span>
+      <span>, zaplaceno: {{team.paySentAmount | number: '1.0-0'}} Kč</span>
       <span>, tel: {{team.phone}}</span>
       <span>, email: {{team.email}}</span>
     </div>
-    <div>ubytování: <strong>{{getAccommodation(team.accommodation)?.name}}</strong></div>
+    <div>ubytování: <strong>{{getAccommodation(team.accommodation)?.name}} - {{getAccommodation(team.accommodation)?.price | number: '1.0-0'}}</strong></div>
     <div>jídlo: </div>
     <div>trička: </div>
     <br>

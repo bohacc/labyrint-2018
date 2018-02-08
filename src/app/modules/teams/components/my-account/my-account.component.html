@@ -77,7 +77,7 @@
             {{ item.name }}&nbsp;({{item.price | number}} Kč)
           </mat-option>
         </mat-select>
-        <mat-hint>Cena zahrnuje polopenzi</mat-hint>
+        <mat-hint>Cena zahrnuje dvě noci s polopenzí</mat-hint>
         <mat-error *ngIf="accommodation.hasError('required')">
           Ubytování je <strong>povinné</strong>
         </mat-error>

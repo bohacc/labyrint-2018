@@ -11,6 +11,8 @@ import { Subject } from 'rxjs/Subject';
 import { AccommodationsTypesEnum } from '../../models/AccommodationsTypesEnum';
 import { AccommodationDto } from '../../../../shared/model/AccommodationDto';
 import { TshirtDto } from '../../../../shared/model/TshirtDto';
+import { Food } from '../../models/FoodDto';
+import { CalcDto } from '../../../../shared/model/CalcDto';
 
 @Component({
   selector: 'admin',
@@ -82,11 +84,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.payAmountTshirts = this.teams.map((team: TeamDto) => {
       let price = 0;
-      const tshirt1 = this.tshirtsService.getTshirts(team.player1.tshirt);
-      const tshirt2 = this.tshirtsService.getTshirts(team.player2.tshirt);
-      const tshirt3 = this.tshirtsService.getTshirts(team.player3.tshirt);
-      const tshirt4 = this.tshirtsService.getTshirts(team.player4.tshirt);
-      const tshirt5 = this.tshirtsService.getTshirts(team.player5.tshirt);
+      const tshirt1 = this.tshirtsService.getTshirt(team.player1.tshirt);
+      const tshirt2 = this.tshirtsService.getTshirt(team.player2.tshirt);
+      const tshirt3 = this.tshirtsService.getTshirt(team.player3.tshirt);
+      const tshirt4 = this.tshirtsService.getTshirt(team.player4.tshirt);
+      const tshirt5 = this.tshirtsService.getTshirt(team.player5.tshirt);
       price += tshirt1 ? tshirt1.price : 0;
       price += tshirt2 ? tshirt2.price : 0;
       price += tshirt3 ? tshirt3.price : 0;
@@ -97,11 +99,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.paySentAmount = this.teams.map((team: TeamDto) => {
       const accommodation = this.accommodationsService.getAccommodation(team.accommodation);
-      const tshirt1 = this.tshirtsService.getTshirts(team.player1.tshirt);
-      const tshirt2 = this.tshirtsService.getTshirts(team.player2.tshirt);
-      const tshirt3 = this.tshirtsService.getTshirts(team.player3.tshirt);
-      const tshirt4 = this.tshirtsService.getTshirts(team.player4.tshirt);
-      const tshirt5 = this.tshirtsService.getTshirts(team.player5.tshirt);
+      const tshirt1 = this.tshirtsService.getTshirt(team.player1.tshirt);
+      const tshirt2 = this.tshirtsService.getTshirt(team.player2.tshirt);
+      const tshirt3 = this.tshirtsService.getTshirt(team.player3.tshirt);
+      const tshirt4 = this.tshirtsService.getTshirt(team.player4.tshirt);
+      const tshirt5 = this.tshirtsService.getTshirt(team.player5.tshirt);
       let tshirtPrice = 0;
       tshirtPrice += tshirt1 ? tshirt1.price : 0;
       tshirtPrice += tshirt2 ? tshirt2.price : 0;
@@ -151,11 +153,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.tshirtsCount = this.teams.map((team: TeamDto) => {
       let count = 0;
-      const tshirt1: TshirtDto = this.tshirtsService.getTshirts(team.player1.tshirt);
-      const tshirt2: TshirtDto = this.tshirtsService.getTshirts(team.player2.tshirt);
-      const tshirt3: TshirtDto = this.tshirtsService.getTshirts(team.player3.tshirt);
-      const tshirt4: TshirtDto = this.tshirtsService.getTshirts(team.player4.tshirt);
-      const tshirt5: TshirtDto = this.tshirtsService.getTshirts(team.player5.tshirt);
+      const tshirt1: TshirtDto = this.tshirtsService.getTshirt(team.player1.tshirt);
+      const tshirt2: TshirtDto = this.tshirtsService.getTshirt(team.player2.tshirt);
+      const tshirt3: TshirtDto = this.tshirtsService.getTshirt(team.player3.tshirt);
+      const tshirt4: TshirtDto = this.tshirtsService.getTshirt(team.player4.tshirt);
+      const tshirt5: TshirtDto = this.tshirtsService.getTshirt(team.player5.tshirt);
       count += (team.player1.tshirt && tshirt1 && tshirt1.price > 0) ? 1 : 0;
       count += (team.player2.tshirt && tshirt2 && tshirt2.price > 0) ? 1 : 0;
       count += (team.player3.tshirt && tshirt3 && tshirt3.price > 0) ? 1 : 0;
@@ -178,17 +180,132 @@ export class AdminComponent implements OnInit, OnDestroy {
     return this.accommodationsService.getAccommodation(code);
   }
 
-  public getTshirts(teams: TeamDto[]): any[] {
-    const tshirts: any[] = [];
+  public getTshirts(teams: TeamDto[]): CalcDto[] {
+    const tshirts: CalcDto[] = [];
     teams.forEach((team: TeamDto) => {
-      tshirts.forEach((item) => {
-        // getTshirt(team.player1.tshirt)
+      const selectedTshirts: CalcDto[] = [];
+      const tshirt1 = this.tshirtsService.getTshirt(team.player1.tshirt);
+      const tshirt2 = this.tshirtsService.getTshirt(team.player2.tshirt);
+      const tshirt3 = this.tshirtsService.getTshirt(team.player3.tshirt);
+      const tshirt4 = this.tshirtsService.getTshirt(team.player4.tshirt);
+      const tshirt5 = this.tshirtsService.getTshirt(team.player5.tshirt);
+      if (tshirt1) {
+        selectedTshirts.push({
+          name: tshirt1.name,
+          value: tshirt1.value,
+          price: tshirt1.price,
+          count: 1
+        });
+      }
+      if (tshirt2) {
+        selectedTshirts.push({
+          name: tshirt2.name,
+          value: tshirt2.value,
+          price: tshirt2.price,
+          count: 1
+        });
+      }
+      if (tshirt3) {
+        selectedTshirts.push({
+          name: tshirt3.name,
+          value: tshirt3.value,
+          price: tshirt3.price,
+          count: 1
+        });
+      }
+      if (tshirt4) {
+        selectedTshirts.push({
+          name: tshirt4.name,
+          value: tshirt4.value,
+          price: tshirt4.price,
+          count: 1
+        });
+      }
+      if (tshirt5) {
+        selectedTshirts.push({
+          name: tshirt5.name,
+          value: tshirt5.value,
+          price: tshirt5.price,
+          count: 1
+        });
+      }
+      selectedTshirts.forEach((tshirt: CalcDto) => {
+        tshirts.forEach((item: CalcDto) => {
+          if (item.value === tshirt.value) {
+            item.price += tshirt.price;
+            item.count += 1;
+          }
+        });
+        if (tshirts.length === 0) {
+          tshirts.push(tshirt);
+        }
       });
     });
-    return [];
+    return tshirts;
   }
 
-  public getFoods(teams: TeamDto[]): any[] {
-    return [];
+  public getFoods(teams: TeamDto[]): CalcDto[] {
+    const foods: CalcDto[] = [];
+    teams.forEach((team: TeamDto) => {
+      const selectedFoods: CalcDto[] = [];
+      const food1: Food = this.foodService.getFood(team.player1.food);
+      const food2 = this.foodService.getFood(team.player2.food);
+      const food3 = this.foodService.getFood(team.player3.food);
+      const food4 = this.foodService.getFood(team.player4.food);
+      const food5 = this.foodService.getFood(team.player5.food);
+      if (food1) {
+        selectedFoods.push({
+          name: food1.name,
+          value: food1.value,
+          price: food1.price,
+          count: 1
+        });
+      }
+      if (food2) {
+        selectedFoods.push({
+          name: food2.name,
+          value: food2.value,
+          price: food2.price,
+          count: 1
+        });
+      }
+      if (food3) {
+        selectedFoods.push({
+          name: food3.name,
+          value: food3.value,
+          price: food3.price,
+          count: 1
+        });
+      }
+      if (food4) {
+        selectedFoods.push({
+          name: food4.name,
+          value: food4.value,
+          price: food4.price,
+          count: 1
+        });
+      }
+      if (food5) {
+        selectedFoods.push({
+          name: food5.name,
+          value: food5.value,
+          price: food5.price,
+          count: 1
+        });
+      }
+      selectedFoods.forEach((food: CalcDto) => {
+        foods.forEach((item: CalcDto) => {
+          if (item.value === food.value) {
+            item.price += food.price;
+            item.count += 1;
+          }
+        });
+        if (foods.length === 0) {
+          foods.push(food);
+        }
+      });
+    });
+    return foods;
   }
+
 }

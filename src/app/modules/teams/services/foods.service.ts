@@ -11,6 +11,7 @@ import { Food } from '../models/FoodDto';
 export class FoodService implements OnDestroy {
   private itemsRef: AngularFireList<{food: Food}[]>;
   private unsubscribe: Subject<any> = new Subject();
+  private foods: Food[];
 
   constructor(
     private store: Store<AppState>,
@@ -33,7 +34,14 @@ export class FoodService implements OnDestroy {
       .subscribe(
         (foods: Food[]) => {
           this.store.dispatch(new LoadFoodsAction(foods));
+          this.foods = foods;
         }
       );
+  }
+
+  public getFood(code: string): Food {
+    return this.foods.filter((food) => {
+      return food.value === code;
+    })[0];
   }
 }

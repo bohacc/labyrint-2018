@@ -44,7 +44,7 @@ export class TshirtsService implements OnDestroy {
       );
   }
 
-  public getTshirts(code: string): TshirtDto {
+  public getTshirt(code: string): TshirtDto {
     return this.tshirts.filter((tshirt) => {
       return tshirt.value === code;
     })[0];
