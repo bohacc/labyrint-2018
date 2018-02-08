@@ -85,9 +85,9 @@ export class AccommodationsService implements OnDestroy {
   }
 
   public getAccommodation(code: string): AccommodationDto {
-    return this.accommodationsAll.filter((accommodation) => {
+    return this.accommodationsAll ? this.accommodationsAll.filter((accommodation) => {
       return accommodation.value === code;
-    })[0];
+    })[0] : null;
   }
 
   private getAvailableAccommodations(

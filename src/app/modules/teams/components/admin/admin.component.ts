@@ -16,7 +16,8 @@ import { CalcDto } from '../../../../shared/model/CalcDto';
 
 @Component({
   selector: 'admin',
-  templateUrl: 'admin.component.html'
+  templateUrl: 'admin.component.html',
+  styleUrls: ['admin.component.scss']
 })
 export class AdminComponent implements OnInit, OnDestroy {
   public teamsCount: number;
@@ -38,6 +39,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   public config: ConfigDbDto;
   private unsubscribe: Subject<any> = new Subject();
   public payAmountRegistrations: number;
+  public calcTshirts: CalcDto[];
+  public calcFoods: CalcDto[];
+  public calcAccommodations: CalcDto[];
 
   constructor(
     private teamsService: TeamsService,
@@ -63,6 +67,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   private initStore() {
     this.store.select(state => state)
+      .takeUntil(this.unsubscribe)
       .subscribe((state) => {
         this.teams = state.teams.teams.list;
         this.config = state.config.config;
@@ -174,10 +179,42 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.summaryPay = this.teams.map((team) => {
       return team.paySentAmount ? parseInt(team.paySentAmount, 10) : 0;
     }).reduce((a, b) => a + b, 0);
+
+    this.calcTshirts = this.getTshirts(this.teams);
+    this.calcFoods = this.getFoods(this.teams);
+    this.calcAccommodations = this.getAccommodations();
   }
 
   public getAccommodation(code: string) {
     return this.accommodationsService.getAccommodation(code);
+  }
+
+  public getAccommodations(): CalcDto[] {
+    const accommodations: CalcDto[] = [];
+    this.teams.forEach((team) => {
+      let exist = false;
+      const findAccommodation: AccommodationDto = this.getAccommodation(team.accommodation);
+      if (!findAccommodation) {
+        return;
+      }
+      accommodations.forEach((accommodation) => {
+        if (accommodation.value === team.accommodation) {
+          accommodation.count += 1;
+          accommodation.price += findAccommodation.price;
+          exist = true;
+        }
+      });
+      if (!exist) {
+        accommodations.push({
+          value: team.accommodation,
+          name: findAccommodation.name,
+          count: 1,
+          price: findAccommodation.price,
+          sortOrder: findAccommodation.sort_order
+        });
+      }
+    });
+    return accommodations.sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
   public getTshirts(teams: TeamDto[]): CalcDto[] {
@@ -194,7 +231,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: tshirt1.name,
           value: tshirt1.value,
           price: tshirt1.price,
-          count: 1
+          count: 1,
+          sortOrder: tshirt1.sort_order
         });
       }
       if (tshirt2) {
@@ -202,7 +240,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: tshirt2.name,
           value: tshirt2.value,
           price: tshirt2.price,
-          count: 1
+          count: 1,
+          sortOrder: tshirt2.sort_order
         });
       }
       if (tshirt3) {
@@ -210,7 +249,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: tshirt3.name,
           value: tshirt3.value,
           price: tshirt3.price,
-          count: 1
+          count: 1,
+          sortOrder: tshirt3.sort_order
         });
       }
       if (tshirt4) {
@@ -218,7 +258,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: tshirt4.name,
           value: tshirt4.value,
           price: tshirt4.price,
-          count: 1
+          count: 1,
+          sortOrder: tshirt4.sort_order
         });
       }
       if (tshirt5) {
@@ -226,22 +267,25 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: tshirt5.name,
           value: tshirt5.value,
           price: tshirt5.price,
-          count: 1
+          count: 1,
+          sortOrder: tshirt5.sort_order
         });
       }
       selectedTshirts.forEach((tshirt: CalcDto) => {
+        let exist = false;
         tshirts.forEach((item: CalcDto) => {
           if (item.value === tshirt.value) {
             item.price += tshirt.price;
             item.count += 1;
+            exist = true;
           }
         });
-        if (tshirts.length === 0) {
+        if (!exist) {
           tshirts.push(tshirt);
         }
       });
     });
-    return tshirts;
+    return tshirts.sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
   public getFoods(teams: TeamDto[]): CalcDto[] {
@@ -258,7 +302,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: food1.name,
           value: food1.value,
           price: food1.price,
-          count: 1
+          count: 1,
+          sortOrder: food1.sort_order
         });
       }
       if (food2) {
@@ -266,7 +311,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: food2.name,
           value: food2.value,
           price: food2.price,
-          count: 1
+          count: 1,
+          sortOrder: food2.sort_order
         });
       }
       if (food3) {
@@ -274,7 +320,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: food3.name,
           value: food3.value,
           price: food3.price,
-          count: 1
+          count: 1,
+          sortOrder: food3.sort_order
         });
       }
       if (food4) {
@@ -282,7 +329,8 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: food4.name,
           value: food4.value,
           price: food4.price,
-          count: 1
+          count: 1,
+          sortOrder: food4.sort_order
         });
       }
       if (food5) {
@@ -290,22 +338,29 @@ export class AdminComponent implements OnInit, OnDestroy {
           name: food5.name,
           value: food5.value,
           price: food5.price,
-          count: 1
+          count: 1,
+          sortOrder: food5.sort_order
         });
       }
       selectedFoods.forEach((food: CalcDto) => {
+        let exist = false;
         foods.forEach((item: CalcDto) => {
           if (item.value === food.value) {
             item.price += food.price;
             item.count += 1;
+            exist = true;
           }
         });
-        if (foods.length === 0) {
+        if (!exist) {
           foods.push(food);
         }
       });
     });
-    return foods;
+    return foods.sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
+  public getTshirtsPrice(team: TeamDto): number {
+    const tshirts = this.getTshirts([team]);
+    return tshirts.map(tshirt => tshirt.price).reduce((a, b) => a + b, 0);
+  }
 }

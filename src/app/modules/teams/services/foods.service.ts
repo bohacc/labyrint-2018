@@ -40,8 +40,8 @@ export class FoodService implements OnDestroy {
   }
 
   public getFood(code: string): Food {
-    return this.foods.filter((food) => {
+    return this.foods ? this.foods.filter((food) => {
       return food.value === code;
-    })[0];
+    })[0] : null;
   }
 }

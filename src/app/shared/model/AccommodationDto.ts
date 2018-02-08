@@ -4,4 +4,5 @@ export class AccommodationDto {
   price: number;
   type: string;
   value: string;
+  sort_order: number;
 }

@@ -6,4 +6,5 @@ export interface Accommodation {
   type: AccommodationEnum;
   count: number;
   price: number;
+  sort_order: number;
 }

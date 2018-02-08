@@ -3,4 +3,5 @@ export interface CalcDto {
   value: string;
   price: number;
   count: number;
+  sortOrder: number;
 }
