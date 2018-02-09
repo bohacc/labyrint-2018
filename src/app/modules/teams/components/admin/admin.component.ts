@@ -42,6 +42,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   public calcTshirts: CalcDto[];
   public calcFoods: CalcDto[];
   public calcAccommodations: CalcDto[];
+  public teamsIssuesWithPeopleCount: number;
 
   constructor(
     private teamsService: TeamsService,
@@ -183,6 +184,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.calcTshirts = this.getTshirts(this.teams);
     this.calcFoods = this.getFoods(this.teams);
     this.calcAccommodations = this.getAccommodations();
+    this.teamsIssuesWithPeopleCount = this.getFilledIssue(this.teams);
   }
 
   public getAccommodation(code: string) {
@@ -220,13 +222,15 @@ export class AdminComponent implements OnInit, OnDestroy {
   public getTshirts(teams: TeamDto[]): CalcDto[] {
     const tshirts: CalcDto[] = [];
     teams.forEach((team: TeamDto) => {
+      const accommodation: AccommodationDto = this.getAccommodation(team.accommodation);
+      const teamPeopleCount: number = accommodation ? accommodation.count : 0;
       const selectedTshirts: CalcDto[] = [];
       const tshirt1 = this.tshirtsService.getTshirt(team.player1.tshirt);
       const tshirt2 = this.tshirtsService.getTshirt(team.player2.tshirt);
       const tshirt3 = this.tshirtsService.getTshirt(team.player3.tshirt);
       const tshirt4 = this.tshirtsService.getTshirt(team.player4.tshirt);
       const tshirt5 = this.tshirtsService.getTshirt(team.player5.tshirt);
-      if (tshirt1) {
+      if (tshirt1 && teamPeopleCount >= 1) {
         selectedTshirts.push({
           name: tshirt1.name,
           value: tshirt1.value,
@@ -235,7 +239,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: tshirt1.sort_order
         });
       }
-      if (tshirt2) {
+      if (tshirt2 && teamPeopleCount >= 2) {
         selectedTshirts.push({
           name: tshirt2.name,
           value: tshirt2.value,
@@ -244,7 +248,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: tshirt2.sort_order
         });
       }
-      if (tshirt3) {
+      if (tshirt3 && teamPeopleCount >= 3) {
         selectedTshirts.push({
           name: tshirt3.name,
           value: tshirt3.value,
@@ -253,7 +257,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: tshirt3.sort_order
         });
       }
-      if (tshirt4) {
+      if (tshirt4 && teamPeopleCount >= 4) {
         selectedTshirts.push({
           name: tshirt4.name,
           value: tshirt4.value,
@@ -262,7 +266,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: tshirt4.sort_order
         });
       }
-      if (tshirt5) {
+      if (tshirt5 && teamPeopleCount >= 5) {
         selectedTshirts.push({
           name: tshirt5.name,
           value: tshirt5.value,
@@ -292,12 +296,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     const foods: CalcDto[] = [];
     teams.forEach((team: TeamDto) => {
       const selectedFoods: CalcDto[] = [];
+      const accommodation: AccommodationDto = this.getAccommodation(team.accommodation);
+      const teamPeopleCount: number = accommodation ? accommodation.count : 0;
       const food1: Food = this.foodService.getFood(team.player1.food);
       const food2 = this.foodService.getFood(team.player2.food);
       const food3 = this.foodService.getFood(team.player3.food);
       const food4 = this.foodService.getFood(team.player4.food);
       const food5 = this.foodService.getFood(team.player5.food);
-      if (food1) {
+      if (food1 && teamPeopleCount >= 1) {
         selectedFoods.push({
           name: food1.name,
           value: food1.value,
@@ -306,7 +312,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: food1.sort_order
         });
       }
-      if (food2) {
+      if (food2 && teamPeopleCount >= 2) {
         selectedFoods.push({
           name: food2.name,
           value: food2.value,
@@ -315,7 +321,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: food2.sort_order
         });
       }
-      if (food3) {
+      if (food3 && teamPeopleCount >= 3) {
         selectedFoods.push({
           name: food3.name,
           value: food3.value,
@@ -324,7 +330,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: food3.sort_order
         });
       }
-      if (food4) {
+      if (food4 && teamPeopleCount >= 4) {
         selectedFoods.push({
           name: food4.name,
           value: food4.value,
@@ -333,7 +339,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           sortOrder: food4.sort_order
         });
       }
-      if (food5) {
+      if (food5 && teamPeopleCount >= 5) {
         selectedFoods.push({
           name: food5.name,
           value: food5.value,
@@ -362,5 +368,32 @@ export class AdminComponent implements OnInit, OnDestroy {
   public getTshirtsPrice(team: TeamDto): number {
     const tshirts = this.getTshirts([team]);
     return tshirts.map(tshirt => tshirt.price).reduce((a, b) => a + b, 0);
+  }
+
+  public getFilledIssue(teams: TeamDto[]): number {
+    let countIssues = 0;
+    teams.forEach((team) => {
+      let count = 0;
+      const accommodation: AccommodationDto = this.getAccommodation(team.accommodation);
+      if ((team.player1.firstName || '') + (team.player1.lastName || '')/* + (team.player1.food || '')*/) {
+        count += 1;
+      }
+      if ((team.player2.firstName || '') + (team.player2.lastName || '')/* + (team.player2.food || '')*/) {
+        count += 1;
+      }
+      if ((team.player3.firstName || '') + (team.player3.lastName || '')/* + (team.player3.food || '')*/) {
+        count += 1;
+      }
+      if ((team.player4.firstName || '') + (team.player4.lastName || '')/* + (team.player4.food || '')*/) {
+        count += 1;
+      }
+      if ((team.player5.firstName || '') + (team.player5.lastName || '')/* + (team.player5.food || '')*/) {
+        count += 1;
+      }
+      if (teams && teams.length > 0 && accommodation && count !== (accommodation ? accommodation.count : 0)) {
+        countIssues += 1;
+      }
+    });
+    return countIssues;
   }
 }

@@ -3,7 +3,9 @@
   <br>
   <div>Počet týmů, které mají zaplaceno: <strong>{{teamsPayCount}}</strong></div>
   <br>
-  <div>Počet lidí z registrace: <strong>{{peopleCount | number: '1.0-0'}}</strong></div>
+  <div>Počet lidí vyplněných v registraci: <strong>{{peopleCount | number: '1.0-0'}}</strong></div>
+  <br>
+  <div>Počet týmů, které mají jiný počet vyplněných lidí oproti variantě ubytování: <strong>{{teamsIssuesWithPeopleCount}}</strong></div>
   <br>
   <div>Počet lidí z variant ubytovaní: <strong>{{peopleAccommodationCount | number: '1.0-0'}}</strong></div>
   <br>
@@ -33,19 +35,19 @@
 
   <div><h3>Vybraná trička:</h3></div>
   <div *ngFor="let tshirt of calcTshirts">
-    <div>{{tshirt.name}}: <strong>{{tshirt.count}}</strong> ks, <strong>{{tshirt.price}}</strong> Kč</div>
+    <div>{{tshirt.name}}: <strong>{{tshirt.count}}</strong> ks, <strong>{{tshirt.price | number: '1.0-0'}}</strong> Kč</div>
   </div>
   <br>
 
   <div><h3>Vybraná jídla:</h3></div>
   <div *ngFor="let food of calcFoods">
-    <div>{{food.name}}: <strong>{{food.count}}</strong> ks, <strong>{{food.price}}</strong> Kč</div>
+    <div>{{food.name}}: <strong>{{food.count}}</strong> ks, <strong>{{food.price | number: '1.0-0'}}</strong> Kč</div>
   </div>
   <br>
 
   <div><h3>Vybraná ubytování:</h3></div>
   <div *ngFor="let accommodation of calcAccommodations">
-    <div>{{accommodation.name}}: <strong>{{accommodation.count}}</strong> ks, <strong>{{accommodation.price}}</strong> Kč</div>
+    <div>{{accommodation.name}}: <strong>{{accommodation.count}}</strong> ks, <strong>{{accommodation.price | number: '1.0-0'}}</strong> Kč</div>
   </div>
   <br>
 
@@ -61,19 +63,21 @@
         <span>, zaplaceno: <strong>{{(team.paySentAmount || 0) | number: '1.0-0'}}</strong> Kč</span>
         <span>, tel: {{team.phone}}</span>
         <span>, email: {{team.email}}</span>
+        <span>, hráči <> ubytko: <strong>{{getFilledIssue([team]) > 0 ? 'ANO' : 'NE'}}</strong></span>
       </div>
       <div><i>Ubytování:</i></div>
-      <div>&nbsp;&nbsp;&nbsp;<strong>{{getAccommodation(team.accommodation)?.name}} - {{getAccommodation(team.accommodation)?.price | number: '1.0-0'}}</strong></div>
+      <div>&nbsp;&nbsp;&nbsp;<strong>{{getAccommodation(team.accommodation)?.name}} - {{getAccommodation(team.accommodation)?.price | number: '1.0-0'}} Kč</strong></div>
       <div><i>Jídla:</i></div>
       <div *ngFor="let food of getFoods([team])">
-        <div>&nbsp;&nbsp;&nbsp;<strong>{{food.name}}: {{food.count}}</strong> ks, <strong>{{food.price}}</strong> Kč</div>
+        <div>&nbsp;&nbsp;&nbsp;<strong>{{food.name}}: {{food.count}}</strong> ks, <strong>{{food.price | number: '1.0-0'}}</strong> Kč</div>
       </div>
       <div><i>Trička:</i></div>
       <div *ngFor="let tshirt of getTshirts([team])">
-        <div>&nbsp;&nbsp;&nbsp;<strong>{{tshirt.name}}: {{tshirt.count}}</strong> ks, <strong>{{tshirt.price}}</strong> Kč</div>
+        <div>&nbsp;&nbsp;&nbsp;<strong>{{tshirt.name}}: {{tshirt.count}}</strong> ks, <strong>{{tshirt.price | number: '1.0-0'}}</strong> Kč</div>
       </div>
-      <div *ngIf="i === config.teams_limit - 1"><hr></div>
     </div>
+    <br *ngIf="i === config.teams_limit - 1">
+    <div *ngIf="i === config.teams_limit - 1"><hr></div>
     <br>
   </div>
 </mat-card>
