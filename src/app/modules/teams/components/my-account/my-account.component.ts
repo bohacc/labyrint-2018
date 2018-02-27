@@ -62,6 +62,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public accommodations$: Observable<Accommodation[]>;
   public isPending = false;
   public config: ConfigDbDto;
+  public disableRegistration = true;
 
   constructor(
     private authService: AuthService,
@@ -104,6 +105,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
         if (this.loginUser) {
           this.initForm();
         }
+        this.disableRegistration = state.registration.end;
       });
   }
 
@@ -111,7 +113,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     this.name = new FormControl({value: this.loginUser.name, disabled: true},
       [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
     this.email = new FormControl({value: this.loginUser.email, disabled: true}, [Validators.required, ValidateEmail]);
-    this.phone = new FormControl(this.loginUser.phone, [Validators.required, ValidatePhone]);
+    this.phone = new FormControl({value: this.loginUser.phone, disabled: this.disableRegistration}, [Validators.required, ValidatePhone]);
     this.firstName = new FormControl(this.loginUser.player1.firstName, Validators.required);
     this.lastName = new FormControl(this.loginUser.player1.lastName, Validators.required);
     this.firstName2 = new FormControl(this.loginUser.player2.firstName);
@@ -122,17 +124,17 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     this.lastName4 = new FormControl(this.loginUser.player4.lastName);
     this.firstName5 = new FormControl(this.loginUser.player5.firstName);
     this.lastName5 = new FormControl(this.loginUser.player5.lastName);
-    this.tshirt = new FormControl(this.loginUser.player1.tshirt);
-    this.tshirt2 = new FormControl(this.loginUser.player2.tshirt);
-    this.tshirt3 = new FormControl(this.loginUser.player3.tshirt);
-    this.tshirt4 = new FormControl(this.loginUser.player4.tshirt);
-    this.tshirt5 = new FormControl(this.loginUser.player5.tshirt);
-    this.food = new FormControl(this.loginUser.player1.food, Validators.required);
-    this.food2 = new FormControl(this.loginUser.player2.food);
-    this.food3 = new FormControl(this.loginUser.player3.food);
-    this.food4 = new FormControl(this.loginUser.player4.food);
-    this.food5 = new FormControl(this.loginUser.player5.food);
-    this.accommodation = new FormControl(this.loginUser.accommodation, Validators.required);
+    this.tshirt = new FormControl({value: this.loginUser.player1.tshirt, disabled: this.disableRegistration});
+    this.tshirt2 = new FormControl({value: this.loginUser.player2.tshirt, disabled: this.disableRegistration});
+    this.tshirt3 = new FormControl({value: this.loginUser.player3.tshirt, disabled: this.disableRegistration});
+    this.tshirt4 = new FormControl({value: this.loginUser.player4.tshirt, disabled: this.disableRegistration});
+    this.tshirt5 = new FormControl({value: this.loginUser.player5.tshirt, disabled: this.disableRegistration});
+    this.food = new FormControl({value: this.loginUser.player1.food, disabled: this.disableRegistration}, Validators.required);
+    this.food2 = new FormControl({value: this.loginUser.player2.food, disabled: this.disableRegistration});
+    this.food3 = new FormControl({value: this.loginUser.player3.food, disabled: this.disableRegistration});
+    this.food4 = new FormControl({value: this.loginUser.player4.food, disabled: this.disableRegistration});
+    this.food5 = new FormControl({value: this.loginUser.player5.food, disabled: this.disableRegistration});
+    this.accommodation = new FormControl({value: this.loginUser.accommodation, disabled: this.disableRegistration}, Validators.required);
 
     this.mainForm = this.fb.group({
       data: this.fb.group({

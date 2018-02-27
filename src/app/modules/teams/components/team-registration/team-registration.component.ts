@@ -68,6 +68,7 @@ export class TeamRegistrationComponent implements OnInit {
   public accommodationPrice = 0;
   public tshirtsPrice = 0;
   public summaryPrice = 0;
+  public disableRegistration = true;
 
   constructor(
     private http: HttpClient,
@@ -99,6 +100,7 @@ export class TeamRegistrationComponent implements OnInit {
         this.isPending = result.teams.teams.pending;
         this.config = result.config.config;
         this.tshirts = result.teams.tshirts.list;
+        this.disableRegistration = result.registration.end;
       });
   }
 
@@ -190,7 +192,7 @@ export class TeamRegistrationComponent implements OnInit {
           {validator: [ValidatePlayer]}
         ),
         payId: '',
-        paySent: '',
+        paySent: ''
       }),
       captcha: ['']
     });

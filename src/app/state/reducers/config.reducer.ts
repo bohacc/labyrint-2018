@@ -14,7 +14,8 @@ export const initialState: State = {
     open_registration: null,
     pay_account: null,
     registration_price: null,
-    accommodation_description: null
+    accommodation_description: null,
+    teams_limit: null
   }
 };
 

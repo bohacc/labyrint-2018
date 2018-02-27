@@ -6,6 +6,7 @@ import { loginTeamReducer } from './login-team.reducer';
 import { messagesReducer } from './messages.reducer';
 import { pendingReducer } from './pending.reducer';
 import { configReducer } from './config.reducer';
+import { registrationReducer } from './registration.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   userAuth: userAuthReducer,

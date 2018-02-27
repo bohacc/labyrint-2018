@@ -15,4 +15,5 @@ export interface LoginTeamDto {
   player5: PersonDto;
   accommodationPrice: number;
   tshirtsPrice: number;
+  registrationDate: number;
 }

@@ -5,7 +5,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  end: false
+  end: true
 };
 
 export function registrationReducer(state = initialState, action: RegistrationActions.RegistrationActions) {

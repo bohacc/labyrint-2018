@@ -1,5 +1,6 @@
-<div *ngFor="let team of teams | async">
+<div *ngFor="let team of teams; let i = index">
   <span [ngClass]="{pay: !!team.paySent, noPay: !team.paySent}">{{team.name}}</span> -
   <span class="paySent" *ngIf="!!team.paySent">zaplaceno</span>
   <span class="payNoSent" *ngIf="!team.paySent">nezaplaceno</span>
+  <div *ngIf="i === config.teams_limit"><hr></div>
 </div>

@@ -37,7 +37,7 @@ export class TeamsService implements OnDestroy {
     private toolsService: ToolsService,
     private databaseService: DatabaseService
   ) {
-    this.itemsRef = this.db.list('teams', ref => ref.orderByChild('name'));
+    this.itemsRef = this.db.list('teams', ref => ref.orderByChild('registrationDate'));
   }
 
   ngOnDestroy() {
@@ -54,6 +54,7 @@ export class TeamsService implements OnDestroy {
     let accommodations: Accommodation[];
     const teamWithoutPswd: any = {...team, ...{payId: (Date.now() + '').substr(3)}};
     delete teamWithoutPswd.password;
+    teamWithoutPswd.registrationDate = Date.now();
     this.db.database.ref('/teams/')
       .once('value')
       .then(

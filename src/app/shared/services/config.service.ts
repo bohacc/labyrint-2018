@@ -6,6 +6,7 @@ import 'rxjs/add/operator/takeUntil';
 import { ConfigDbDto } from '../model/ConfigDbDto';
 import { AppState } from '../../state/app.state';
 import { LoadConfigAction } from '../../state/actions/config.actions';
+import { ToolsService } from './tools.service';
 
 @Injectable()
 export class ConfigService implements OnDestroy {
@@ -14,7 +15,8 @@ export class ConfigService implements OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private toolsService: ToolsService
   ) {
     this.itemsRef = this.db.list('config');
   }
@@ -33,6 +35,10 @@ export class ConfigService implements OnDestroy {
       .subscribe(
         (config: ConfigDbDto[]) => {
           this.store.dispatch(new LoadConfigAction(config[0]));
+          setTimeout(() => {
+            this.toolsService.checkRegistrationLimits();
+            }, 100
+          );
         }
       );
   }

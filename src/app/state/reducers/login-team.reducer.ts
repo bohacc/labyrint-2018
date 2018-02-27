@@ -44,7 +44,8 @@ export const initialState: State = {
       tshirt: null,
     },
     accommodationPrice: null,
-    tshirtsPrice: null
+    tshirtsPrice: null,
+    registrationDate: null
   }
 };
 

@@ -58,7 +58,8 @@ export const initialState: State = {
       lastName: null,
       food: null,
       tshirt: null,
-    }
+    },
+    registrationDate: null
   }
 };
 

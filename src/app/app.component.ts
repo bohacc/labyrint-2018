@@ -33,6 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   public smurf4style = '0';
+  public disableRegistration = true;
+
   @HostListener('window:resize') onResize(event) {
     this.smurf4style = this.getScrollBarWidth() + '';
   }
@@ -47,6 +49,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private toolsService: ToolsService
   ) {
+    this.store.select(state => state)
+      .subscribe((state) => {
+        this.disableRegistration = state.registration.end;
+      });
     this.afAuth.auth.onAuthStateChanged(
       (user) => {
         const userAuth: UserAuthDto = {
@@ -68,6 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 1020px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
     setInterval(() => {
       this.toolsService.checkRegistrationLimits();
     }, 1000 * 60);

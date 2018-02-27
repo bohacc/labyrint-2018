@@ -7,4 +7,5 @@ export interface ConfigDbDto {
   pay_account: string;
   registration_price: number;
   accommodation_description: string;
+  teams_limit: number;
 }

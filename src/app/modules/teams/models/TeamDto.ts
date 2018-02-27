@@ -14,4 +14,5 @@ export interface TeamDto {
   player3: PersonDto;
   player4: PersonDto;
   player5: PersonDto;
+  registrationDate: number;
 }
